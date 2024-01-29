@@ -1,3 +1,4 @@
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_screen/sign_up_screen.dart';
 
 import 'controller/sign_up_one_controller.dart';
@@ -42,20 +43,26 @@ class SignUpOneScreen extends GetWidget<SignUpOneController> {
                     CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,
               ),
               SizedBox(height: 27.v),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "msg_already_have_an2".tr,
-                      style: CustomTextStyles.labelMediumff4c4c4c11,
-                    ),
-                    TextSpan(
-                      text: "lbl_sign_in".tr,
-                      style: CustomTextStyles.labelMediumff119645,
-                    ),
-                  ],
+              GestureDetector(
+                onTap: (){
+                    Get.lazyPut(()=>SignInScreen());
+                Get.toNamed(AppRoutes.signInScreen);
+                },
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "msg_already_have_an2".tr,
+                        style: CustomTextStyles.labelMediumff4c4c4c11,
+                      ),
+                      TextSpan(
+                        text: "lbl_sign_in".tr,
+                        style: CustomTextStyles.labelMediumff119645,
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
               ),
               SizedBox(height: 1.v),
             ],

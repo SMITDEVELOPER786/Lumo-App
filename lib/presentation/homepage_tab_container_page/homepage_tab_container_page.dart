@@ -1,3 +1,7 @@
+import 'package:muhammad_zubair_s_application4/presentation/homepage_one_page/homepage_one_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
+import '../../widgets/custom_floating_button.dart';
 import '../homepage_tab_container_page/widgets/jointhestreaming_item_widget.dart';
 import 'controller/homepage_tab_container_controller.dart';
 import 'models/homepage_tab_container_model.dart';
@@ -30,6 +34,26 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
+           bottomNavigationBar: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child: _buildBottomBar(),
+        ),
+        floatingActionButton: CustomFloatingButton(
+           onTap: (){
+              // controllerF.setBottomIndex(0,true);
+              // // controllerF.selectedIndex=5;
+              //  Get.to(()=>ExploreAlltab());
+            },
+          height: 48,
+          width: 48,
+          child: CustomImageView(
+            imagePath: ImageConstant.imgUploadGray5001,
+            height: 24.0.v,
+            width: 24.0.h,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked
+      ,
         body: SizedBox(
           width: SizeUtils.width,
           child: SingleChildScrollView(
@@ -88,6 +112,8 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     );
   }
 
+
+
   /// Section Widget
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
@@ -103,6 +129,10 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
               child: Row(
                 children: [
                   AppbarSubtitleTwo(
+                    onTap: (){
+                      Get.lazyPut(() => HomepageThreePage());
+                      Get.to(()=>HomepageThreePage());
+                    },
                     text: "lbl_universe".tr,
                     margin: EdgeInsets.only(bottom: 1.v),
                   ),
@@ -114,6 +144,10 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
                     ),
                   ),
                   AppbarSubtitleTwo(
+                    onTap: (){
+                       Get.lazyPut(() => HomepageOnePage());
+                      Get.to(()=>HomepageOnePage());
+                    },
                     text: "lbl_events".tr,
                     margin: EdgeInsets.only(
                       left: 33.h,
@@ -130,15 +164,15 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
                 ],
               ),
             ),
-            SizedBox(height: 2.v),
-            AppbarTitleImage(
-              imagePath: ImageConstant.imgGroup1025Gray30006,
-            ),
+            // SizedBox(height: 2.v),
+            // AppbarTitleImage(
+            //   imagePath: ImageConstant.imgGroup1025Gray30006,
+            // ),
           ],
         ),
       ),
       actions: [
-        Container(
+          Container(
           height: 16.adaptSize,
           width: 16.adaptSize,
           margin: EdgeInsets.fromLTRB(20.h, 21.v, 20.h, 18.v),
@@ -147,15 +181,15 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             children: [
               CustomImageView(
                 imagePath: ImageConstant.imgBellsimple,
-                height: 16.adaptSize,
-                width: 16.adaptSize,
+                height: 20.adaptSize,
+                width: 20.adaptSize,
                 alignment: Alignment.center,
               ),
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  height: 5.adaptSize,
-                  width: 5.adaptSize,
+                  height: 10.adaptSize,
+                  width: 10.adaptSize,
                   margin: EdgeInsets.only(
                     left: 8.h,
                     right: 2.h,
@@ -172,6 +206,7 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             ],
           ),
         ),
+
       ],
     );
   }
@@ -310,6 +345,23 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     );
   }
 
+    Widget _buildBottomBar() {
+    return CustomBottomBar(
+      onChanged: (BottomBarEnum type) {
+        Get.toNamed(getCurrentRoute(type), id: 1);
+      },
+    );
+  }
+
+  String getCurrentRoute(BottomBarEnum type) {
+    switch (type) {
+      case BottomBarEnum.Home:
+        return AppRoutes.homepageTabContainerPage;
+      default:
+        return "/";
+    }
+  }
+
   /// Section Widget
   Widget _buildTabview() {
     return SizedBox(
@@ -335,11 +387,11 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             10.h,
           ),
           gradient: LinearGradient(
-            begin: Alignment(1.03, 1.11),
-            end: Alignment(0.07, -0.41),
+           begin: Alignment(1.03, 1),
+          end: Alignment(0.07, 0),
             colors: [
-              appTheme.green70002,
-              theme.colorScheme.primary,
+        Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),
             ],
           ),
         ),

@@ -45,6 +45,7 @@ class CustomBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 68.v,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           30.h,
@@ -109,6 +110,9 @@ class CustomBottomBar extends StatelessWidget {
 
 enum BottomBarEnum {
   Home,
+  Explore,
+  Chat,
+  Connect
 }
 
 class BottomMenuModel {

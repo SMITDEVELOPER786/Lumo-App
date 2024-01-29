@@ -1,3 +1,6 @@
+import 'package:muhammad_zubair_s_application4/presentation/homepage_one_page/homepage_one_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
+
 import '../homepage_two_screen/widgets/homepagetwo_item_widget.dart';
 import 'controller/homepage_two_controller.dart';
 import 'models/homepagetwo_item_model.dart';
@@ -11,11 +14,15 @@ import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 
 // ignore_for_file: must_be_immutable
-class HomepageTwoScreen extends GetWidget<HomepageTwoController> {
-  const HomepageTwoScreen({Key? key})
-      : super(
-          key: key,
-        );
+class HomepageTwoScreen extends StatefulWidget {
+  const HomepageTwoScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomepageTwoScreenState createState() => _HomepageTwoScreenState();
+}
+
+class _HomepageTwoScreenState extends State<HomepageTwoScreen> {
+  final HomepageTwoController controller = Get.put(HomepageTwoController());
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +87,18 @@ class HomepageTwoScreen extends GetWidget<HomepageTwoController> {
               child: Row(
                 children: [
                   AppbarSubtitleTwo(
+                    onTap: (){
+                      Get.lazyPut(() => HomepageThreePage());
+                      Get.to(()=>HomepageThreePage());
+                    },
                     text: "lbl_universe".tr,
                     margin: EdgeInsets.only(bottom: 1.v),
                   ),
                   AppbarSubtitleTwo(
+                    onTap: (){
+                         Get.lazyPut(() => HomepageTabContainerPage());
+                      Get.to(()=>HomepageTabContainerPage());
+                    },
                     text: "lbl_popular".tr,
                     margin: EdgeInsets.only(
                       left: 34.h,
@@ -91,6 +106,10 @@ class HomepageTwoScreen extends GetWidget<HomepageTwoController> {
                     ),
                   ),
                   AppbarSubtitleTwo(
+                      onTap: (){
+                         Get.lazyPut(() => HomepageOnePage());
+                      Get.to(()=>HomepageOnePage());
+                    },
                     text: "lbl_events".tr,
                     margin: EdgeInsets.only(
                       left: 29.h,
@@ -197,6 +216,7 @@ class HomepageTwoScreen extends GetWidget<HomepageTwoController> {
     switch (type) {
       case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+      // case Bo
       default:
         return "/";
     }

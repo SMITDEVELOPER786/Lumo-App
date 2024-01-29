@@ -1,5 +1,6 @@
 import 'package:muhammad_zubair_s_application4/presentation/forgot_password_screen/forgot_password_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_one_screen/sign_up_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 
@@ -98,8 +99,8 @@ class SignInScreen extends GetWidget<SignInController> {
                               SizedBox(height: 47.v),
                               CustomElevatedButton(
                                 onPressed: (){
-                                      // Get.lazyPut(()=>CustomBottomBar());
-                                      // Get.to(()=>CustomBottomBar());
+                                      Get.lazyPut(()=>HomepageThreePage());
+                                      Get.to(()=>HomepageThreePage());
                                 },
                                   text: "lbl_sign_in".tr,
                                   buttonStyle: CustomButtonStyles.none,

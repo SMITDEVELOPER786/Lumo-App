@@ -1,3 +1,10 @@
+import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
+import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_one.dart';
+import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_two.dart';
+import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_title_image.dart';
+import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
+
 import '../homepage_three_page/widgets/homepagethree_item_widget.dart';
 import 'controller/homepage_three_controller.dart';
 import 'models/homepage_three_model.dart';
@@ -21,58 +28,65 @@ class HomepageThreePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          width: double.maxFinite,
-          decoration: AppDecoration.fillLime,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                height: 16.adaptSize,
-                width: 16.adaptSize,
-                margin: EdgeInsets.only(right: 20.h),
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgBellsimple,
-                      height: 16.adaptSize,
-                      width: 16.adaptSize,
-                      alignment: Alignment.center,
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        height: 5.adaptSize,
-                        width: 5.adaptSize,
-                        margin: EdgeInsets.only(right: 2.h),
-                        decoration: BoxDecoration(
-                          color: appTheme.redA700,
-                          borderRadius: BorderRadius.circular(
-                            2.h,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+          appBar: _buildAppBar(),
+           bottomNavigationBar: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child: _buildBottomBar(),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.maxFinite,
+            decoration: AppDecoration.fillLime,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Container(
+                //   height: 16.adaptSize,
+                //   width: 16.adaptSize,
+                //   margin: EdgeInsets.only(right: 20.h),
+                //   child: Stack(
+                //     alignment: Alignment.topRight,
+                //     children: [
+                //       CustomImageView(
+                //         imagePath: ImageConstant.imgBellsimple,
+                //         height: 16.adaptSize,
+                //         width: 16.adaptSize,
+                //         alignment: Alignment.center,
+                //       ),
+                //       Align(
+                //         alignment: Alignment.topRight,
+                //         child: Container(
+                //           height: 5.adaptSize,
+                //           width: 5.adaptSize,
+                //           margin: EdgeInsets.only(right: 2.h),
+                //           decoration: BoxDecoration(
+                //             color: appTheme.redA700,
+                //             borderRadius: BorderRadius.circular(
+                //               2.h,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(height: 26.v),
+                _buildAll(),
+                SizedBox(height: 16.v),
+                SizedBox(
+                  height: 641.v,
+                  width: double.maxFinite,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      _buildFrame4(),
+                      _buildFrame5(),
+                      _buildHomepageThree(),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 26.v),
-              _buildAll(),
-              SizedBox(height: 16.v),
-              SizedBox(
-                height: 641.v,
-                width: double.maxFinite,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    _buildFrame4(),
-                    _buildFrame5(),
-                    _buildHomepageThree(),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -84,85 +98,86 @@ class HomepageThreePage extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.only(left: 20.h),
-      child: IntrinsicWidth(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 71.h,
-              margin: EdgeInsets.only(bottom: 5.v),
-              decoration: AppDecoration.outline.copyWith(
-                borderRadius: BorderRadiusStyle.circleBorder15,
-              ),
-              child: OutlineGradientButton(
-                padding: EdgeInsets.only(
-                  left: 1.h,
-                  top: 1.v,
-                  right: 1.h,
-                  bottom: 1.v,
-                ),
-                strokeWidth: 1.h,
-                gradient: LinearGradient(
-                  begin: Alignment(1.03, 1.11),
-                  end: Alignment(0.07, -0.41),
-                  colors: [
-                    appTheme.green70002,
-                    theme.colorScheme.primary,
-                  ],
-                ),
-                corners: Corners(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 28.h,
-                    vertical: 6.v,
-                  ),
-                  child: Text(
-                    "lbl_all".tr,
-                    style: CustomTextStyles.bodyMediumGray70008,
-                  ),
-                ),
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 80.h,
+            margin: EdgeInsets.only(bottom: 5.v),
+            decoration: AppDecoration.outline.copyWith(
+              borderRadius: BorderRadiusStyle.circleBorder15,
             ),
-            Container(
-              width: 100.h,
-              margin: EdgeInsets.only(
-                left: 7.h,
-                bottom: 5.v,
+            child: OutlineGradientButton(
+              padding: EdgeInsets.only(
+                left: 1.h,
+                top: 1.v,
+                right: 1.h,
+                bottom: 1.v,
               ),
-              padding: EdgeInsets.symmetric(
-                horizontal: 11.h,
-                vertical: 6.v,
-              ),
-              decoration: AppDecoration.outlineGray.copyWith(
-                borderRadius: BorderRadiusStyle.circleBorder15,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgBangladesh,
-                    height: 16.adaptSize,
-                    width: 16.adaptSize,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 2.h,
-                      top: 2.v,
-                    ),
-                    child: Text(
-                      "lbl_bangladesh".tr,
-                      style: CustomTextStyles.labelMediumGray80001SemiBold,
-                    ),
-                  ),
+              strokeWidth: 1.h,
+              gradient: LinearGradient(
+                begin: Alignment(1.03, 1.11),
+                end: Alignment(0.07, -0.41),
+                colors: [
+                  appTheme.green70002,
+                  theme.colorScheme.primary,
                 ],
               ),
+              corners: Corners(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 28.h,
+                  vertical: 6.v,
+                ),
+                child: Text(
+                  "lbl_all".tr,
+                  style: CustomTextStyles.bodyMediumGray70008,
+                ),
+              ),
             ),
-            Padding(
+          ),
+          Container(
+            width: 100.h,
+            margin: EdgeInsets.only(
+              left: 7.h,
+              bottom: 5.v,
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 11.h,
+              vertical: 6.v,
+            ),
+            decoration: AppDecoration.outlineGray.copyWith(
+              borderRadius: BorderRadiusStyle.circleBorder15,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomImageView(
+                  imagePath: ImageConstant.imgBangladesh,
+                  height: 16.adaptSize,
+                  width: 16.adaptSize,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 2.h,
+                    top: 2.v,
+                  ),
+                  child: Text(
+                    "lbl_bangladesh".tr,
+                    style: CustomTextStyles.labelMediumGray80001SemiBold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 80.h,
+            child: Padding(
               padding: EdgeInsets.only(
                 left: 7.h,
                 bottom: 5.v,
@@ -172,17 +187,20 @@ class HomepageThreePage extends StatelessWidget {
                 countryName: "lbl_india".tr,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 7.h,
-                bottom: 5.v,
-              ),
-              child: _buildFrame(
-                countryImage: ImageConstant.imgUsa,
-                countryName: "lbl_usa".tr,
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 7.h,
+              bottom: 5.v,
             ),
-            Padding(
+            child: _buildFrame(
+              countryImage: ImageConstant.imgUsa,
+              countryName: "lbl_usa".tr,
+            ),
+          ),
+          Container(
+            width: 100.h,
+            child: Padding(
               padding: EdgeInsets.only(
                 left: 7.h,
                 bottom: 5.v,
@@ -192,66 +210,66 @@ class HomepageThreePage extends StatelessWidget {
                 countryName: "lbl_nigeria".tr,
               ),
             ),
-            Container(
-              width: 70.h,
-              margin: EdgeInsets.only(left: 7.h),
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.h,
-                vertical: 6.v,
-              ),
-              decoration: AppDecoration.outlineGray30008.copyWith(
-                borderRadius: BorderRadiusStyle.roundedBorder5,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "lbl_2".tr,
-                    style: CustomTextStyles.bodyMediumGray70008,
-                  ),
-                  CustomImageView(
-                    imagePath: ImageConstant.imgStar,
-                    height: 17.adaptSize,
-                    width: 17.adaptSize,
-                    margin: EdgeInsets.only(
-                      left: 2.h,
-                      bottom: 2.v,
-                    ),
-                  ),
-                ],
-              ),
+          ),
+          Container(
+            width: 70.h,
+            margin: EdgeInsets.only(left: 7.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.h,
+              vertical: 6.v,
             ),
-            Container(
-              width: 69.h,
-              margin: EdgeInsets.only(left: 7.h),
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.h,
-                vertical: 6.v,
-              ),
-              decoration: AppDecoration.outlineGray30008.copyWith(
-                borderRadius: BorderRadiusStyle.roundedBorder5,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "lbl_1".tr,
-                    style: CustomTextStyles.bodyMediumGray70008,
-                  ),
-                  CustomImageView(
-                    imagePath: ImageConstant.imgStar,
-                    height: 17.adaptSize,
-                    width: 17.adaptSize,
-                    margin: EdgeInsets.only(
-                      left: 2.h,
-                      bottom: 2.v,
-                    ),
-                  ),
-                ],
-              ),
+            decoration: AppDecoration.outlineGray30008.copyWith(
+              borderRadius: BorderRadiusStyle.roundedBorder5,
             ),
-          ],
-        ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "lbl_2".tr,
+                  style: CustomTextStyles.bodyMediumGray70008,
+                ),
+                CustomImageView(
+                  imagePath: ImageConstant.imgStar,
+                  height: 17.adaptSize,
+                  width: 17.adaptSize,
+                  margin: EdgeInsets.only(
+                    left: 2.h,
+                    bottom: 2.v,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 69.h,
+            margin: EdgeInsets.only(left: 7.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.h,
+              vertical: 6.v,
+            ),
+            decoration: AppDecoration.outlineGray30008.copyWith(
+              borderRadius: BorderRadiusStyle.roundedBorder5,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "lbl_1".tr,
+                  style: CustomTextStyles.bodyMediumGray70008,
+                ),
+                CustomImageView(
+                  imagePath: ImageConstant.imgStar,
+                  height: 17.adaptSize,
+                  width: 17.adaptSize,
+                  margin: EdgeInsets.only(
+                    left: 2.h,
+                    bottom: 2.v,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -753,4 +771,115 @@ class HomepageThreePage extends StatelessWidget {
       ),
     );
   }
+   PreferredSizeWidget _buildAppBar() {
+    return CustomAppBar(
+      title: Padding(
+        padding: EdgeInsets.only(left: 20.h),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 14.h,
+                right: 17.h,
+              ),
+              child: Row(
+                children: [
+                  AppbarSubtitleOne(
+                    onTap: (){
+                      Get.lazyPut(() => HomepageThreePage());
+                      Get.to(()=>HomepageThreePage());
+                    },
+                    text: "lbl_universe".tr,
+                    margin: EdgeInsets.only(bottom: 1.v),
+                  ),
+                  AppbarSubtitleTwo(
+                    onTap: (){
+                         Get.lazyPut(() => HomepageTabContainerPage());
+                      Get.to(()=>HomepageTabContainerPage());
+                    },
+                    text: "lbl_popular".tr,
+                    margin: EdgeInsets.only(
+                      left: 32.h,
+                      top: 1.v,
+                    ),
+                  ),
+                  AppbarSubtitleTwo(
+                    text: "lbl_events".tr,
+                    margin: EdgeInsets.only(
+                      left: 33.h,
+                      bottom: 1.v,
+                    ),
+                  ),
+                  AppbarSubtitleTwo(
+                    text: "lbl_games".tr,
+                    margin: EdgeInsets.only(
+                      left: 19.h,
+                      bottom: 1.v,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // SizedBox(height: 2.v),
+            // AppbarTitleImage(
+            //   imagePath: ImageConstant.imgGroup1025Gray30006,
+            // ),
+          ],
+        ),
+      ),
+      actions: [
+        Container(
+          height: 16.adaptSize,
+          width: 16.adaptSize,
+          margin: EdgeInsets.fromLTRB(20.h, 21.v, 20.h, 18.v),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              CustomImageView(
+                imagePath: ImageConstant.imgBellsimple,
+                height: 16.adaptSize,
+                width: 16.adaptSize,
+                alignment: Alignment.center,
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 5.adaptSize,
+                  width: 5.adaptSize,
+                  margin: EdgeInsets.only(
+                    left: 8.h,
+                    right: 2.h,
+                    bottom: 11.v,
+                  ),
+                  decoration: BoxDecoration(
+                    color: appTheme.redA700,
+                    borderRadius: BorderRadius.circular(
+                      2.h,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+     Widget _buildBottomBar() {
+    return CustomBottomBar(
+      onChanged: (BottomBarEnum type) {
+        Get.toNamed(getCurrentRoute(type), id: 1);
+      },
+    );
+  }
+
+  String getCurrentRoute(BottomBarEnum type) {
+    switch (type) {
+      case BottomBarEnum.Home:
+        return AppRoutes.homepageTabContainerPage;
+      default:
+        return "/";
+    }
+  }
+
 }
