@@ -199,12 +199,13 @@ class AppDecoration {
       );
   static BoxDecoration get gradientGreenToPrimary => BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment(1.03, 1.11),
-          end: Alignment(0.07, -0.41),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
+          begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
         ),
       );
   static BoxDecoration get gradientLightGreenAToAmber => BoxDecoration(

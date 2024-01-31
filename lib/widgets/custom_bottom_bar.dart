@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_floating_button.dart';
 
-class CustomBottomBar extends StatelessWidget {
+import '../presentation/homepage_one_tab_container_screen/controller/homepage_one_tab_container_controller.dart';
+import '../presentation/stream_screen/stream_screen.dart';
+
+class CustomBottomBar extends StatefulWidget {
   CustomBottomBar({
     Key? key,
     this.onChanged,
@@ -10,7 +14,14 @@ class CustomBottomBar extends StatelessWidget {
           key: key,
         );
 
-  RxInt selectedIndex = 0.obs;
+  Function(BottomBarEnum)? onChanged;
+
+  @override
+  State<CustomBottomBar> createState() => _CustomBottomBarState();
+}
+
+class _CustomBottomBarState extends State<CustomBottomBar> {
+ var controller = Get.put(HomepageOneTabContainerController());
 
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(
@@ -22,16 +33,22 @@ class CustomBottomBar extends StatelessWidget {
     BottomMenuModel(
       icon: ImageConstant.imgInfo,
       activeIcon: ImageConstant.imgInfo,
-      title: "lbl_home".tr,
-      type: BottomBarEnum.Home,
+      title: "lbl_explore".tr,
+      type: BottomBarEnum.Explore,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUploadBlueGray400,
       activeIcon: ImageConstant.imgUploadBlueGray400,
-      title: "lbl_home".tr,
-      type: BottomBarEnum.Home,
+      title: "lbl_stream".tr,
+      type: BottomBarEnum.Stream,
     ),
     BottomMenuModel(
+      icon: ImageConstant.imgNavChat,
+      activeIcon: ImageConstant.imgUploadBlueGray400,
+      title: "lbl_chat".tr,
+      type: BottomBarEnum.Chat,
+    ),
+     BottomMenuModel(
       icon: ImageConstant.imgLock,
       activeIcon: ImageConstant.imgLock,
       title: "lbl_home".tr,
@@ -39,12 +56,10 @@ class CustomBottomBar extends StatelessWidget {
     )
   ];
 
-  Function(BottomBarEnum)? onChanged;
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 68.v,
+      height: 74.v,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
@@ -57,18 +72,42 @@ class CustomBottomBar extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Obx(
-        () => BottomNavigationBar(
+      child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedFontSize: 0,
           elevation: 0,
-          currentIndex: selectedIndex.value,
+          currentIndex: controller.selectedIndex,
           type: BottomNavigationBarType.fixed,
           items: List.generate(bottomMenuList.length, (index) {
             return BottomNavigationBarItem(
-              icon: CustomImageView(
+            
+              icon:
+              index == 2 ? 
+             Padding(
+               padding: const EdgeInsets.all(0.0),
+               child: CustomFloatingButton(
+               onTap: (){
+                 print(bottomMenuList[index].type);
+                // index=2;
+                  // controller.setBottomIndex(index,false);
+                  // print(bottomMenuList[index].type);
+            // widget.onChanged?.call(bottomMenuList[index].type);
+            Get.to(()=>StreamScreen());
+         
+                         },
+                       height: 48,
+                       width: 48,
+                       child: CustomImageView(
+                         imagePath: ImageConstant.imgUploadGray5001,
+                         height: 24.0.v,
+                         width: 24.0.h,
+                       ),
+                     ),
+             )
+              :
+               CustomImageView(
                 imagePath: bottomMenuList[index].icon,
                 height: 24.adaptSize,
                 width: 24.adaptSize,
@@ -99,11 +138,15 @@ class CustomBottomBar extends StatelessWidget {
             );
           }),
           onTap: (index) {
-            selectedIndex.value = index;
-            onChanged?.call(bottomMenuList[index].type);
+             controller.setBottomIndex(index,false);
+            widget.onChanged?.call(bottomMenuList[index].type);
+            setState(() {
+              controller.selectedIndex=index;
+            });
+          
           },
         ),
-      ),
+      
     );
   }
 }
@@ -112,6 +155,7 @@ enum BottomBarEnum {
   Home,
   Explore,
   Chat,
+  Stream,
   Connect
 }
 

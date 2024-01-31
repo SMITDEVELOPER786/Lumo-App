@@ -82,6 +82,7 @@ class CustomSearchView extends StatelessWidget {
   }
 
   Widget get searchViewWidget => SizedBox(
+    
         width: width ?? double.maxFinite,
         child: TextFormField(
           scrollPadding: EdgeInsets.only(

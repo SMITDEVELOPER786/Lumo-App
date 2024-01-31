@@ -51,14 +51,15 @@ class CustomIconButton extends StatelessWidget {
             decoration: decoration ??
                 BoxDecoration(
                   borderRadius: BorderRadius.circular(24.h),
-                  gradient: LinearGradient(
-                    begin: Alignment(1.03, 1),
-                    end: Alignment(0.07, 0),
-                    colors: [
-                      appTheme.green70002,
-                      theme.colorScheme.primary,
-                    ],
-                  ),
+                 gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
                 ),
             child: child,
           ),
@@ -82,14 +83,15 @@ extension IconButtonStyleHelper on CustomIconButton {
           color: appTheme.yellow100,
           width: 1.h,
         ),
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+     gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL18 => BoxDecoration(
         borderRadius: BorderRadius.circular(18.h),
@@ -132,12 +134,13 @@ extension IconButtonStyleHelper on CustomIconButton {
   static BoxDecoration get gradientGreenToPrimaryTL10 => BoxDecoration(
         borderRadius: BorderRadius.circular(10.h),
         gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
+          begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
         ),
       );
   static BoxDecoration get fillGrayTL12 => BoxDecoration(

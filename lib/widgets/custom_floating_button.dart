@@ -42,7 +42,7 @@ class CustomFloatingButton extends StatelessWidget {
   }
 
   Widget get fabWidget => FloatingActionButton(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.transparent,
         onPressed: onTap,
         child: Container(
           alignment: Alignment.center,
@@ -50,15 +50,17 @@ class CustomFloatingButton extends StatelessWidget {
           height: height ?? 0,
           decoration: decoration ??
               BoxDecoration(
+                border: Border.all(color: Colors.white),
                 borderRadius: BorderRadius.circular(24.h),
-                gradient: LinearGradient(
-                  begin: Alignment(0.17, 0),
-                  end: Alignment(0.66, 2),
-                  colors: [
-                    theme.colorScheme.primary,
-                    appTheme.amberA700,
-                  ],
-                ),
+              gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
               ),
           child: child,
         ),
@@ -68,11 +70,11 @@ class CustomFloatingButton extends StatelessWidget {
 /// Extension on [CustomFloatingButton] to facilitate inclusion of all types of border style etc
 extension FloatingButtonStyleHelper on CustomFloatingButton {
   static BoxDecoration get fillBlueGray => BoxDecoration(
-        color: appTheme.blueGray5001,
+        color: appTheme.whiteA700,
         borderRadius: BorderRadius.circular(24.h),
       );
         static BoxDecoration get fillLightBlue => BoxDecoration(
-        color: appTheme.lightBlue500,
+        color: appTheme.red100,
         borderRadius: BorderRadius.circular(32.h),
       );
 }

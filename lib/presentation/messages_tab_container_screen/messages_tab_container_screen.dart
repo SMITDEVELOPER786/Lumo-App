@@ -1,3 +1,6 @@
+import 'package:muhammad_zubair_s_application4/presentation/messages_two_page/messages_two_page.dart';
+
+import '../homepage_three_page/homepage_three_page.dart';
 import 'controller/messages_tab_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
@@ -27,47 +30,50 @@ class MessagesTabContainerScreen
             children: [
               SizedBox(height: 14.v),
               Container(
-                height: 19.v,
-                width: 203.h,
+                height: 25.v,
+                width: 320.h,
                 margin: EdgeInsets.only(left: 20.h),
                 child: TabBar(
                   controller: controller.tabviewController,
                   labelPadding: EdgeInsets.zero,
                   labelColor: appTheme.green70002,
                   labelStyle: TextStyle(
-                    fontSize: 11.fSize,
+                    fontSize: 17.fSize,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
                   unselectedLabelColor: appTheme.gray60008,
                   unselectedLabelStyle: TextStyle(
-                    fontSize: 12.fSize,
+                    fontSize: 17.fSize,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   ),
                   indicatorColor: appTheme.green70002,
+                  indicatorSize: TabBarIndicatorSize.label,
                   tabs: [
                     Tab(
                       child: Text(
-                        "lbl_special_message".tr,
+                        "lbl_special_message".tr+"  ",
                       ),
                     ),
                     Tab(
                       child: Text(
-                        "msg_official_message".tr,
+                        "msg_official_message".tr+"   ",
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 635.v,
-                child: TabBarView(
-                  controller: controller.tabviewController,
-                  children: [
-                    MessagesPage(),
-                    MessagesPage(),
-                  ],
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: 635.v,
+                  child: TabBarView(
+                    controller: controller.tabviewController,
+                    children: [
+                      MessagesPage(),
+                      MessagesTwoPage(),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -84,8 +90,10 @@ class MessagesTabContainerScreen
   /// Section Widget
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
+      height: 50,
       centerTitle: true,
       title: AppbarTitleSearchview(
+        margin: EdgeInsets.all(10),
         hintText: "msg_search_users_messages".tr,
         controller: controller.searchController,
       ),
@@ -96,7 +104,7 @@ class MessagesTabContainerScreen
   Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type));
       },
     );
   }
@@ -105,7 +113,11 @@ class MessagesTabContainerScreen
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Home:
-        return AppRoutes.homepageTabContainerPage;
+        return AppRoutes.homepageThreePage;
+ case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+      case BottomBarEnum.Chat:
+        return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

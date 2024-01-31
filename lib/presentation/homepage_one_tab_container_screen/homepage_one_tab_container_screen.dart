@@ -84,7 +84,7 @@ class HomepageOneTabContainerScreen
   Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
@@ -92,8 +92,14 @@ class HomepageOneTabContainerScreen
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+   case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+          case BottomBarEnum.Stream:
+        return AppRoutes.streamScreen;
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

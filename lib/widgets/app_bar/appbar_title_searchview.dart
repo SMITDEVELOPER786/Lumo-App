@@ -25,6 +25,7 @@ class AppbarTitleSearchview extends StatelessWidget {
       padding: margin ?? EdgeInsets.zero,
       child: CustomSearchView(
         width: 353.h,
+        
         controller: controller,
         hintText: "msg_search_users_messages".tr,
       ),

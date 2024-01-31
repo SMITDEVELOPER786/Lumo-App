@@ -13,4 +13,16 @@ class HomepageOneTabContainerController extends GetxController
 
   late TabController tabviewController =
       Get.put(TabController(vsync: this, length: 4));
+   int selectedIndex = 0;
+  var check = false;
+  setBottomIndex(index, ch) {
+    selectedIndex = index;
+    if (ch == true) {
+      check = true;
+    } else {
+      check = false;
+    }
+
+    update();
+  }
 }

@@ -1,9 +1,11 @@
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/notifications_screen/notifications_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_two.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_title_image.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_floating_button.dart';
 
 import '../homepage_three_page/widgets/homepagethree_item_widget.dart';
 import 'controller/homepage_three_controller.dart';
@@ -33,6 +35,20 @@ class HomepageThreePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: _buildBottomBar(),
         ),
+        //  floatingActionButton: CustomFloatingButton(
+        //      onTap: (){
+        //       //     controllerF.setBottomIndex(0,true);
+        //       //  Get.to(()=>ExploreTabContainerScreen());
+        //     },
+        //   height: 48,
+        //   width: 48,
+        //   child: CustomImageView(
+        //     imagePath: ImageConstant.imgUploadGray5001,
+        //     height: 24.0.v,
+        //     width: 24.0.h,
+        //   ),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: SingleChildScrollView(
           child: Container(
             width: double.maxFinite,
@@ -40,50 +56,17 @@ class HomepageThreePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Container(
-                //   height: 16.adaptSize,
-                //   width: 16.adaptSize,
-                //   margin: EdgeInsets.only(right: 20.h),
-                //   child: Stack(
-                //     alignment: Alignment.topRight,
-                //     children: [
-                //       CustomImageView(
-                //         imagePath: ImageConstant.imgBellsimple,
-                //         height: 16.adaptSize,
-                //         width: 16.adaptSize,
-                //         alignment: Alignment.center,
-                //       ),
-                //       Align(
-                //         alignment: Alignment.topRight,
-                //         child: Container(
-                //           height: 5.adaptSize,
-                //           width: 5.adaptSize,
-                //           margin: EdgeInsets.only(right: 2.h),
-                //           decoration: BoxDecoration(
-                //             color: appTheme.redA700,
-                //             borderRadius: BorderRadius.circular(
-                //               2.h,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: 26.v),
+               
                 _buildAll(),
                 SizedBox(height: 16.v),
-                SizedBox(
-                  height: 641.v,
-                  width: double.maxFinite,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      _buildFrame4(),
-                      _buildFrame5(),
-                      _buildHomepageThree(),
-                    ],
-                  ),
+                Column(
+                  
+                  children: [
+                    _buildFrame4(),
+                    _buildFrame5(),
+                    SizedBox(height: 40,),
+                     _buildFrame4(),
+                  ],
                 ),
               ],
             ),
@@ -115,14 +98,15 @@ class HomepageThreePage extends StatelessWidget {
                 bottom: 1.v,
               ),
               strokeWidth: 1.h,
-              gradient: LinearGradient(
-                begin: Alignment(1.03, 1.11),
-                end: Alignment(0.07, -0.41),
-                colors: [
-                  appTheme.green70002,
-                  theme.colorScheme.primary,
-                ],
-              ),
+            gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
               corners: Corners(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
@@ -828,38 +812,45 @@ class HomepageThreePage extends StatelessWidget {
         ),
       ),
       actions: [
-        Container(
-          height: 16.adaptSize,
-          width: 16.adaptSize,
-          margin: EdgeInsets.fromLTRB(20.h, 21.v, 20.h, 18.v),
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgBellsimple,
-                height: 16.adaptSize,
-                width: 16.adaptSize,
-                alignment: Alignment.center,
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  height: 5.adaptSize,
-                  width: 5.adaptSize,
-                  margin: EdgeInsets.only(
-                    left: 8.h,
-                    right: 2.h,
-                    bottom: 11.v,
-                  ),
-                  decoration: BoxDecoration(
-                    color: appTheme.redA700,
-                    borderRadius: BorderRadius.circular(
-                      2.h,
+        GestureDetector(
+          onTap: (){
+            Get.lazyPut(() => NotificationsScreen());
+            Get.to(() => NotificationsScreen());
+
+          },
+          child: Container(
+            height: 16.adaptSize,
+            width: 16.adaptSize,
+            margin: EdgeInsets.fromLTRB(20.h, 21.v, 20.h, 18.v),
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                CustomImageView(
+                  imagePath: ImageConstant.imgBellsimple,
+                  height: 16.adaptSize,
+                  width: 16.adaptSize,
+                  alignment: Alignment.center,
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: 5.adaptSize,
+                    width: 5.adaptSize,
+                    margin: EdgeInsets.only(
+                      left: 8.h,
+                      right: 2.h,
+                      bottom: 11.v,
+                    ),
+                    decoration: BoxDecoration(
+                      color: appTheme.redA700,
+                      borderRadius: BorderRadius.circular(
+                        2.h,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
@@ -868,15 +859,19 @@ class HomepageThreePage extends StatelessWidget {
      Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
 
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

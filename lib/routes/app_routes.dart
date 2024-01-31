@@ -1,3 +1,5 @@
+import 'package:muhammad_zubair_s_application4/presentation/explore_one_page/explore_one_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/iphone_14_15_pro_one_screen/iphone_14_15_pro_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/iphone_14_15_pro_one_screen/binding/iphone_14_15_pro_one_binding.dart';
 import 'package:muhammad_zubair_s_application4/presentation/onboarding_screen/onboarding_screen.dart';
@@ -412,6 +414,13 @@ class AppRoutes {
         HomepageContainerBinding(),
       ],
     ),
+      GetPage(
+      name: homepageThreePage,
+      page: () => HomepageThreePage(),
+      bindings: [
+        // homepag(),
+      ],
+    ),
     GetPage(
       name: homepageOneTabContainerScreen,
       page: () => HomepageOneTabContainerScreen(),
@@ -608,6 +617,14 @@ class AppRoutes {
         ChooseGuardianBinding(),
       ],
     ),
+     GetPage(
+      name: exploreOnePage,
+      page: () => ExploreOnePage(),
+      bindings: [
+        ChooseGuardianBinding(),
+      ],
+    ),
+    
     GetPage(
       name: guardianScreen,
       page: () => GuardianScreen(),

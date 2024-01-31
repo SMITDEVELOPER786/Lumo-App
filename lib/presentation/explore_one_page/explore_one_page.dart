@@ -1,15 +1,25 @@
+import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/controller/explore_controller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/explore_bottomsheet.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
+
 import 'controller/explore_one_controller.dart';
 import 'models/explore_one_model.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-class ExploreOnePage extends StatelessWidget {
+class ExploreOnePage extends StatefulWidget {
   ExploreOnePage({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<ExploreOnePage> createState() => _ExploreOnePageState();
+}
+
+class _ExploreOnePageState extends State<ExploreOnePage> {
   ExploreOneController controller =
       Get.put(ExploreOneController(ExploreOneModel().obs));
 
@@ -17,6 +27,10 @@ class ExploreOnePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          bottomNavigationBar: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child: _buildBottomBar(),
+        ),
         extendBody: true,
         extendBodyBehindAppBar: true,
         backgroundColor: appTheme.whiteA700,
@@ -152,10 +166,15 @@ class ExploreOnePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.v),
-              CustomImageView(
-                imagePath: ImageConstant.imgMegaphone,
-                height: 24.adaptSize,
-                width: 24.adaptSize,
+              GestureDetector(
+                onTap: (){
+              showBottomSheet(context);
+                },
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgMegaphone,
+                  height: 24.adaptSize,
+                  width: 24.adaptSize,
+                ),
               ),
               SizedBox(height: 3.v),
               Text(
@@ -200,4 +219,53 @@ class ExploreOnePage extends StatelessWidget {
       ),
     );
   }
+
+    Widget _buildBottomBar() {
+    return CustomBottomBar(
+      onChanged: (BottomBarEnum type) {
+        Get.toNamed(getCurrentRoute(type));
+      },
+    );
+  }
+
+  ///Handling route based on bottom click actions
+  String getCurrentRoute(BottomBarEnum type) {
+    switch (type) {
+      case BottomBarEnum.Home:
+        return AppRoutes.homepageThreePage;
+ case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+   case BottomBarEnum.Stream:
+        return AppRoutes.streamScreen;
+      case BottomBarEnum.Chat:
+        return AppRoutes.messagesTabContainerScreen;
+      default:
+        return "/";
+    }
+  }
+
+  ///Handling page based on route
+  Widget getCurrentPage(String currentRoute) {
+    switch (currentRoute) {
+      case AppRoutes.homepageTabContainerPage:
+        return HomepageTabContainerPage();
+      default:
+        return DefaultWidget();
+    }
+  }
+
+showBottomSheet(context){
+  return showModalBottomSheet(
+      context: context,
+       isScrollControlled: true, 
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
+      builder: (BuildContext context){
+        return ExploreBottomsheet();
+      });
+}
 }

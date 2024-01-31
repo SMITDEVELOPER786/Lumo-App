@@ -392,7 +392,7 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
   Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
@@ -400,8 +400,11 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

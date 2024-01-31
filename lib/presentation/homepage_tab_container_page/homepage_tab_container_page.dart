@@ -38,22 +38,8 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: _buildBottomBar(),
         ),
-        floatingActionButton: CustomFloatingButton(
-           onTap: (){
-              // controllerF.setBottomIndex(0,true);
-              // // controllerF.selectedIndex=5;
-              //  Get.to(()=>ExploreAlltab());
-            },
-          height: 48,
-          width: 48,
-          child: CustomImageView(
-            imagePath: ImageConstant.imgUploadGray5001,
-            height: 24.0.v,
-            width: 24.0.h,
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked
-      ,
+        
+      
         body: SizedBox(
           width: SizeUtils.width,
           child: SingleChildScrollView(
@@ -348,15 +334,21 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
 
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+          case BottomBarEnum.Stream:
+        return AppRoutes.streamScreen;
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

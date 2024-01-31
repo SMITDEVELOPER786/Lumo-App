@@ -9,11 +9,16 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
 // ignore_for_file: must_be_immutable
-class StreamScreen extends GetWidget<StreamController> {
-  const StreamScreen({Key? key})
-      : super(
-          key: key,
-        );
+class StreamScreen extends StatefulWidget {
+  const StreamScreen({Key? key}) : super(key: key);
+
+  @override
+  _StreamScreenState createState() => _StreamScreenState();
+}
+
+class _StreamScreenState extends State<StreamScreen> {
+  final StreamController controller = StreamController(); // Adjust the controller creation
+
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +328,7 @@ class StreamScreen extends GetWidget<StreamController> {
   Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
@@ -331,8 +336,11 @@ class StreamScreen extends GetWidget<StreamController> {
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       default:
         return "/";
     }

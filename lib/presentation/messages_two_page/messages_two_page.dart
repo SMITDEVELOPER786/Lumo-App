@@ -18,64 +18,22 @@ class MessagesTwoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(vertical: 14.v),
+    return Container(
+        width: double.maxFinite,
+        padding: EdgeInsets.symmetric(vertical: 14.v),
+        child: Container(
+          margin: EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 4.v),
-                      child: Text(
-                        "lbl_special_message".tr,
-                        style: CustomTextStyles.bodySmallInterGray60008,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.h),
-                      child: Column(
-                        children: [
-                          Text(
-                            "msg_official_message".tr,
-                            style: CustomTextStyles.labelMediumGreen70002Bold,
-                          ),
-                          SizedBox(height: 3.v),
-                          Container(
-                            height: 2.v,
-                            width: 20.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                1.h,
-                              ),
-                              gradient: LinearGradient(
-                                begin: Alignment(1.03, 1.11),
-                                end: Alignment(0.07, -0.41),
-                                colors: [
-                                  appTheme.green70002,
-                                  theme.colorScheme.primary,
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 19.v),
+           
               _buildUserProfile(),
+              SizedBox(height:10,),
+               _buildUserProfile(),
             ],
-          ),
+               
+              ),
         ),
-      ),
     );
   }
 

@@ -79,6 +79,7 @@ class _HomepageTwoScreenState extends State<HomepageTwoScreen> {
         padding: EdgeInsets.only(left: 20.h),
         child: Column(
           children: [
+            SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.only(
                 left: 14.h,
@@ -126,7 +127,7 @@ class _HomepageTwoScreenState extends State<HomepageTwoScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 2.v),
+            // SizedBox(height: 2.v),
             AppbarTitleImage(
               imagePath: ImageConstant.imgGroup1025Gray30006,
             ),
@@ -206,7 +207,7 @@ class _HomepageTwoScreenState extends State<HomepageTwoScreen> {
   Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
+        Get.toNamed(getCurrentRoute(type),);
       },
     );
   }
@@ -214,8 +215,12 @@ class _HomepageTwoScreenState extends State<HomepageTwoScreen> {
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Home:
+        case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
+case BottomBarEnum.Explore:
+        return AppRoutes.exploreOnePage;
+      case BottomBarEnum.Chat:
+      return AppRoutes.messagesTabContainerScreen;
       // case Bo
       default:
         return "/";

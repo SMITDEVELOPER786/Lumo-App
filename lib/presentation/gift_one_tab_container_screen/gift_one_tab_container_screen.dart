@@ -6,13 +6,18 @@ import 'package:muhammad_zubair_s_application4/presentation/gift_one_page/gift_o
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
 // ignore_for_file: must_be_immutable
-class GiftOneTabContainerScreen
-    extends GetWidget<GiftOneTabContainerController> {
-  const GiftOneTabContainerScreen({Key? key})
-      : super(
-          key: key,
-        );
+class GiftOneTabContainerScreen extends StatefulWidget {
+  const GiftOneTabContainerScreen({Key? key}) : super(key: key);
 
+  @override
+  _GiftOneTabContainerScreenState createState() =>
+      _GiftOneTabContainerScreenState();
+}
+
+class _GiftOneTabContainerScreenState
+    extends State<GiftOneTabContainerScreen> {
+  final GiftOneTabContainerController controller =
+      GiftOneTabContainerController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
