@@ -1,8 +1,19 @@
-import '../../../core/app_export.dart';/// This class is used in the [chatbubbles_item_widget] screen.
-class ChatbubblesItemModel {ChatbubblesItemModel({this.chatBubblesText, this.id, }) { chatBubblesText = chatBubblesText  ?? Rx("Chat Bubbles");id = id  ?? Rx(""); }
+import '../../../core/app_export.dart';
 
-Rx<String>? chatBubblesText;
+/// This class is used in the [chatbubbles_item_widget] screen.
+class ChatbubblesItemModel {
+  ChatbubblesItemModel({
+    this.chatBubblesText,
+    this.IMG,
+    this.id,
+  }) {
+    chatBubblesText = chatBubblesText ?? Rx("Chat Bubbles");
+    var image = IMG ?? Rx(ImageConstant.imageNotFound);
 
-Rx<String>? id;
+    id = id ?? Rx("");
+  }
+  var IMG;
+  Rx<String>? chatBubblesText;
 
- }
+  Rx<String>? id;
+}

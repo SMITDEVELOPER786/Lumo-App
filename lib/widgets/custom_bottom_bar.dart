@@ -51,8 +51,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
      BottomMenuModel(
       icon: ImageConstant.imgLock,
       activeIcon: ImageConstant.imgLock,
-      title: "lbl_home".tr,
-      type: BottomBarEnum.Home,
+      title: "lbl_profile".tr,
+      type: BottomBarEnum.Connect,
     )
   ];
 
@@ -156,7 +156,7 @@ enum BottomBarEnum {
   Explore,
   Chat,
   Stream,
-  Connect
+  Connect,
 }
 
 class BottomMenuModel {

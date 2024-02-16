@@ -202,8 +202,8 @@ class AppDecoration {
           begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
-      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+      Color.fromARGB(255, 171, 239, 10).withOpacity(0.2),  // Start with yellow at the top
+      Color.fromARGB(255, 20, 55, 21),   // Transition to green at the bottom
     ],
      stops: [0.2, 1.0],
         ),
@@ -218,12 +218,22 @@ class AppDecoration {
           ],
         ),
       );
+      static BoxDecoration get gradientLightGreenAToAmbe2r => BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment(0.25, -0.54),
+          end: Alignment(1.07, 1.24),
+          colors: [
+           Color.fromARGB(255, 208, 245, 186),
+            const Color.fromARGB(255, 164, 243, 166),
+          ],
+        ),
+      );
   static BoxDecoration get gradientLightGreenToLightGreen => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0.5, 0),
           end: Alignment(0.5, 1),
           colors: [
-            appTheme.lightGreen900,
+            appTheme.lightGreen900.withOpacity(0.7),
             appTheme.lightGreen900.withOpacity(0),
           ],
         ),
@@ -264,6 +274,16 @@ class AppDecoration {
           end: Alignment(0.5, 0),
           colors: [
             appTheme.orange80001.withOpacity(0),
+            appTheme.orange80001.withOpacity(0.6),
+          ],
+        ),
+      );
+       static BoxDecoration get gradientOrangeToOrange1 => BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment(0.5, 1),
+          end: Alignment(0.5, 0),
+          colors: [
+            appTheme.orange80001.withOpacity(0),
             appTheme.orange80001,
           ],
         ),
@@ -294,7 +314,7 @@ class AppDecoration {
           end: Alignment(0.5, 0),
           colors: [
             appTheme.purple400.withOpacity(0),
-            appTheme.purple400,
+            appTheme.purple400.withOpacity(0.3),
           ],
         ),
       );

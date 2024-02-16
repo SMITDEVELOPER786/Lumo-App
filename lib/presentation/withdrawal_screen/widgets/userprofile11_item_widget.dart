@@ -68,14 +68,14 @@ class Userprofile11ItemWidget extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Obx(
-                                () => Text(
-                                  userprofile11ItemModelObj.amountText!.value,
-                                  textAlign: TextAlign.right,
-                                  style:
-                                      CustomTextStyles.titleSmallPoppinsLime500,
-                                ),
-                              ),
+                              // Obx(
+                              //   () => Text(
+                              //     userprofile11ItemModelObj.amountText!.value,
+                              //     textAlign: TextAlign.right,
+                              //     style:
+                              //         CustomTextStyles.titleSmallPoppinsLime500,
+                              //   ),
+                              // ),
                             ],
                           ),
                           SizedBox(height: 1.v),

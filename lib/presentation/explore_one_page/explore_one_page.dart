@@ -1,5 +1,6 @@
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/controller/explore_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/explore_bottomsheet.dart';
+import 'package:muhammad_zubair_s_application4/presentation/explore_one_page/Gift_Screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-class ExploreOnePage extends StatefulWidget {
+class ExploreOnePage extends StatefulWidget  {
   ExploreOnePage({Key? key})
       : super(
           key: key,
@@ -23,11 +24,20 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
   ExploreOneController controller =
       Get.put(ExploreOneController(ExploreOneModel().obs));
 
+late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController =
+        TabController(length: 7, vsync: ScrollableState()); // 3 is the number of tabs
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: Padding(
+        bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: _buildBottomBar(),
         ),
@@ -147,14 +157,95 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgRectangle5955,
-                      height: 40.adaptSize,
-                      width: 40.adaptSize,
-                      radius: BorderRadius.circular(
-                        20.h,
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: AlertDialog(
+                                  contentPadding: EdgeInsets
+                                      .zero, // To remove default padding
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Adjust the radius as needed
+                                  ),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 238, 255, 210),
+                                  title: Center(
+                                    child: Column(
+                                      children: [
+                                        Text("Follow Maryam"),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.green,
+                                              ),
+                                              onPressed: () {},
+                                              child: Text(
+                                                "Yes, please",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Container(
+                                            height: 50,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                side: BorderSide(
+                                                    color: Colors.green),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                    color: Colors.green),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      child: CustomImageView(
+                        imagePath: ImageConstant.imgRectangle5955,
+                        height: 40.adaptSize,
+                        width: 40.adaptSize,
+                        radius: BorderRadius.circular(
+                          20.h,
+                        ),
+                        alignment: Alignment.topCenter,
                       ),
-                      alignment: Alignment.topCenter,
                     ),
                     CustomImageView(
                       imagePath: ImageConstant.imgPluscircle,
@@ -167,8 +258,8 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
               ),
               SizedBox(height: 20.v),
               GestureDetector(
-                onTap: (){
-              showBottomSheet(context);
+                onTap: () {
+                  showBottomSheet(context);
                 },
                 child: CustomImageView(
                   imagePath: ImageConstant.imgMegaphone,
@@ -204,13 +295,18 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
                 style: CustomTextStyles.bodySmallInterWhiteA70012,
               ),
               SizedBox(height: 14.v),
-              CustomIconButton(
-                height: 36.adaptSize,
-                width: 36.adaptSize,
-                padding: EdgeInsets.all(4.h),
-                decoration: IconButtonStyleHelper.gradientGreenToPrimaryTL18,
-                child: CustomImageView(
-                  imagePath: ImageConstant.imgGridWhiteA700,
+              GestureDetector(
+                onTap: (){
+                   showBottomSheet(context);
+                },
+                child: CustomIconButton(
+                  height: 36.adaptSize,
+                  width: 36.adaptSize,
+                  padding: EdgeInsets.all(4.h),
+                  decoration: IconButtonStyleHelper.gradientGreenToPrimaryTL18,
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgGridWhiteA700,
+                  ),
                 ),
               ),
             ],
@@ -220,7 +316,7 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
     );
   }
 
-    Widget _buildBottomBar() {
+  Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
         Get.toNamed(getCurrentRoute(type));
@@ -233,12 +329,14 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
     switch (type) {
       case BottomBarEnum.Home:
         return AppRoutes.homepageThreePage;
- case BottomBarEnum.Explore:
+      case BottomBarEnum.Explore:
         return AppRoutes.exploreOnePage;
-   case BottomBarEnum.Stream:
+      case BottomBarEnum.Stream:
         return AppRoutes.streamScreen;
       case BottomBarEnum.Chat:
         return AppRoutes.messagesTabContainerScreen;
+      case BottomBarEnum.Connect:
+        return AppRoutes.profilePage;
       default:
         return "/";
     }
@@ -254,18 +352,89 @@ class _ExploreOnePageState extends State<ExploreOnePage> {
     }
   }
 
-showBottomSheet(context){
-  return showModalBottomSheet(
-      context: context,
-       isScrollControlled: true, 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
-      ),
-      builder: (BuildContext context){
-        return ExploreBottomsheet();
-      });
-}
+  showBottomSheet(context) {
+    return 
+    showModalBottomSheet(
+                backgroundColor: Colors.transparent,
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 1,color: Color.fromARGB(255, 147, 202, 10)),
+                      borderRadius: BorderRadius.circular(20)),
+                    height: 300,
+                    child: Column(
+                      children: [
+                        TabBar(
+                          isScrollable: true, // Set isScrollable to true
+                          labelPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                          controller: _tabController,
+                          indicatorColor: Color.fromARGB(255, 154, 240, 15),
+                          tabs: const [
+                            Tab(
+                                child: Text(
+                              'Popular',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Regular',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'New',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Valentine',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Luxury',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Grand',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Super hero',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 87, 205, 2)),
+                            )),
+                          ],
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: const [
+                              // View for Tab 1
+                              GiftScreens(),
+                              GiftScreens(),
+                              GiftScreens(),
+                              GiftScreens(),
+                              GiftScreens(),
+                              GiftScreens(),
+                              GiftScreens(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+  }
 }

@@ -221,6 +221,8 @@ case BottomBarEnum.Explore:
         return AppRoutes.exploreOnePage;
       case BottomBarEnum.Chat:
       return AppRoutes.messagesTabContainerScreen;
+        case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       // case Bo
       default:
         return "/";

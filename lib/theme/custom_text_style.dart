@@ -196,7 +196,7 @@ class CustomTextStyles {
   // Inter text style
   static get interBluegray40001 => TextStyle(
         color: appTheme.blueGray40001,
-        fontSize: 7.fSize,
+        fontSize: 12.fSize,
         fontWeight: FontWeight.w400,
       ).inter;
   static get interGray40007 => TextStyle(
@@ -451,6 +451,7 @@ class CustomTextStyles {
       theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80001,
         fontWeight: FontWeight.w600,
+        fontSize: 15
       );
   static get labelMediumGray80001SemiBold_2 =>
       theme.textTheme.labelMedium!.copyWith(
@@ -460,6 +461,7 @@ class CustomTextStyles {
   static get labelMediumGray80001_1 => theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80001,
       );
+      
   static get labelMediumGray80003 => theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80003,
         fontSize: 11.fSize,
@@ -486,7 +488,7 @@ class CustomTextStyles {
         fontSize: 11.fSize,
         fontWeight: FontWeight.w700,
       );
-  static get labelMediumGreen80005 => theme.textTheme.labelMedium!.copyWith(
+  static get labelMediumGreen80005 => theme.textTheme.labelLarge!.copyWith(
         color: appTheme.green80005,
         fontSize: 11.fSize,
         fontWeight: FontWeight.w700,

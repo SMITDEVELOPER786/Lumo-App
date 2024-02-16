@@ -1,3 +1,6 @@
+import '../schedule_time_dialog/schedule_time_dialog.dart';
+import '../select_tag_dialog/select_tag_dialog.dart';
+import '../stream_level_dialog/stream_level_dialog.dart';
 import 'controller/audio_live_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
@@ -8,185 +11,97 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_drop_down.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-// ignore_for_file: must_be_immutable
-class AudioLiveScreen extends GetWidget<AudioLiveController> {
-  const AudioLiveScreen({Key? key})
-      : super(
-          key: key,
-        );
+class AudioLiveScreen extends StatefulWidget {
+  const AudioLiveScreen({Key? key}) : super(key: key);
 
   @override
+  State<AudioLiveScreen> createState() => _AudioLiveScreenState();
+}
+
+class _AudioLiveScreenState extends State<AudioLiveScreen> {
+
+  var controller = Get.put(AudioLiveController());
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        backgroundColor: appTheme.black900.withOpacity(0.3),
-        appBar: _buildAppBar(),
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          padding: EdgeInsets.only(
-            top: 56.v,
-            bottom: 68.v,
-          ),
-          decoration: BoxDecoration(
-            color: appTheme.black900.withOpacity(0.3),
-            image: DecorationImage(
-              image: AssetImage(
-                ImageConstant.imgGroup754,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.h,
-              vertical: 2.v,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 67.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 4.v),
-                          child: Text(
-                            "lbl_live".tr,
-                            style: CustomTextStyles.labelLarge13,
-                          ),
-                        ),
-                        Spacer(
-                          flex: 50,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              "lbl_audio_live".tr,
-                              style:
-                                  CustomTextStyles.labelLargeGreen70002SemiBold,
-                            ),
-                            SizedBox(height: 2.v),
-                            Container(
-                              height: 2.v,
-                              width: 20.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  1.h,
-                                ),
-                                gradient: LinearGradient(
-                                  begin: Alignment(1.03, 1.11),
-                                  end: Alignment(0.07, -0.41),
-                                  colors: [
-                                    appTheme.green70002,
-                                    theme.colorScheme.primary,
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(
-                          flex: 50,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 4.v),
-                          child: Text(
-                            "lbl_multi_live2".tr,
-                            style: CustomTextStyles.labelLarge13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 51.v),
-                _buildFrame(),
-                SizedBox(height: 12.v),
-                Row(
-                  children: [
-                    CustomIconButton(
-                      height: 36.adaptSize,
-                      width: 36.adaptSize,
-                      padding: EdgeInsets.all(10.h),
-                      decoration: IconButtonStyleHelper.outlineWhiteA,
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgPlus,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 12.h),
-                      child: CustomIconButton(
-                        height: 36.adaptSize,
-                        width: 36.adaptSize,
-                        padding: EdgeInsets.all(10.h),
-                        decoration: IconButtonStyleHelper.outlineWhiteA,
-                        child: CustomImageView(
-                          imagePath: ImageConstant.imgPlus,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 12.h),
-                      child: CustomIconButton(
-                        height: 36.adaptSize,
-                        width: 36.adaptSize,
-                        padding: EdgeInsets.all(10.h),
-                        decoration: IconButtonStyleHelper.outlineWhiteA,
-                        child: CustomImageView(
-                          imagePath: ImageConstant.imgPlus,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 12.h),
-                      child: CustomIconButton(
-                        height: 36.adaptSize,
-                        width: 36.adaptSize,
-                        padding: EdgeInsets.all(10.h),
-                        decoration: IconButtonStyleHelper.outlineWhiteA,
-                        child: CustomImageView(
-                          imagePath: ImageConstant.imgPlus,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                _buildStreamLevel(),
-                SizedBox(height: 21.v),
-                CustomElevatedButton(
-                  text: "lbl_start_streaming".tr,
-                  margin: EdgeInsets.symmetric(horizontal: 28.h),
-                  rightIcon: Container(
-                    margin: EdgeInsets.only(left: 5.h),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.imgUploadGray5001,
-                      height: 16.adaptSize,
-                      width: 16.adaptSize,
-                    ),
-                  ),
-                  buttonStyle: CustomButtonStyles.none,
-                  decoration:
-                      CustomButtonStyles.gradientGreenToPrimaryTL241Decoration,
-                  alignment: Alignment.center,
-                ),
-                SizedBox(height: 33.v),
-              ],
-            ),
-          ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.h),
-          child: _buildBottomBar(),
-        ),
-      ),
+    return
+       Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+             SizedBox(height: 42.v),
+           _buildFrame(),
+           SizedBox(height: 12.v),
+           Row(
+             children: [
+               CustomIconButton(
+                 height: 36.adaptSize,
+                 width: 36.adaptSize,
+                 padding: EdgeInsets.all(10.h),
+                 decoration: IconButtonStyleHelper.outlineWhiteA,
+                 child: CustomImageView(
+                   imagePath: ImageConstant.imgPlus,
+                 ),
+               ),
+               Padding(
+                 padding: EdgeInsets.only(left: 12.h),
+                 child: CustomIconButton(
+                   height: 36.adaptSize,
+                   width: 36.adaptSize,
+                   padding: EdgeInsets.all(10.h),
+                   decoration: IconButtonStyleHelper.outlineWhiteA,
+                   child: CustomImageView(
+                     imagePath: ImageConstant.imgPlus,
+                   ),
+                 ),
+               ),
+               Padding(
+                 padding: EdgeInsets.only(left: 12.h),
+                 child: CustomIconButton(
+                   height: 36.adaptSize,
+                   width: 36.adaptSize,
+                   padding: EdgeInsets.all(10.h),
+                   decoration: IconButtonStyleHelper.outlineWhiteA,
+                   child: CustomImageView(
+                     imagePath: ImageConstant.imgPlus,
+                   ),
+                 ),
+               ),
+               Padding(
+                 padding: EdgeInsets.only(left: 12.h),
+                 child: CustomIconButton(
+                   height: 36.adaptSize,
+                   width: 36.adaptSize,
+                   padding: EdgeInsets.all(10.h),
+                   decoration: IconButtonStyleHelper.outlineWhiteA,
+                   child: CustomImageView(
+                     imagePath: ImageConstant.imgPlus,
+                   ),
+                 ),
+               ),
+             ],
+           ),
+           Spacer(),
+           _buildStreamLevel(),
+           SizedBox(height: 21.v),
+          //  CustomElevatedButton(
+          //    text: "lbl_start_streaming".tr,
+          //    margin: EdgeInsets.symmetric(horizontal: 28.h),
+          //    rightIcon: Container(
+          //      margin: EdgeInsets.only(left: 5.h),
+          //      child: CustomImageView(
+          //        imagePath: ImageConstant.imgUploadGray5001,
+          //        height: 16.adaptSize,
+          //        width: 16.adaptSize,
+          //      ),
+          //    ),
+          //    buttonStyle: CustomButtonStyles.none,
+          //    decoration:
+          //        CustomButtonStyles.gradientGreenToPrimaryTL241Decoration,
+          //    alignment: Alignment.center,
+          //  ),
+          //  SizedBox(height: 33.v),
+         ],
+       
+     
     );
   }
 
@@ -387,7 +302,7 @@ class AudioLiveScreen extends GetWidget<AudioLiveController> {
                       height: 24.adaptSize,
                       width: 24.adaptSize,
                       padding: EdgeInsets.all(3.h),
-                      decoration: IconButtonStyleHelper.fillGrayTL121,
+                      decoration: IconButtonStyleHelper.fillGrayTL12,
                       child: CustomImageView(
                         imagePath: ImageConstant.imgTelevisionWhiteA700,
                       ),
@@ -402,45 +317,118 @@ class AudioLiveScreen extends GetWidget<AudioLiveController> {
           ),
           SizedBox(height: 9.v),
           Padding(
-            padding: EdgeInsets.only(right: 80.h),
+            padding: EdgeInsets.only(right: 30.h),
             child: Row(
               children: [
-                CustomDropDown(
-                  width: 120.h,
-                  icon: Container(
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: ScheduleTimeDialog());
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 120.h,
                     margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+                    decoration: BoxDecoration(
+                      color: appTheme.gray70004,
+                      borderRadius: BorderRadius.circular(
+                          8.h), // You can adjust the border radius as needed
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Icon
+
+                        // Hint text
+                        Text(
+                          "lbl_schedule_time".tr,
+                          style: CustomTextStyles.labelLargeGray30003,
+                        ),
+                        Container(
+                          width: 24.h,
+                          height: 24.h,
+                          margin: EdgeInsets.only(left: 8.h),
+                          child: CustomImageView(
+                            imagePath: ImageConstant.imgArrowdownGray30003,
+                            height: 16.adaptSize,
+                            width: 16.adaptSize,
+                          ),
+                        ),
+                        // You can add additional widgets here if needed
+                      ],
+                    ),
+                  ),
+                ),
+                 GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: StreamLevelDialog());
+                },
+              );
+            },
+            child: Container(
+              width: 120.h,
+              margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+              decoration: BoxDecoration(
+                color: appTheme.gray70004,
+                borderRadius: BorderRadius.circular(
+                    8.h), // You can adjust the border radius as needed
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Icon
+
+                  // Hint text
+                  Text(
+                     "lbl_stream_level".tr,
+                    style: CustomTextStyles.labelLargeGray30003,
+                  ),
+                  Container(
+                    width: 24.h,
+                    height: 24.h,
+                    margin: EdgeInsets.only(left: 8.h),
                     child: CustomImageView(
                       imagePath: ImageConstant.imgArrowdownGray30003,
                       height: 16.adaptSize,
                       width: 16.adaptSize,
                     ),
                   ),
-                  hintText: "lbl_schedule_time".tr,
-                  hintStyle: CustomTextStyles.labelLargeGray30003,
-                  items: controller
-                      .audioLiveModelObj.value.dropdownItemList!.value,
-                  borderDecoration: DropDownStyleHelper.fillGrayTL10,
-                  fillColor: appTheme.gray80002,
-                  onChanged: (value) {
-                    controller.onSelected(value);
-                  },
-                ),
-                CustomElevatedButton(
-                  height: 24.v,
-                  width: 109.h,
-                  text: "lbl_stream_level".tr,
-                  margin: EdgeInsets.only(left: 20.h),
-                  rightIcon: Container(
-                    margin: EdgeInsets.only(left: 2.h),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.imgArrowdownWhiteA700,
-                      height: 16.adaptSize,
-                      width: 16.adaptSize,
-                    ),
-                  ),
-                  buttonStyle: CustomButtonStyles.fillGrayTL101,
-                  buttonTextStyle: theme.textTheme.labelLarge!,
-                ),
+                  // You can add additional widgets here if needed
+                ],
+              ),
+            ),
+          ),
+
+                // CustomElevatedButton(
+                //   height: 24.v,
+                //   width: 120.h,
+                //   text: "lbl_stream_level".tr,
+                //   margin: EdgeInsets.only(left: 20.h),
+                //   rightIcon: Container(
+                //     margin: EdgeInsets.only(left: 2.h),
+                //     child: CustomImageView(
+                //       imagePath: ImageConstant.imgArrowdownWhiteA700,
+                //       height: 16.adaptSize,
+                //       width: 16.adaptSize,
+                //     ),
+                //   ),
+                //   buttonStyle: CustomButtonStyles.fillGrayTL10,
+                //   buttonTextStyle: theme.textTheme.labelLarge!,
+                // ),
               ],
             ),
           ),
@@ -449,24 +437,70 @@ class AudioLiveScreen extends GetWidget<AudioLiveController> {
             color: appTheme.gray70004,
           ),
           SizedBox(height: 12.v),
-          CustomDropDown(
-            width: 60.h,
-            icon: Container(
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: SelectTagDialog());
+                },
+              );
+            },
+            child: Container(
+              width: 120.h,
               margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
-              child: CustomImageView(
-                imagePath: ImageConstant.imgArrowdownWhiteA700,
-                height: 16.adaptSize,
-                width: 16.adaptSize,
+              decoration: BoxDecoration(
+                color: appTheme.gray70004,
+                borderRadius: BorderRadius.circular(
+                    8.h), // You can adjust the border radius as needed
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Icon
+
+                  // Hint text
+                  Text(
+                    "lbl_tag".tr,
+                    style: CustomTextStyles.labelLargeGray30003,
+                  ),
+                  Container(
+                    width: 24.h,
+                    height: 24.h,
+                    margin: EdgeInsets.only(left: 8.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgArrowdownGray30003,
+                      height: 16.adaptSize,
+                      width: 16.adaptSize,
+                    ),
+                  ),
+                  // You can add additional widgets here if needed
+                ],
               ),
             ),
-            hintText: "lbl_tag".tr,
-            items: controller.audioLiveModelObj.value.dropdownItemList1!.value,
-            borderDecoration: DropDownStyleHelper.fillGrayTL10,
-            fillColor: appTheme.gray80002,
-            onChanged: (value) {
-              controller.onSelected1(value);
-            },
           ),
+          // CustomDropDown(
+          //   width: 120.h,
+          //   icon: Container(
+          //     margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+          //     child: CustomImageView(
+          //       imagePath: ImageConstant.imgArrowdownWhiteA700,
+          //       height: 16.adaptSize,
+          //       width: 16.adaptSize,
+          //     ),
+          //   ),
+          //   hintText: "lbl_tag".tr,
+          //   items: controller.streamModelObj.value.dropdownItemList1!.value,
+          //   borderDecoration: DropDownStyleHelper.fillBlueGray,
+          //   fillColor: appTheme.blueGray70001,
+          //   onChanged: (value) {
+          //     controller.onSelected1(value);
+          //   },
+          // ),
         ],
       ),
     );
@@ -493,6 +527,8 @@ class AudioLiveScreen extends GetWidget<AudioLiveController> {
         
       case BottomBarEnum.Chat:
       return AppRoutes.messagesTabContainerScreen;
+      case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       default:
         return "/";
     }

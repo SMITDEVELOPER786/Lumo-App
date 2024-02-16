@@ -100,6 +100,8 @@ class HomepageOneTabContainerScreen
         return AppRoutes.streamScreen;
       case BottomBarEnum.Chat:
       return AppRoutes.messagesTabContainerScreen;
+        case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       default:
         return "/";
     }

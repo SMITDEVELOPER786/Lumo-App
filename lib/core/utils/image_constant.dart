@@ -852,6 +852,14 @@ class ImageConstant {
   static String imgPngwing10 = '$imagePath/img_pngwing_10.png';
 
   static String imgKlipartz16 = '$imagePath/img_klipartz_16.png';
+  static String imgKlipartz15 = '$imagePath/img_klipartz_15.png';
+
+  static String bubble = '$imagePath/Foam Bubbles.png';
+  static String Carpool = '$imagePath/Carpool.png';
+  static String SpefcialID = '$imagePath/Group 1000004092.png';
+  static String Entrance = '$imagePath/Group 1000004092 (1).png';
+
+
 
   static String imgPlay = '$imagePath/img_play.png';
 

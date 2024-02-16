@@ -1,3 +1,6 @@
+import 'package:muhammad_zubair_s_application4/presentation/choose_guardian_one_screen/choose_guardian_one_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/choose_guardian_screen/choose_guardian_screen.dart';
+
 import '../guardian_one_page/widgets/entryeffects_item_widget.dart';
 import '../guardian_one_page/widgets/userprofile13_item_widget.dart';
 import 'controller/guardian_one_controller.dart';
@@ -43,6 +46,11 @@ class GuardianOnePage extends StatelessWidget {
                         _buildGuardianBenefits(),
                         SizedBox(height: 32.v),
                         CustomElevatedButton(
+                          onPressed: (){
+                            Get.lazyPut(() => ChooseGuardianOneScreen());
+                            Get.to(() => ChooseGuardianOneScreen());
+
+                          },
                           text: "lbl_select_guardian".tr,
                           margin: EdgeInsets.only(right: 20.h),
                           buttonStyle: CustomButtonStyles.none,
@@ -65,8 +73,7 @@ class GuardianOnePage extends StatelessWidget {
   Widget _buildUserProfile() {
     return SizedBox(
       height: 110.v,
-      child: Obx(
-        () => ListView.separated(
+      child:ListView.separated(
           scrollDirection: Axis.horizontal,
           separatorBuilder: (
             context,
@@ -76,17 +83,16 @@ class GuardianOnePage extends StatelessWidget {
               width: 7.h,
             );
           },
-          itemCount: controller
-              .guardianOneModelObj.value.userprofile13ItemList.value.length,
+          itemCount: 4,
           itemBuilder: (context, index) {
             Userprofile13ItemModel model = controller
-                .guardianOneModelObj.value.userprofile13ItemList.value[index];
+                .guardianOneModelObj.value.userprofile13ItemList.value[0];
             return Userprofile13ItemWidget(
               model,
             );
           },
         ),
-      ),
+      
     );
   }
 
@@ -178,6 +184,10 @@ class GuardianOnePage extends StatelessWidget {
             ),
           ),
           CustomElevatedButton(
+            onPressed: (){
+                 Get.lazyPut(() =>ChooseGuardianOneScreen());
+              Get.to(() => ChooseGuardianOneScreen());
+            },
             height: 24.v,
             width: 83.h,
             text: "lbl_choose".tr,

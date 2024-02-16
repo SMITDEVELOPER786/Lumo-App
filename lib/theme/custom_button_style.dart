@@ -132,13 +132,14 @@ class CustomButtonStyles {
   static BoxDecoration get gradientGreenToPrimaryDecoration => BoxDecoration(
         borderRadius: BorderRadius.circular(28.h),
         gradient: LinearGradient(
-          begin: Alignment(0.07, 0),
-          end: Alignment(1.65, 1),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL10Decoration =>
       BoxDecoration(
@@ -157,13 +158,14 @@ class CustomButtonStyles {
       BoxDecoration(
         borderRadius: BorderRadius.circular(17.h),
         gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL24Decoration =>
       BoxDecoration(
@@ -179,26 +181,28 @@ class CustomButtonStyles {
             ),
           ),
         ],
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+      gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL241Decoration =>
       BoxDecoration(
         borderRadius: BorderRadius.circular(24.h),
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+          gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL25Decoration =>
       BoxDecoration(
@@ -240,13 +244,14 @@ class CustomButtonStyles {
           ),
         ],
         gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL252Decoration =>
       BoxDecoration(
@@ -262,14 +267,15 @@ class CustomButtonStyles {
             ),
           ),
         ],
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+       gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL253Decoration =>
       BoxDecoration(
@@ -286,13 +292,14 @@ class CustomButtonStyles {
           ),
         ],
         gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL254Decoration =>
       BoxDecoration(
@@ -308,14 +315,15 @@ class CustomButtonStyles {
             ),
           ),
         ],
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+       gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientGreenToPrimaryTL255Decoration =>
       BoxDecoration(
@@ -331,14 +339,15 @@ class CustomButtonStyles {
             ),
           ),
         ],
-        gradient: LinearGradient(
-          begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
-          colors: [
-            appTheme.green70002,
-            theme.colorScheme.primary,
-          ],
-        ),
+       gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
+      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
+    ],
+     stops: [0.2, 1.0],
+  ),
       );
   static BoxDecoration get gradientOrangeToLimeEaDecoration => BoxDecoration(
         borderRadius: BorderRadius.circular(10.h),

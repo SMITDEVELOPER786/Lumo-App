@@ -4,6 +4,7 @@ import 'package:muhammad_zubair_s_application4/presentation/iphone_14_15_pro_one
 import 'package:muhammad_zubair_s_application4/presentation/iphone_14_15_pro_one_screen/binding/iphone_14_15_pro_one_binding.dart';
 import 'package:muhammad_zubair_s_application4/presentation/onboarding_screen/onboarding_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/onboarding_screen/binding/onboarding_binding.dart';
+import 'package:muhammad_zubair_s_application4/presentation/profile_page/profile_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_one_screen/sign_up_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_one_screen/binding/sign_up_one_binding.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_screen/sign_up_screen.dart';
@@ -531,6 +532,13 @@ class AppRoutes {
       page: () => FilterScreen(),
       bindings: [
         FilterBinding(),
+      ],
+    ),
+      GetPage(
+      name: profilePage,
+      page: () => ProfilePage(),
+      bindings: [
+        // profile(),
       ],
     ),
     GetPage(

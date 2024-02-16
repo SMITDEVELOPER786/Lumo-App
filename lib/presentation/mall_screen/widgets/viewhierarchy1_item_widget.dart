@@ -112,8 +112,9 @@ class Viewhierarchy1ItemWidget extends StatelessWidget {
                     Obx(
                       () => CustomImageView(
                         imagePath: viewhierarchy1ItemModelObj.imageProp2!.value,
-                        height: 79.v,
-                        width: 171.h,
+                        fit: BoxFit.cover,
+                        // height: 29.v,
+                        width: 80.h,
                         alignment: Alignment.topCenter,
                       ),
                     ),

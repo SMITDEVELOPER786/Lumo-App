@@ -1,7 +1,11 @@
 import 'package:muhammad_zubair_s_application4/presentation/homepage_one_page/homepage_one_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/leaderboard_three_tab_container_screen/controller/leaderboard_three_tab_container_controller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/leaderboard_three_tab_container_screen/leaderboard_three_tab_container_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/search_screen/search_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 import '../../widgets/custom_floating_button.dart';
+import '../homepage_page/home_page_party.dart';
 import '../homepage_tab_container_page/widgets/jointhestreaming_item_widget.dart';
 import 'controller/homepage_tab_container_controller.dart';
 import 'models/homepage_tab_container_model.dart';
@@ -80,7 +84,7 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
                         child: TabBarView(
                           controller: controller.tabviewController,
                           children: [
-                            HomepagePage(),
+                            HomepagePartPage(),
                             HomepagePage(),
                             HomepagePage(),
                             HomepagePage(),
@@ -244,6 +248,12 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomElevatedButton(
+            onPressed: (){
+        Get.lazyPut(() => SearchScreen());
+
+        Get.to(() => SearchScreen());
+              
+            },
             height: 48.v,
             width: 172.h,
             text: "lbl_search_friends".tr,
@@ -259,71 +269,79 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             decoration: CustomButtonStyles.gradientOrangeToLimeEaDecoration,
             buttonTextStyle: CustomTextStyles.bodySmallInterWhiteA70012,
           ),
-          Container(
-            width: 172.h,
-            margin: EdgeInsets.only(left: 8.h),
-            padding: EdgeInsets.symmetric(vertical: 4.v),
-            decoration: AppDecoration.gradientGreenAToGreen.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder10,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: 40.v,
-                  width: 83.h,
-                  child: Stack(
-                    alignment: Alignment.centerRight,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          height: 40.v,
-                          width: 32.h,
-                          decoration: BoxDecoration(
-                            color: appTheme.green800,
-                            borderRadius: BorderRadius.circular(
-                              20.h,
+          GestureDetector(
+            onTap: (){
+                Get.lazyPut(() => LeaderboardThreeTabContainerScreen());
+                Get.to(() => LeaderboardThreeTabContainerScreen());
+
+      
+            },
+            child: Container(
+              width: 172.h,
+              margin: EdgeInsets.only(left: 8.h),
+              padding: EdgeInsets.symmetric(vertical: 4.v),
+              decoration: AppDecoration.gradientGreenAToGreen.copyWith(
+                borderRadius: BorderRadiusStyle.roundedBorder10,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 40.v,
+                    width: 83.h,
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            height: 40.v,
+                            width: 32.h,
+                            decoration: BoxDecoration(
+                              color: appTheme.green800,
+                              borderRadius: BorderRadius.circular(
+                                20.h,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "lbl_ranking_lists".tr,
-                          style: CustomTextStyles.bodySmallInterWhiteA70012,
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "lbl_ranking_lists".tr,
+                            style: CustomTextStyles.bodySmallInterWhiteA70012,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  height: 35.v,
-                  width: 48.h,
-                  margin: EdgeInsets.only(
-                    top: 3.v,
-                    right: 12.h,
+                  Container(
+                    height: 35.v,
+                    width: 48.h,
+                    margin: EdgeInsets.only(
+                      top: 3.v,
+                      right: 12.h,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CustomImageView(
+                          imagePath: ImageConstant.imgShootingStars,
+                          height: 16.adaptSize,
+                          width: 16.adaptSize,
+                          alignment: Alignment.topLeft,
+                        ),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgPrizeMoney,
+                          height: 33.adaptSize,
+                          width: 33.adaptSize,
+                          alignment: Alignment.bottomRight,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      CustomImageView(
-                        imagePath: ImageConstant.imgShootingStars,
-                        height: 16.adaptSize,
-                        width: 16.adaptSize,
-                        alignment: Alignment.topLeft,
-                      ),
-                      CustomImageView(
-                        imagePath: ImageConstant.imgPrizeMoney,
-                        height: 33.adaptSize,
-                        width: 33.adaptSize,
-                        alignment: Alignment.bottomRight,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -349,6 +367,8 @@ case BottomBarEnum.Explore:
         return AppRoutes.streamScreen;
       case BottomBarEnum.Chat:
       return AppRoutes.messagesTabContainerScreen;
+        case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       default:
         return "/";
     }

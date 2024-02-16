@@ -1,3 +1,7 @@
+import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/edit_profile_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/level_screen/level_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/my_wallet_screen/my_wallet_screen.dart';
+
 import '../profile_page/widgets/profile_item_widget.dart';
 import 'controller/profile_controller.dart';
 import 'models/profile_item_model.dart';
@@ -148,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 11.v),
+                  SizedBox(height: 30.v),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -280,16 +284,23 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 2.h),
-                          child: CustomIconButton(
-                            height: 20.adaptSize,
-                            width: 20.adaptSize,
-                            padding: EdgeInsets.all(4.h),
-                            decoration: IconButtonStyleHelper.fillLime,
-                            alignment: Alignment.bottomRight,
-                            child: CustomImageView(
-                              imagePath: ImageConstant.imgEdit,
+                        GestureDetector(
+                          onTap: (){
+                            Get.lazyPut(() => EditProfileScreen());
+                            Get.to(() => EditProfileScreen());
+
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 2.h),
+                            child: CustomIconButton(
+                              height: 20.adaptSize,
+                              width: 20.adaptSize,
+                              padding: EdgeInsets.all(4.h),
+                              decoration: IconButtonStyleHelper.fillLime,
+                              alignment: Alignment.bottomRight,
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgEdit,
+                              ),
                             ),
                           ),
                         ),
@@ -343,6 +354,11 @@ class ProfilePage extends StatelessWidget {
   /// Section Widget
   Widget _buildMyLevel() {
     return CustomElevatedButton(
+      onPressed: (){
+        Get.lazyPut(() => LevelScreen());
+        Get.to(() => LevelScreen());
+
+      },
       height: 48.v,
       width: 172.h,
       text: "lbl_my_level".tr,
@@ -392,27 +408,39 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
-                      width: 116.h,
-                      margin: EdgeInsets.fromLTRB(12.h, 7.v, 44.h, 16.v),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 9.v),
-                            child: Text(
-                              "lbl_my_wallet".tr,
-                              style: CustomTextStyles.bodySmallInterWhiteA70012,
-                            ),
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.lazyPut(() => MyWalletScreen());
+        Get.to(() => MyWalletScreen());
+                      },
+                      child: Container(
+                        width: 116.h,
+                        margin: EdgeInsets.fromLTRB(12.h, 7.v, 44.h, 16.v),
+                        child: GestureDetector(
+                          onTap: (){
+                                 Get.lazyPut(() => MyWalletScreen());
+        Get.to(() => MyWalletScreen());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 9.v),
+                                child: Text(
+                                  "lbl_my_wallet".tr,
+                                  style: CustomTextStyles.bodySmallInterWhiteA70012,
+                                ),
+                              ),
+                              CustomImageView(
+                                imagePath: ImageConstant.imgShootingStars,
+                                height: 16.adaptSize,
+                                width: 16.adaptSize,
+                                margin: EdgeInsets.only(bottom: 8.v),
+                              ),
+                            ],
                           ),
-                          CustomImageView(
-                            imagePath: ImageConstant.imgShootingStars,
-                            height: 16.adaptSize,
-                            width: 16.adaptSize,
-                            margin: EdgeInsets.only(bottom: 8.v),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -433,7 +461,7 @@ class ProfilePage extends StatelessWidget {
         () => GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisExtent: 65.v,
+            mainAxisExtent: 95.v,
             crossAxisCount: 3,
             mainAxisSpacing: 11.h,
             crossAxisSpacing: 11.h,
@@ -481,6 +509,7 @@ class ProfilePage extends StatelessWidget {
           dynamicText,
           style: CustomTextStyles.labelMediumGray80001SemiBold_1.copyWith(
             color: appTheme.gray80001,
+            
           ),
         ),
         SizedBox(height: 5.v),

@@ -5,14 +5,18 @@ import 'package:muhammad_zubair_s_application4/core/utils/validation_functions.d
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.dart';
 
-// ignore_for_file: must_be_immutable
-class ChooseGuardianScreen extends GetWidget<ChooseGuardianController> {
-  ChooseGuardianScreen({Key? key})
-      : super(
-          key: key,
-        );
+
+class ChooseGuardianScreen extends StatefulWidget {
+  const ChooseGuardianScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChooseGuardianScreen> createState() => _ChooseGuardianScreenState();
+}
+
+class _ChooseGuardianScreenState extends State<ChooseGuardianScreen> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var controller = Get.put(ChooseGuardianController());
 
   @override
   Widget build(BuildContext context) {

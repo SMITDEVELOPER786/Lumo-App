@@ -1,4 +1,6 @@
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/live_one_screen/live_one_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/live_view/live_view.dart';
 import 'package:muhammad_zubair_s_application4/presentation/notifications_screen/notifications_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_subtitle_two.dart';
@@ -7,6 +9,7 @@ import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_floating_button.dart';
 
+import '../heart_view/heart_view.dart';
 import '../homepage_three_page/widgets/homepagethree_item_widget.dart';
 import 'controller/homepage_three_controller.dart';
 import 'models/homepage_three_model.dart';
@@ -30,8 +33,8 @@ class HomepageThreePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: _buildAppBar(),
-           bottomNavigationBar: Padding(
+        appBar: _buildAppBar(),
+        bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: _buildBottomBar(),
         ),
@@ -56,16 +59,16 @@ class HomepageThreePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-               
                 _buildAll(),
                 SizedBox(height: 16.v),
                 Column(
-                  
                   children: [
                     _buildFrame4(),
                     _buildFrame5(),
-                    SizedBox(height: 40,),
-                     _buildFrame4(),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    _buildFrame4(),
                   ],
                 ),
               ],
@@ -98,15 +101,17 @@ class HomepageThreePage extends StatelessWidget {
                 bottom: 1.v,
               ),
               strokeWidth: 1.h,
-            gradient: LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
-      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
-    ],
-     stops: [0.2, 1.0],
-  ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 163, 226, 15)
+                      .withOpacity(0.8), // Start with yellow at the top
+                  Color.fromARGB(
+                      255, 43, 112, 45), // Transition to green at the bottom
+                ],
+                stops: [0.2, 1.0],
+              ),
               corners: Corners(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
@@ -306,88 +311,38 @@ class HomepageThreePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: 205.v,
-            width: 170.h,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgRectangle11,
-                  height: 205.v,
-                  width: 170.h,
-                  radius: BorderRadius.circular(
-                    10.h,
+          GestureDetector(
+            onTap: () {
+              Get.lazyPut(() => HeartView());
+              Get.to(() => HeartView());
+            },
+            child: SizedBox(
+              height: 205.v,
+              width: 170.h,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgRectangle11,
+                    height: 205.v,
+                    width: 170.h,
+                    radius: BorderRadius.circular(
+                      10.h,
+                    ),
+                    alignment: Alignment.center,
                   ),
-                  alignment: Alignment.center,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 153.h,
-                        margin: EdgeInsets.symmetric(horizontal: 8.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _buildNew(),
-                            CustomIconButton(
-                              height: 24.adaptSize,
-                              width: 24.adaptSize,
-                              padding: EdgeInsets.all(4.h),
-                              decoration:
-                                  IconButtonStyleHelper.gradientGreenToPrimary,
-                              child: CustomImageView(
-                                imagePath: ImageConstant.imgUpload,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 133.v),
-                      _buildPrice(
-                        price: "lbl_naomi_as".tr,
-                        illinoisTexas: "lbl_illinois_texas".tr,
-                        thirtyTwo: "lbl_23".tr,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 205.v,
-            width: 170.h,
-            margin: EdgeInsets.only(left: 13.h),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgRectangle11205x170,
-                  height: 205.v,
-                  width: 170.h,
-                  radius: BorderRadius.circular(
-                    10.h,
-                  ),
-                  alignment: Alignment.center,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 1.h),
+                  Align(
+                    alignment: Alignment.center,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          width: 154.h,
-                          margin: EdgeInsets.symmetric(horizontal: 7.h),
+                          width: 153.h,
+                          margin: EdgeInsets.symmetric(horizontal: 8.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _buildVeteran(),
+                              _buildNew(),
                               CustomIconButton(
                                 height: 24.adaptSize,
                                 width: 24.adaptSize,
@@ -403,15 +358,77 @@ class HomepageThreePage extends StatelessWidget {
                         ),
                         SizedBox(height: 133.v),
                         _buildPrice(
-                          price: "lbl_xxx".tr,
+                          price: "lbl_naomi_as".tr,
                           illinoisTexas: "lbl_illinois_texas".tr,
-                          thirtyTwo: "lbl_32".tr,
+                          thirtyTwo: "lbl_23".tr,
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.lazyPut(() => HeartView());
+              Get.to(() => HeartView());
+            },
+            child: Container(
+              height: 205.v,
+              width: 170.h,
+              margin: EdgeInsets.only(left: 13.h),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgRectangle11205x170,
+                    height: 205.v,
+                    width: 170.h,
+                    radius: BorderRadius.circular(
+                      10.h,
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 1.h),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 154.h,
+                            margin: EdgeInsets.symmetric(horizontal: 7.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildVeteran(),
+                                CustomIconButton(
+                                  height: 24.adaptSize,
+                                  width: 24.adaptSize,
+                                  padding: EdgeInsets.all(4.h),
+                                  decoration: IconButtonStyleHelper
+                                      .gradientGreenToPrimary,
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.imgUpload,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 133.v),
+                          _buildPrice(
+                            price: "lbl_xxx".tr,
+                            illinoisTexas: "lbl_illinois_texas".tr,
+                            thirtyTwo: "lbl_32".tr,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -422,6 +439,10 @@ class HomepageThreePage extends StatelessWidget {
   /// Section Widget
   Widget _buildNew1() {
     return CustomElevatedButton(
+      onPressed: () {
+        Get.lazyPut(() => LiveView());
+        Get.to(() => LiveView());
+      },
       height: 20.v,
       width: 66.h,
       text: "lbl_new".tr,
@@ -446,99 +467,105 @@ class HomepageThreePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 205.v,
-            width: 170.h,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgRectangle111,
-                  height: 205.v,
-                  width: 170.h,
-                  radius: BorderRadius.circular(
-                    10.h,
+          GestureDetector(
+            onTap: () {
+              Get.lazyPut(() => LiveView());
+              Get.to(() => LiveView());
+            },
+            child: SizedBox(
+              height: 205.v,
+              width: 170.h,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgRectangle111,
+                    height: 205.v,
+                    width: 170.h,
+                    radius: BorderRadius.circular(
+                      10.h,
+                    ),
+                    alignment: Alignment.center,
                   ),
-                  alignment: Alignment.center,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 153.h,
-                        margin: EdgeInsets.symmetric(horizontal: 8.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _buildNew1(),
-                            CustomIconButton(
-                              height: 24.adaptSize,
-                              width: 24.adaptSize,
-                              padding: EdgeInsets.all(4.h),
-                              decoration:
-                                  IconButtonStyleHelper.gradientGreenToPrimary,
-                              child: CustomImageView(
-                                imagePath: ImageConstant.imgUpload,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 153.h,
+                          margin: EdgeInsets.symmetric(horizontal: 8.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _buildNew1(),
+                              CustomIconButton(
+                                height: 24.adaptSize,
+                                width: 24.adaptSize,
+                                padding: EdgeInsets.all(4.h),
+                                decoration: IconButtonStyleHelper
+                                    .gradientGreenToPrimary,
+                                child: CustomImageView(
+                                  imagePath: ImageConstant.imgUpload,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 133.v),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 30.h,
-                          vertical: 4.v,
-                        ),
-                        decoration: AppDecoration.fillGrayC.copyWith(
-                          borderRadius: BorderRadiusStyle.customBorderBL10,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "lbl_sexy_mercy".tr,
-                              style: CustomTextStyles.labelLargeSemiBold,
-                            ),
-                            SizedBox(height: 2.v),
-                            SizedBox(
-                              width: 110.h,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgMappin,
-                                    height: 12.adaptSize,
-                                    width: 12.adaptSize,
-                                  ),
-                                  Text(
-                                    "lbl_illinois_texas".tr,
-                                    style: CustomTextStyles
-                                        .bodySmallInterWhiteA70010_1,
-                                  ),
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgConfetti,
-                                    height: 12.adaptSize,
-                                    width: 12.adaptSize,
-                                  ),
-                                  Text(
-                                    "lbl_28".tr,
-                                    style: CustomTextStyles
-                                        .bodySmallInterWhiteA70010_1,
-                                  ),
-                                ],
+                        SizedBox(height: 133.v),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 30.h,
+                            vertical: 4.v,
+                          ),
+                          decoration: AppDecoration.fillGrayC.copyWith(
+                            borderRadius: BorderRadiusStyle.customBorderBL10,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "lbl_sexy_mercy".tr,
+                                style: CustomTextStyles.labelLargeSemiBold,
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 2.v),
+                              SizedBox(
+                                width: 110.h,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomImageView(
+                                      imagePath: ImageConstant.imgMappin,
+                                      height: 12.adaptSize,
+                                      width: 12.adaptSize,
+                                    ),
+                                    Text(
+                                      "lbl_illinois_texas".tr,
+                                      style: CustomTextStyles
+                                          .bodySmallInterWhiteA70010_1,
+                                    ),
+                                    CustomImageView(
+                                      imagePath: ImageConstant.imgConfetti,
+                                      height: 12.adaptSize,
+                                      width: 12.adaptSize,
+                                    ),
+                                    Text(
+                                      "lbl_28".tr,
+                                      style: CustomTextStyles
+                                          .bodySmallInterWhiteA70010_1,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
@@ -755,7 +782,8 @@ class HomepageThreePage extends StatelessWidget {
       ),
     );
   }
-   PreferredSizeWidget _buildAppBar() {
+
+  PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       title: Padding(
         padding: EdgeInsets.only(left: 20.h),
@@ -769,17 +797,17 @@ class HomepageThreePage extends StatelessWidget {
               child: Row(
                 children: [
                   AppbarSubtitleOne(
-                    onTap: (){
+                    onTap: () {
                       Get.lazyPut(() => HomepageThreePage());
-                      Get.to(()=>HomepageThreePage());
+                      Get.to(() => HomepageThreePage());
                     },
                     text: "lbl_universe".tr,
                     margin: EdgeInsets.only(bottom: 1.v),
                   ),
                   AppbarSubtitleTwo(
-                    onTap: (){
-                         Get.lazyPut(() => HomepageTabContainerPage());
-                      Get.to(()=>HomepageTabContainerPage());
+                    onTap: () {
+                      Get.lazyPut(() => HomepageTabContainerPage());
+                      Get.to(() => HomepageTabContainerPage());
                     },
                     text: "lbl_popular".tr,
                     margin: EdgeInsets.only(
@@ -813,10 +841,9 @@ class HomepageThreePage extends StatelessWidget {
       ),
       actions: [
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Get.lazyPut(() => NotificationsScreen());
             Get.to(() => NotificationsScreen());
-
           },
           child: Container(
             height: 16.adaptSize,
@@ -856,25 +883,29 @@ class HomepageThreePage extends StatelessWidget {
       ],
     );
   }
-     Widget _buildBottomBar() {
+
+  Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type),);
+        Get.toNamed(
+          getCurrentRoute(type),
+        );
       },
     );
   }
 
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-        case BottomBarEnum.Home:
+      case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
-case BottomBarEnum.Explore:
+      case BottomBarEnum.Explore:
         return AppRoutes.exploreOnePage;
       case BottomBarEnum.Chat:
-      return AppRoutes.messagesTabContainerScreen;
+        return AppRoutes.messagesTabContainerScreen;
+      case BottomBarEnum.Connect:
+        return AppRoutes.profilePage;
       default:
         return "/";
     }
   }
-
 }

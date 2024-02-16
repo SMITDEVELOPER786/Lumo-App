@@ -22,15 +22,10 @@ class LiveOneScreen extends GetWidget<LiveOneController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        backgroundColor: appTheme.black900.withOpacity(0.2),
-        appBar: _buildAppBar(),
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          padding: EdgeInsets.only(top: 56.v),
+      child: Container(
+          // width: SizeUtils.width,
+          // height: SizeUtils.height,
+          padding: EdgeInsets.only(top: 26.v),
           decoration: BoxDecoration(
             color: appTheme.black900.withOpacity(0.2),
             image: DecorationImage(
@@ -41,7 +36,7 @@ class LiveOneScreen extends GetWidget<LiveOneController> {
             ),
           ),
           child: Container(
-            width: double.maxFinite,
+            // width: double.maxFinite,
             padding: EdgeInsets.symmetric(
               horizontal: 11.h,
               vertical: 10.v,
@@ -52,333 +47,27 @@ class LiveOneScreen extends GetWidget<LiveOneController> {
                 _buildBerriesToSurpassP(),
                 Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(left: 9.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 11.v),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomImageView(
-                                imagePath: ImageConstant.imgPngwing1,
-                                height: 122.adaptSize,
-                                width: 122.adaptSize,
-                              ),
-                              Spacer(),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4.h),
-                                decoration: AppDecoration.fillBlack900.copyWith(
-                                  borderRadius:
-                                      BorderRadiusStyle.roundedBorder18,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 23.adaptSize,
-                                      margin: EdgeInsets.only(
-                                        top: 9.v,
-                                        bottom: 7.v,
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 2.h,
-                                        vertical: 4.v,
-                                      ),
-                                      decoration:
-                                          AppDecoration.fillYellow.copyWith(
-                                        borderRadius:
-                                            BorderRadiusStyle.roundedBorder10,
-                                      ),
-                                      child: Text(
-                                        "lbl_45".tr,
-                                        style: CustomTextStyles
-                                            .labelMediumSemiBold11,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 192.h,
-                                      margin: EdgeInsets.only(
-                                        left: 4.h,
-                                        top: 5.v,
-                                      ),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: "lbl_john".tr,
-                                              style: CustomTextStyles
-                                                  .labelMediumffffffff,
-                                            ),
-                                            TextSpan(
-                                              text: "msg_hi_send_me_your".tr,
-                                              style: CustomTextStyles
-                                                  .bodySmallInterffffffff,
-                                            ),
-                                          ],
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 7.v),
-                              _buildWidget(
-                                dynamicText: "lbl_16".tr,
-                                dynamicText1: "msg_leylah_hi_lovely".tr,
-                              ),
-                              SizedBox(height: 7.v),
-                              Container(
-                                decoration: AppDecoration
-                                    .gradientGreen70002ToPrimary
-                                    .copyWith(
-                                  borderRadius:
-                                      BorderRadiusStyle.circleBorder15,
-                                ),
-                                child: OutlineGradientButton(
-                                  padding: EdgeInsets.only(
-                                    left: 1.h,
-                                    top: 1.v,
-                                    right: 1.h,
-                                    bottom: 1.v,
-                                  ),
-                                  strokeWidth: 1.h,
-                                  gradient: LinearGradient(
-                                    begin: Alignment(1.03, 1.11),
-                                    end: Alignment(0.07, -0.41),
-                                    colors: [
-                                      appTheme.green70002,
-                                      theme.colorScheme.primary,
-                                    ],
-                                  ),
-                                  corners: Corners(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15),
-                                    bottomRight: Radius.circular(15),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 3.h,
-                                      vertical: 2.v,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 23.adaptSize,
-                                          margin: EdgeInsets.only(top: 1.v),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 2.h,
-                                            vertical: 4.v,
-                                          ),
-                                          decoration:
-                                              AppDecoration.fillGreen.copyWith(
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder10,
-                                          ),
-                                          child: Text(
-                                            "lbl_40".tr,
-                                            style: CustomTextStyles
-                                                .labelMediumSemiBold11,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 4.h,
-                                            top: 5.v,
-                                            bottom: 3.v,
-                                          ),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: "lbl_raymond".tr,
-                                                  style: CustomTextStyles
-                                                      .labelMediumffffffff,
-                                                ),
-                                                TextSpan(
-                                                  text: "lbl_sent_you_a".tr,
-                                                  style: CustomTextStyles
-                                                      .bodySmallInterffffffff,
-                                                ),
-                                              ],
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                        CustomImageView(
-                                          imagePath:
-                                              ImageConstant.imgClose16x16,
-                                          height: 16.adaptSize,
-                                          width: 16.adaptSize,
-                                          margin: EdgeInsets.only(
-                                            left: 2.h,
-                                            top: 5.v,
-                                            bottom: 3.v,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 7.v),
-                              _buildWidget(
-                                dynamicText: "lbl_20".tr,
-                                dynamicText1: "msg_nobilson_hello".tr,
-                              ),
-                              SizedBox(height: 18.v),
-                              Row(
-                                children: [
-                                  CustomIconButton(
-                                    height: 40.adaptSize,
-                                    width: 40.adaptSize,
-                                    padding: EdgeInsets.all(12.h),
-                                    decoration: IconButtonStyleHelper.fillBlack,
-                                    child: CustomImageView(
-                                      imagePath: ImageConstant.imgSettings,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 16.h),
-                                    child: CustomIconButton(
-                                      height: 40.adaptSize,
-                                      width: 40.adaptSize,
-                                      padding: EdgeInsets.all(12.h),
-                                      decoration:
-                                          IconButtonStyleHelper.fillBlack,
-                                      child: CustomImageView(
-                                        imagePath: ImageConstant.imgGrid,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 16.h),
-                                    child: CustomIconButton(
-                                      height: 40.adaptSize,
-                                      width: 40.adaptSize,
-                                      padding: EdgeInsets.all(12.h),
-                                      decoration:
-                                          IconButtonStyleHelper.fillBlack,
-                                      child: CustomImageView(
-                                        imagePath:
-                                            ImageConstant.imgLockWhiteA700,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 33.h,
-                          top: 325.v,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomImageView(
-                              imagePath: ImageConstant.imgClose16x16,
-                              height: 16.adaptSize,
-                              width: 16.adaptSize,
-                              alignment: Alignment.centerRight,
-                              margin: EdgeInsets.only(right: 19.h),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                height: 31.v,
-                                width: 39.h,
-                                margin: EdgeInsets.only(right: 11.h),
-                                child: Stack(
-                                  alignment: Alignment.bottomRight,
+                    padding: EdgeInsets.only(left: 9.h),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.only(bottom: 11.v),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CustomImageView(
-                                      imagePath: ImageConstant.imgSettings21x21,
-                                      height: 21.adaptSize,
-                                      width: 21.adaptSize,
-                                      alignment: Alignment.topLeft,
+                                      imagePath: ImageConstant.imgPngwing1,
+                                      height: 122.adaptSize,
+                                      width: 122.adaptSize,
                                     ),
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgClose16x16,
-                                      height: 24.adaptSize,
-                                      width: 24.adaptSize,
-                                      alignment: Alignment.bottomRight,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 9.v),
-                            SizedBox(
-                              height: 31.v,
-                              width: 54.h,
-                              child: Stack(
-                                alignment: Alignment.bottomLeft,
-                                children: [
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgSettings21x21,
-                                    height: 31.adaptSize,
-                                    width: 31.adaptSize,
-                                    alignment: Alignment.centerRight,
-                                  ),
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgClose16x16,
-                                    height: 24.adaptSize,
-                                    width: 24.adaptSize,
-                                    alignment: Alignment.bottomLeft,
-                                    margin: EdgeInsets.only(bottom: 2.v),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 14.v),
-                            SizedBox(
-                              height: 42.v,
-                              width: 61.h,
-                              child: Stack(
-                                alignment: Alignment.centerLeft,
-                                children: [
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgSettings21x21,
-                                    height: 42.adaptSize,
-                                    width: 42.adaptSize,
-                                    alignment: Alignment.centerRight,
-                                  ),
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgClose16x16,
-                                    height: 32.adaptSize,
-                                    width: 32.adaptSize,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 20.v),
-                            CustomImageView(
-                              imagePath: ImageConstant.imgPngegg131,
-                              height: 70.adaptSize,
-                              width: 70.adaptSize,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                                    // Spacer(),
+                                    
+                                  ]))
+                        ]))
               ],
             ),
-          ),
+          
         ),
       ),
     );

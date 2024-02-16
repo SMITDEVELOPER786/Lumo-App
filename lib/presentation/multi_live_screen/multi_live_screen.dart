@@ -1,4 +1,7 @@
 import '../multi_live_screen/widgets/multilive_item_widget.dart';
+import '../schedule_time_dialog/schedule_time_dialog.dart';
+import '../select_tag_dialog/select_tag_dialog.dart';
+import '../stream_level_dialog/stream_level_dialog.dart';
 import 'controller/multi_live_controller.dart';
 import 'models/multilive_item_model.dart';
 import 'package:flutter/material.dart';
@@ -10,147 +13,37 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_drop_down.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-// ignore_for_file: must_be_immutable
-class MultiLiveScreen extends GetWidget<MultiLiveController> {
-  const MultiLiveScreen({Key? key})
-      : super(
-          key: key,
-        );
+class MultiLiveScreen extends StatefulWidget {
+  const MultiLiveScreen({Key? key}) : super(key: key);
 
   @override
+  State<MultiLiveScreen> createState() => _MultiLiveScreenState();
+}
+
+class _MultiLiveScreenState extends State<MultiLiveScreen> {
+  var controller = Get.put(MultiLiveController());
+ @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        backgroundColor: appTheme.black900D8,
-        appBar: _buildAppBar(),
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          padding: EdgeInsets.only(
-            top: 24.v,
-            bottom: 68.v,
-          ),
-          decoration: BoxDecoration(
-            color: appTheme.black900D8,
-            image: DecorationImage(
-              image: AssetImage(
-                ImageConstant.imgGroup747,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 748.v,
-              width: double.maxFinite,
-              margin: EdgeInsets.only(bottom: 31.v),
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgRectangle89,
-                    height: 570.v,
-                    width: 393.h,
-                    alignment: Alignment.topCenter,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      decoration: AppDecoration.fillBlack9001,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 85.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 4.v),
-                                  child: Text(
-                                    "lbl_live".tr,
-                                    style: CustomTextStyles.labelLarge13,
-                                  ),
-                                ),
-                                Spacer(
-                                  flex: 50,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 4.v),
-                                  child: Text(
-                                    "lbl_audio_live2".tr,
-                                    style: CustomTextStyles.labelLarge13,
-                                  ),
-                                ),
-                                Spacer(
-                                  flex: 50,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "lbl_multi_live2".tr,
-                                      style: CustomTextStyles
-                                          .labelLargeGreen70002SemiBold,
-                                    ),
-                                    SizedBox(height: 2.v),
-                                    Container(
-                                      height: 2.v,
-                                      width: 20.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          1.h,
-                                        ),
-                                        gradient: LinearGradient(
-                                          begin: Alignment(1.03, 1.11),
-                                          end: Alignment(0.07, -0.41),
-                                          colors: [
-                                            appTheme.green70002,
-                                            theme.colorScheme.primary,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 232.v),
-                          _buildVuesaxLinearCamera(),
-                          SizedBox(height: 8.v),
-                          _buildMultiLive(),
-                          SizedBox(height: 105.v),
-                          CustomElevatedButton(
-                            text: "lbl_start_streaming".tr,
-                            margin: EdgeInsets.symmetric(horizontal: 20.h),
-                            rightIcon: Container(
-                              margin: EdgeInsets.only(left: 2.h),
-                              child: CustomImageView(
-                                imagePath: ImageConstant.imgUploadGray5001,
-                                height: 16.adaptSize,
-                                width: 16.adaptSize,
-                              ),
-                            ),
-                            buttonStyle: CustomButtonStyles.none,
-                            decoration: CustomButtonStyles
-                                .gradientGreenToPrimaryTL255Decoration,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    return  Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+       
+        Container(
+          // decoration: AppDecoration.fillBlack9001,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              
+              // SizedBox(height: 232.v),
+              _buildVuesaxLinearCamera(),
+              SizedBox(height: 8.v),
+              _buildMultiLive(),
+              // SizedBox(height: 105.v),
+             
+            ],
           ),
         ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.h),
-          child: _buildBottomBar(),
-        ),
-      ),
+      ],
     );
   }
 
@@ -191,7 +84,6 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
   /// Section Widget
   Widget _buildVuesaxLinearCamera() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.h),
       padding: EdgeInsets.symmetric(
         horizontal: 12.h,
         vertical: 11.v,
@@ -276,51 +168,118 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
           ),
           SizedBox(height: 9.v),
           Padding(
-            padding: EdgeInsets.only(right: 80.h),
+            padding: EdgeInsets.only(right: 30.h),
             child: Row(
               children: [
-                CustomDropDown(
-                  width: 120.h,
-                  icon: Container(
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: ScheduleTimeDialog());
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 120.h,
                     margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+                    decoration: BoxDecoration(
+                      color: appTheme.gray70004,
+                      borderRadius: BorderRadius.circular(
+                          8.h), // You can adjust the border radius as needed
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Icon
+
+                        // Hint text
+                        Text(
+                          "lbl_schedule_time".tr,
+                          style: CustomTextStyles.labelLargeGray30003,
+                        ),
+                        Container(
+                          width: 24.h,
+                          height: 24.h,
+                          margin: EdgeInsets.only(left: 8.h),
+                          child: CustomImageView(
+                            imagePath: ImageConstant.imgArrowdownGray30003,
+                            height: 16.adaptSize,
+                            width: 16.adaptSize,
+                          ),
+                        ),
+                        // You can add additional widgets here if needed
+                      ],
+                    ),
+                  ),
+                ),
+                 GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: StreamLevelDialog());
+                },
+              );
+            },
+            child: Container(
+              width: 120.h,
+              margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+              decoration: BoxDecoration(
+                color: appTheme.gray70004,
+                borderRadius: BorderRadius.circular(
+                    8.h), // You can adjust the border radius as needed
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Icon
+
+                  // Hint text
+                  Text(
+                     "lbl_stream_level".tr,
+                    style: CustomTextStyles.labelLargeGray30003,
+                  ),
+                  Container(
+                    width: 24.h,
+                    height: 24.h,
+                    margin: EdgeInsets.only(left: 8.h),
                     child: CustomImageView(
                       imagePath: ImageConstant.imgArrowdownGray30003,
                       height: 16.adaptSize,
                       width: 16.adaptSize,
                     ),
                   ),
-                  hintText: "lbl_schedule_time".tr,
-                  hintStyle: CustomTextStyles.labelLargeGray30003,
-                  items: controller
-                      .multiLiveModelObj.value.dropdownItemList!.value,
-                  borderDecoration: DropDownStyleHelper.fillGray,
-                  fillColor: appTheme.gray70004,
-                  onChanged: (value) {
-                    controller.onSelected(value);
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.h),
-                  child: CustomDropDown(
-                    width: 109.h,
-                    icon: Container(
-                      margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgArrowdownWhiteA700,
-                        height: 16.adaptSize,
-                        width: 16.adaptSize,
-                      ),
-                    ),
-                    hintText: "lbl_stream_level".tr,
-                    items: controller
-                        .multiLiveModelObj.value.dropdownItemList1!.value,
-                    borderDecoration: DropDownStyleHelper.fillGray,
-                    fillColor: appTheme.gray70004,
-                    onChanged: (value) {
-                      controller.onSelected1(value);
-                    },
-                  ),
-                ),
+                  // You can add additional widgets here if needed
+                ],
+              ),
+            ),
+          ),
+
+                // CustomElevatedButton(
+                //   height: 24.v,
+                //   width: 120.h,
+                //   text: "lbl_stream_level".tr,
+                //   margin: EdgeInsets.only(left: 20.h),
+                //   rightIcon: Container(
+                //     margin: EdgeInsets.only(left: 2.h),
+                //     child: CustomImageView(
+                //       imagePath: ImageConstant.imgArrowdownWhiteA700,
+                //       height: 16.adaptSize,
+                //       width: 16.adaptSize,
+                //     ),
+                //   ),
+                //   buttonStyle: CustomButtonStyles.fillGrayTL10,
+                //   buttonTextStyle: theme.textTheme.labelLarge!,
+                // ),
               ],
             ),
           ),
@@ -329,24 +288,70 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
             color: appTheme.gray70004,
           ),
           SizedBox(height: 12.v),
-          CustomDropDown(
-            width: 60.h,
-            icon: Container(
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: SelectTagDialog());
+                },
+              );
+            },
+            child: Container(
+              width: 120.h,
               margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
-              child: CustomImageView(
-                imagePath: ImageConstant.imgArrowdownWhiteA700,
-                height: 16.adaptSize,
-                width: 16.adaptSize,
+              decoration: BoxDecoration(
+                color: appTheme.gray70004,
+                borderRadius: BorderRadius.circular(
+                    8.h), // You can adjust the border radius as needed
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Icon
+
+                  // Hint text
+                  Text(
+                    "lbl_tag".tr,
+                    style: CustomTextStyles.labelLargeGray30003,
+                  ),
+                  Container(
+                    width: 24.h,
+                    height: 24.h,
+                    margin: EdgeInsets.only(left: 8.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgArrowdownGray30003,
+                      height: 16.adaptSize,
+                      width: 16.adaptSize,
+                    ),
+                  ),
+                  // You can add additional widgets here if needed
+                ],
               ),
             ),
-            hintText: "lbl_tag".tr,
-            items: controller.multiLiveModelObj.value.dropdownItemList2!.value,
-            borderDecoration: DropDownStyleHelper.fillBlueGray,
-            fillColor: appTheme.blueGray70001,
-            onChanged: (value) {
-              controller.onSelected2(value);
-            },
           ),
+          // CustomDropDown(
+          //   width: 120.h,
+          //   icon: Container(
+          //     margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+          //     child: CustomImageView(
+          //       imagePath: ImageConstant.imgArrowdownWhiteA700,
+          //       height: 16.adaptSize,
+          //       width: 16.adaptSize,
+          //     ),
+          //   ),
+          //   hintText: "lbl_tag".tr,
+          //   items: controller.streamModelObj.value.dropdownItemList1!.value,
+          //   borderDecoration: DropDownStyleHelper.fillBlueGray,
+          //   fillColor: appTheme.blueGray70001,
+          //   onChanged: (value) {
+          //     controller.onSelected1(value);
+          //   },
+          // ),
         ],
       ),
     );
@@ -405,6 +410,8 @@ class MultiLiveScreen extends GetWidget<MultiLiveController> {
 
       case BottomBarEnum.Chat:
       return AppRoutes.messagesTabContainerScreen;
+         case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       default:
         return "/";
     }

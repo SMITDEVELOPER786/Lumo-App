@@ -43,11 +43,13 @@ class Chatbubbles1ItemWidget extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgLovepikCom380,
-                  height: 56.adaptSize,
-                  width: 56.adaptSize,
-                  alignment: Alignment.topCenter,
+                  Obx(
+                          () =>  CustomImageView(
+                    imagePath:  chatbubbles1ItemModelObj.IMG!.value,
+                    height: 56.adaptSize,
+                    width: 56.adaptSize,
+                    alignment: Alignment.topCenter,
+                  ),
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -56,12 +58,12 @@ class Chatbubbles1ItemWidget extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CustomImageView(
-                          imagePath: ImageConstant.imgClose16x16,
-                          height: 32.adaptSize,
-                          width: 32.adaptSize,
-                        ),
-                        SizedBox(height: 11.v),
+                        // CustomImageView(
+                        //   imagePath: ImageConstant.imgClose16x16,
+                        //   height: 32.adaptSize,
+                        //   width: 32.adaptSize,
+                        // ),
+                        SizedBox(height: 29.v),
                         Obx(
                           () => Text(
                             chatbubbles1ItemModelObj.chatBubblesText!.value,

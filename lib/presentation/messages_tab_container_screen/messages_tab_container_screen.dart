@@ -118,6 +118,8 @@ class MessagesTabContainerScreen
         return AppRoutes.exploreOnePage;
       case BottomBarEnum.Chat:
         return AppRoutes.messagesTabContainerScreen;
+           case BottomBarEnum.Connect:
+      return AppRoutes.profilePage;
       default:
         return "/";
     }
