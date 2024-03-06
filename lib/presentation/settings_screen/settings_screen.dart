@@ -89,7 +89,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                   SizedBox(height: 16.v),
               _buildDeviceManager(text: "My Vip"),
                   SizedBox(height: 16.v),
-              _buildDeviceManager(text: "Vip Priviledge"),
+              _buildDeviceManager(text: "Vip Privilege"),
             ]));
   }
 

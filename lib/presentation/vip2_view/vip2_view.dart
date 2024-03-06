@@ -15,7 +15,7 @@ class Vip2View extends StatelessWidget {
           score: '2000000',
         ),
         VipScreenBottomWidget(
-            vipBadgetTitle: 'VIP Badget',
+            vipBadgetTitle: 'VIP Budget',
             VipBadgetImageUrl: 'assets/images/vip badget.png',
             frameTitle: 'Frame',
             FrameImageUrl: 'assets/images/farme.png',
@@ -38,7 +38,9 @@ class Vip2View extends StatelessWidget {
             ID_UnbenTitle: 'ID unben',
             ID_UnbenImageUrl: 'assets/images/ID_Unben.png',
             helpTitle: 'Help desk',
-            helpImageUrl: 'assets/images/help.png')
+            helpImageUrl: 'assets/images/help.png',
+            index:1
+            )
         // VipScreenBottomWidget()
       ],
     );

@@ -831,6 +831,8 @@ class ImageConstant {
   static String imgGroup62 = '$imagePath/img_group_62.png';
 
   static String imgFrame238788 = '$imagePath/img_frame_238788.svg';
+  // ignore: non_constant_identifier_names
+  static String Frame = "$imagePath/Frame.png";
 
   static String imgIconlyLightHome = '$imagePath/img_iconly_light_home.png';
 

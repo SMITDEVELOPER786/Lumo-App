@@ -23,7 +23,7 @@ class ChatbubblesItemWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Card(
-          clipBehavior: Clip.antiAlias,
+          // clipBehavior: Clip.hardEdge,
           elevation: 0,
           margin: EdgeInsets.all(0),
           color: appTheme.lime10004,
@@ -49,6 +49,7 @@ class ChatbubblesItemWidget extends StatelessWidget {
                     height: 56.adaptSize,
                     width: 56.adaptSize,
                     alignment: Alignment.topCenter,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Align(

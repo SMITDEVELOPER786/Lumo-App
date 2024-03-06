@@ -15,17 +15,18 @@ class Vip1View extends StatelessWidget {
           score: '1000000',
         ),
         VipScreenBottomWidget(
-            vipBadgetTitle: 'VIP Badget',
+
+            vipBadgetTitle: 'VIP Budget',
             VipBadgetImageUrl: 'assets/images/vip badget.png',
             frameTitle: 'Frame',
             FrameImageUrl: 'assets/images/farme.png',
-            entranceEffectTitle: 'Entrance Effects',
+            entranceEffectTitle: 'Entrance Effect',
             entranceEffectImageUrl: 'assets/images/entrance Effect.png',
             carTitle: 'Car',
             CarImageUrl: 'assets/images/car.png',
             colorFulMessageTitle: 'Colorful message',
             colorFulMessageImageUrl: 'assets/images/Colorful_message.png',
-            flyingMessageTitle: 'Flying meassage',
+            flyingMessageTitle: 'Flying message',
             flyingMessageImageUrl: 'assets/images/flying message.png',
             privilegeTitle: 'Privilege',
             privilegeImageUrl: 'assets/images/Privilege.png',
@@ -35,10 +36,12 @@ class Vip1View extends StatelessWidget {
             giftImageUrl: 'assets/images/gift.png',
             hideTitle: 'Hide',
             hideImageUrl: 'assets/images/hide.png',
-            ID_UnbenTitle: 'ID unben',
+            ID_UnbenTitle: 'ID unban',
             ID_UnbenImageUrl: 'assets/images/ID_Unben.png',
             helpTitle: 'Help desk',
-            helpImageUrl: 'assets/images/help.png')
+            helpImageUrl: 'assets/images/help.png',
+           index : 0
+            )
       ],
     );
   }

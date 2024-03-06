@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'vip_image_text_widget.dart';
 
-
 class VipScreenBottomWidget extends StatelessWidget {
   String vipBadgetTitle,
       VipBadgetImageUrl,
@@ -28,33 +27,36 @@ class VipScreenBottomWidget extends StatelessWidget {
       ID_UnbenImageUrl,
       helpTitle,
       helpImageUrl;
+  int index;
 
-  VipScreenBottomWidget(
-      {Key? key,
-      required this.vipBadgetTitle,
-      required this.VipBadgetImageUrl,
-      required this.frameTitle,
-      required this.FrameImageUrl,
-      required this.entranceEffectTitle,
-      required this.entranceEffectImageUrl,
-      required this.carTitle,
-      required this.CarImageUrl,
-      required this.colorFulMessageTitle,
-      required this.colorFulMessageImageUrl,
-      required this.flyingMessageTitle,
-      required this.flyingMessageImageUrl,
-      required this.privilegeTitle,
-      required this.privilegeImageUrl,
-      required this.preventKickTitle,
-      required this.preventKickImageUrl,
-      required this.giftTitle,
-      required this.giftImageUrl,
-      required this.hideTitle,
-      required this.hideImageUrl,
-      required this.ID_UnbenTitle,
-      required this.ID_UnbenImageUrl,
-      required this.helpTitle,
-      required this.helpImageUrl});
+  VipScreenBottomWidget({
+    Key? key,
+    required this.vipBadgetTitle,
+    required this.VipBadgetImageUrl,
+    required this.frameTitle,
+    required this.FrameImageUrl,
+    required this.entranceEffectTitle,
+    required this.entranceEffectImageUrl,
+    required this.carTitle,
+    required this.CarImageUrl,
+    required this.colorFulMessageTitle,
+    required this.colorFulMessageImageUrl,
+    required this.flyingMessageTitle,
+    required this.flyingMessageImageUrl,
+    required this.privilegeTitle,
+    required this.privilegeImageUrl,
+    required this.preventKickTitle,
+    required this.preventKickImageUrl,
+    required this.giftTitle,
+    required this.giftImageUrl,
+    required this.hideTitle,
+    required this.hideImageUrl,
+    required this.ID_UnbenTitle,
+    required this.ID_UnbenImageUrl,
+    required this.helpTitle,
+    required this.helpImageUrl,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,34 +81,302 @@ class VipScreenBottomWidget extends StatelessWidget {
                   image: entranceEffectImageUrl, title: entranceEffectTitle),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              VipImageTextWidget(image: CarImageUrl, title: carTitle),
-              VipImageTextWidget(
-                  image: colorFulMessageImageUrl, title: colorFulMessageTitle),
-              VipImageTextWidget(
-                  image: flyingMessageImageUrl, title: flyingMessageTitle),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              VipImageTextWidget(
-                  image: privilegeImageUrl, title: privilegeTitle),
-              VipImageTextWidget(
-                  image: preventKickImageUrl, title: preventKickTitle),
-              VipImageTextWidget(image: giftImageUrl, title: giftTitle),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              VipImageTextWidget(image: hideImageUrl, title: hideTitle),
-              VipImageTextWidget(image: ID_UnbenImageUrl, title: ID_UnbenTitle),
-              VipImageTextWidget(image: helpImageUrl, title: helpTitle),
-            ],
-          ),
+          index == 0
+              ? Column(
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        VipImageTextWidget(image: CarImageUrl, title: carTitle),
+                      ],
+                    ),
+                    SizedBox(height: 130,)
+                ],
+              )
+              : index == 1
+                  ? Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            Container(
+                              width: MediaQuery.of(context).size.width * .25,
+                              height: 70,
+                            )
+                          ],
+                        ),
+                         SizedBox(height: 130,)
+                    ],
+                  )
+                  : index == 2
+                      ? Column(
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                VipImageTextWidget(
+                                    image: CarImageUrl, title: carTitle),
+                                VipImageTextWidget(
+                                    image: colorFulMessageImageUrl,
+                                    title: colorFulMessageTitle),
+                                VipImageTextWidget(
+                                    image: flyingMessageImageUrl,
+                                    title: flyingMessageTitle),
+                                    
+                              ],
+                            ),
+                             SizedBox(height: 130,)
+                        ],
+                      )
+                      : index == 3
+                          ? Column(
+                              children: [
+                                Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                  
+                                  ],
+                                ),
+                                SizedBox(height: 70,) 
+                              ],
+                            )
+                          :
+                          index == 4 ?
+                           Column(
+                              children: [
+
+                                 Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                    VipImageTextWidget(
+                                        image: preventKickImageUrl,
+                                        title: preventKickTitle),
+                                          Container(
+                          width: MediaQuery.of(context).size.width * .25,
+                          height: 70,
+                        )
+                                  
+                                  ],
+                                ),
+                                  SizedBox(height: 70,) 
+                                
+                              ],
+                            ):
+                            index == 5 ?
+
+                             Column(
+                              children: [
+
+                                 Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                    VipImageTextWidget(
+                                        image: preventKickImageUrl,
+                                        title: preventKickTitle),
+                                    VipImageTextWidget(
+                                        image: giftImageUrl, title: giftTitle),
+                                  ],
+                                ),
+                                  SizedBox(height: 70,) 
+                               
+                              ],
+                            ):
+                            index ==6 ?
+                            Column(
+                              children: [
+
+                                 Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                    VipImageTextWidget(
+                                        image: preventKickImageUrl,
+                                        title: preventKickTitle),
+                                    VipImageTextWidget(
+                                        image: giftImageUrl, title: giftTitle),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: hideImageUrl, title: hideTitle),
+                                  
+                                  ],
+                                ),
+                              ],
+                            )
+                            : 
+                            index ==7 ?
+                              Column(
+                              children: [
+
+                                 Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                    VipImageTextWidget(
+                                        image: preventKickImageUrl,
+                                        title: preventKickTitle),
+                                    VipImageTextWidget(
+                                        image: giftImageUrl, title: giftTitle),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: hideImageUrl, title: hideTitle),
+                                    VipImageTextWidget(
+                                        image: ID_UnbenImageUrl,
+                                        title: ID_UnbenTitle),
+                                    VipImageTextWidget(
+                                        image: helpImageUrl, title: helpTitle),
+                                  ],
+                                ),
+                              ],
+                            ) :
+                               Column(
+                              children: [
+
+                                 Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            VipImageTextWidget(
+                                image: CarImageUrl, title: carTitle),
+                            VipImageTextWidget(
+                                image: colorFulMessageImageUrl,
+                                title: colorFulMessageTitle),
+                            VipImageTextWidget(
+                                image: flyingMessageImageUrl,
+                                title: flyingMessageTitle),
+                          ],
+                        ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: privilegeImageUrl,
+                                        title: privilegeTitle),
+                                    VipImageTextWidget(
+                                        image: preventKickImageUrl,
+                                        title: preventKickTitle),
+                                    VipImageTextWidget(
+                                        image: giftImageUrl, title: giftTitle),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VipImageTextWidget(
+                                        image: hideImageUrl, title: hideTitle),
+                                    VipImageTextWidget(
+                                        image: ID_UnbenImageUrl,
+                                        title: ID_UnbenTitle),
+                                    VipImageTextWidget(
+                                        image: helpImageUrl, title: helpTitle),
+                                  ],
+                                ),
+                              ],
+                            )
+
+,
           Container(
             margin: EdgeInsets.only(top: 10),
             height: 30,

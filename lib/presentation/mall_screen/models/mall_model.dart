@@ -6,6 +6,9 @@ import 'viewhierarchy1_item_model.dart';
 /// and is typically used to hold data that is passed between different parts of the application.
 class MallModel {
   Rx<List<ChatbubblesItemModel>> chatbubblesItemList = Rx([
+      ChatbubblesItemModel(chatBubblesText: "Avatar Frame".obs,
+    IMG: ImageConstant.Frame.obs
+    ),
     ChatbubblesItemModel(chatBubblesText: "Chat Bubbles".obs,
     IMG: ImageConstant.bubble.obs
     ),
