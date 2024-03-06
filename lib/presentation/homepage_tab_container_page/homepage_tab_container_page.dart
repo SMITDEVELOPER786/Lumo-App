@@ -5,6 +5,7 @@ import 'package:muhammad_zubair_s_application4/presentation/leaderboard_three_ta
 import 'package:muhammad_zubair_s_application4/presentation/search_screen/search_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 import '../../widgets/custom_floating_button.dart';
+import '../homepage_page/home_page_multi.dart';
 import '../homepage_page/home_page_party.dart';
 import '../homepage_tab_container_page/widgets/jointhestreaming_item_widget.dart';
 import 'controller/homepage_tab_container_controller.dart';
@@ -86,7 +87,7 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
                           children: [
                             HomepagePartPage(),
                             HomepagePage(),
-                            HomepagePage(),
+                            HomepageMultiPage(),
                             HomepagePage(),
                           ],
                         ),

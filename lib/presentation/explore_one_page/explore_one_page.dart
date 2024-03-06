@@ -20,18 +20,24 @@ class ExploreOnePage extends StatefulWidget  {
   State<ExploreOnePage> createState() => _ExploreOnePageState();
 }
 
-class _ExploreOnePageState extends State<ExploreOnePage> {
+class _ExploreOnePageState extends State<ExploreOnePage> with SingleTickerProviderStateMixin {
   ExploreOneController controller =
       Get.put(ExploreOneController(ExploreOneModel().obs));
 
 late TabController _tabController;
 
-  @override
+ @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: 7, vsync: ScrollableState()); // 3 is the number of tabs
+    _tabController = TabController(length: 7, vsync: this);
   }
+
+  // showData(){
+  //   if (_tabController == null) {
+  //   _tabController = TabController(length: 7, vsync: this);
+  // }
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -297,7 +303,10 @@ late TabController _tabController;
               SizedBox(height: 14.v),
               GestureDetector(
                 onTap: (){
+                  // showData()
+
                    showBottomSheet(context);
+
                 },
                 child: CustomIconButton(
                   height: 36.adaptSize,

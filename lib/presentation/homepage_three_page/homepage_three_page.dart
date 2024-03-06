@@ -346,11 +346,13 @@ class HomepageThreePage extends StatelessWidget {
                               CustomIconButton(
                                 height: 24.adaptSize,
                                 width: 24.adaptSize,
-                                padding: EdgeInsets.all(4.h),
+                                // padding: EdgeInsets.all(4.h),
                                 decoration: IconButtonStyleHelper
                                     .gradientGreenToPrimary,
-                                child: CustomImageView(
-                                  imagePath: ImageConstant.imgUpload,
+                                child: Icon(
+                                 Icons.spatial_audio,
+                                 color: Colors.white,
+                                 size: 15,
                                 ),
                               ),
                             ],
@@ -405,15 +407,17 @@ class HomepageThreePage extends StatelessWidget {
                               children: [
                                 _buildVeteran(),
                                 CustomIconButton(
-                                  height: 24.adaptSize,
-                                  width: 24.adaptSize,
-                                  padding: EdgeInsets.all(4.h),
-                                  decoration: IconButtonStyleHelper
-                                      .gradientGreenToPrimary,
-                                  child: CustomImageView(
-                                    imagePath: ImageConstant.imgUpload,
-                                  ),
+                                height: 24.adaptSize,
+                                width: 24.adaptSize,
+                                // padding: EdgeInsets.all(4.h),
+                                decoration: IconButtonStyleHelper
+                                    .gradientGreenToPrimary,
+                                child: Icon(
+                                 Icons.spatial_audio,
+                                 color: Colors.white,
+                                 size: 15,
                                 ),
+                              ),
                               ],
                             ),
                           ),
