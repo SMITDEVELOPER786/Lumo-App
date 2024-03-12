@@ -53,28 +53,24 @@ class AccountCreationOneScreen extends GetWidget<AccountCreationOneController> {
                                           style: CustomTextStyles
                                               .labelLargeGray40005)),
                                   SizedBox(height: 23.v),
-                                  CustomDropDown(
-                                      icon: Container(
-                                          margin: EdgeInsets.fromLTRB(
-                                              30.h, 18.v, 20.h, 18.v),
-                                          child: CustomImageView(
-                                              imagePath: ImageConstant
-                                                  .imgArrowdownGray80003,
-                                              height: 16.adaptSize,
-                                              width: 16.adaptSize)),
-                                      hintText: "lbl_select_country".tr,
-                                      hintStyle:
-                                          CustomTextStyles.titleSmallGray700,
-                                      items: controller
-                                          .accountCreationOneModelObj
-                                          .value
-                                          .dropdownItemList!
-                                          .value,
-                                      contentPadding: EdgeInsets.only(
-                                          left: 20.h, top: 17.v, bottom: 17.v),
-                                      onChanged: (value) {
-                                        controller.onSelected(value);
-                                      }),
+                                  // CustomDropDown(
+                                  //     icon: Container(
+                                  //         margin: EdgeInsets.fromLTRB(
+                                  //             30.h, 18.v, 20.h, 18.v),
+                                  //         child: CustomImageView(
+                                  //             imagePath: ImageConstant
+                                  //                 .imgArrowdownGray80003,
+                                  //             height: 16.adaptSize,
+                                  //             width: 16.adaptSize)),
+                                  //     hintText: "lbl_select_country".tr,
+                                  //     hintStyle:
+                                  //         CustomTextStyles.titleSmallGray700,
+                                  //     items: controller.accountCreationOneModelObj.value.dropdownItemList!.value,
+                                  //     contentPadding: EdgeInsets.only(
+                                  //         left: 20.h, top: 17.v, bottom: 17.v),
+                                  //     onChanged: (value) {
+                                  //       controller.onSelected(value);
+                                  //     }),
                                   SizedBox(height: 20.v),
                                   Obx(() => CustomPhoneNumber(
                                       country: controller.selectedCountry.value,

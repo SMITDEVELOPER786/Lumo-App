@@ -25,6 +25,7 @@ return isInputStringValid; } /// Password should have,
 ///  at least a special character [@#$%^&+=]
 ///  length of at least 4
 /// no white space allowed
+
 bool isValidPassword(String? inputString, {bool isRequired = false, }) { 
 bool isInputStringValid = false;
 
@@ -44,7 +45,8 @@ isInputStringValid = regExp.hasMatch(inputString) ;
 
 }
 
-return isInputStringValid; } /// Checks if string is phone number
+return isInputStringValid; } 
+/// Checks if string is phone number
 bool isValidPhone(String? inputString, {bool isRequired = false, }) { 
 bool isInputStringValid = false;
 
