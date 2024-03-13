@@ -31,79 +31,85 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-     
-        appBar: _buildAppBar(),
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(vertical: 28.v),
-            child: Column(
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgGroup116x173,
-                  height: 81.v,
-                  width: 121.h,
-                ),
-                SizedBox(height: 78.v),
-                _buildEmail(),
-                SizedBox(height: 35.v),
-                _buildFrameFour(),
-                SizedBox(height: 31.v),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      child: 
+      
+         Scaffold(
+             
+          appBar: _buildAppBar(),
+          body: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.symmetric(vertical: 28.v),
+                child: Column(
                   children: [
-                    CustomIconButton(
-                      height: 50.adaptSize,
-                      width: 50.adaptSize,
-                      padding: EdgeInsets.all(13.h),
-                      decoration: IconButtonStyleHelper.outlineGray,
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgGoogleLogo,
-                      ),
+                    CustomImageView(
+                      imagePath: ImageConstant.imgGroup116x173,
+                      height: 81.v,
+                      width: 121.h,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.h),
-                      child: CustomIconButton(
-                        height: 50.adaptSize,
-                        width: 50.adaptSize,
-                        padding: EdgeInsets.all(10.h),
-                        decoration: IconButtonStyleHelper.outlineGray,
-                        child: CustomImageView(
-                          imagePath: ImageConstant.imgAppleLogo,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 35.v),
-                GestureDetector(
-                  onTap: (){
-                      Get.lazyPut(()=>SignInScreen());
-                Get.toNamed(AppRoutes.signInScreen);
-                  },
-                  child: RichText(
-                    text: TextSpan(
+                    SizedBox(height: 78.v),
+                    _buildEmail(),
+                    SizedBox(height: 35.v),
+                    _buildFrameFour(),
+                    SizedBox(height: 31.v),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextSpan(
-                          text: "msg_already_have_an2".tr,
-                          style: CustomTextStyles.labelMediumff4c4c4c11,
+                        CustomIconButton(
+                          height: 50.adaptSize,
+                          width: 50.adaptSize,
+                          padding: EdgeInsets.all(13.h),
+                          decoration: IconButtonStyleHelper.outlineGray,
+                          child: CustomImageView(
+                            imagePath: ImageConstant.imgGoogleLogo,
+                          ),
                         ),
-                        TextSpan(
-                          text: "lbl_sign_in".tr,
-                          style: CustomTextStyles.labelMediumff119645,
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.h),
+                          child: CustomIconButton(
+                            height: 50.adaptSize,
+                            width: 50.adaptSize,
+                            padding: EdgeInsets.all(10.h),
+                            decoration: IconButtonStyleHelper.outlineGray,
+                            child: CustomImageView(
+                              imagePath: ImageConstant.imgAppleLogo,
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                    textAlign: TextAlign.left,
-                  ),
+                    SizedBox(height: 35.v),
+                    GestureDetector(
+                      onTap: (){
+                          Get.lazyPut(()=>SignInScreen());
+                    Get.toNamed(AppRoutes.signInScreen);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "msg_already_have_an2".tr,
+                              style: CustomTextStyles.labelMediumff4c4c4c11,
+                            ),
+                            TextSpan(
+                              text: "lbl_sign_in".tr,
+                              style: CustomTextStyles.labelMediumff119645,
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    SizedBox(height: 5.v),
+                  ],
                 ),
-                SizedBox(height: 5.v),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+ 
     );
   }
 
@@ -123,12 +129,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildEmail() {
     return SizedBox(
-      height: 370.v,
+      // height: 370.v,
       width: double.maxFinite,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.h),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               "msg_create_an_account".tr,
@@ -193,22 +199,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Obx(
-                () => CustomCheckboxButton(
-                  alignment: Alignment.centerLeft,
-                  text: "msg_accept_hi_live_terms".tr,
-                  value: controller.checkSquare.value,
-                  padding: EdgeInsets.symmetric(vertical: 4.v),
-                  onChange: (value) {
-                    controller.checkSquare.value = value;
-                  },
-                ),
+                () => 
+                CustomCheckboxButton(
+                alignment: Alignment.centerLeft,
+                text: "msg_accept_hi_live_terms".tr,
+                value: controller.checkSquare.value,
+                padding: EdgeInsets.symmetric(vertical: 4.v),
+                onChange: (value) {
+                  controller.checkSquare.value = value;
+                },
+              ),
               ),
             ),
             SizedBox(height: 47.v),
             CustomElevatedButton(
               onPressed: (){
-                    Get.lazyPut(()=>AccountCreationOneScreen());
-                Get.toNamed(AppRoutes.accountCreationOneScreen);
+                 if (_formKey.currentState!.validate() ) {
+                  if( controller.checkSquare.value == true){
+                     String email = controller.emailController.text;
+                  String password = controller.passwordController.text;
+                  controller.signUp(email, password, context);
+
+                  }
+                  else{
+                    Get.snackbar("Error", "Please agree with the terms and services");
+                  }
+                 
+                }
+                
+           
+                  
               },
               text: "lbl_sign_up".tr,
               buttonStyle: CustomButtonStyles.none,

@@ -77,6 +77,13 @@ class AccountCreationOneScreen extends GetWidget<AccountCreationOneController> {
                                       }),
                                   SizedBox(height: 20.v),
                                   Obx(() => CustomPhoneNumber(
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter a phone number.';
+                                        }
+                                        // Add more validation logic as per your requirements
+                                        return null; // Return null if the input is valid
+                                      },
                                       country: controller.selectedCountry.value,
                                       controller:
                                           controller.phoneNumberController,
@@ -86,10 +93,27 @@ class AccountCreationOneScreen extends GetWidget<AccountCreationOneController> {
                                       })),
                                   SizedBox(height: 40.v),
                                   CustomElevatedButton(
-                                    onPressed: (){
-                                        Get.lazyPut(()=>AccountCreationScreen());
-                Get.toNamed(AppRoutes.accountCreationScreen);
-                                    },
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          // If the form is valid, proceed with the action
+                                          Get.lazyPut(
+                                              () => AccountCreationScreen());
+                                          Get.toNamed(
+                                              AppRoutes.accountCreationScreen);
+                                        } else {
+                                          // If the form is not valid, display error messages or handle invalid input cases
+                                          // For example, you can display a snackbar with an error message
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'Please correct the errors in the form.'),
+                                            ),
+                                          );
+                                        }
+                                        //                         Get.lazyPut(()=>AccountCreationScreen());
+                                        // Get.toNamed(AppRoutes.accountCreationScreen);
+                                      },
                                       text: "lbl_proceed".tr,
                                       buttonStyle: CustomButtonStyles.none,
                                       decoration: CustomButtonStyles

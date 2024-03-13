@@ -50,9 +50,18 @@ class VerificationScreen extends GetWidget<VerificationController> {
                 ),
                 child: Obx(
                   () => CustomPinCodeTextField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter all fields.';
+                      }
+                      return null;
+                    },
                     context: Get.context!,
                     controller: controller.otpController.value,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                       controller.enteredPin = value; 
+
+                    },
                   ),
                 ),
               ),
@@ -81,9 +90,10 @@ class VerificationScreen extends GetWidget<VerificationController> {
               ),
               SizedBox(height: 61.v),
               CustomElevatedButton(
-                onPressed: (){
-                      Get.lazyPut(()=>CreatePasswordScreen());
-                Get.toNamed(AppRoutes.createPasswordScreen);
+                onPressed: () {
+                  
+                  Get.lazyPut(() => CreatePasswordScreen());
+                  Get.toNamed(AppRoutes.createPasswordScreen);
                 },
                 text: "lbl_confirm".tr,
                 buttonStyle: CustomButtonStyles.none,

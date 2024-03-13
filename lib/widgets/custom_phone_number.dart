@@ -9,15 +9,21 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.da
 // ignore: must_be_immutable
 class CustomPhoneNumber extends StatelessWidget {
   CustomPhoneNumber({
+
+
     Key? key,
     required this.country,
     required this.onTap,
-    required this.controller,
+    required this.controller,   
+    this.validator, 
+
+
   }) : super(
           key: key,
         );
 
   Country country;
+   final String? Function(String?)? validator;
 
   Function(Country) onTap;
 

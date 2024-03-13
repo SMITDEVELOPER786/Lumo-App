@@ -99,8 +99,15 @@ class SignInScreen extends GetWidget<SignInController> {
                               SizedBox(height: 47.v),
                               CustomElevatedButton(
                                 onPressed: (){
-                                      Get.lazyPut(()=>HomepageThreePage());
-                                      Get.to(()=>HomepageThreePage());
+                                    if (_formKey.currentState!.validate() ) {
+                                        String email = controller.emailController.text;
+                                         String password = controller.passwordController.text;
+                                         print(email.toString());
+                                         print(password.toString());
+
+                                      controller.signIn(email, password, context);
+                                    }
+                                   
                                 },
                                   text: "lbl_sign_in".tr,
                                   buttonStyle: CustomButtonStyles.none,
