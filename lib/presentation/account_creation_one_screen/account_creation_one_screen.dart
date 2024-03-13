@@ -53,26 +53,37 @@ class AccountCreationOneScreen extends GetWidget<AccountCreationOneController> {
                                           style: CustomTextStyles
                                               .labelLargeGray40005)),
                                   SizedBox(height: 23.v),
-                                  // CustomDropDown(
-                                  //     icon: Container(
-                                  //         margin: EdgeInsets.fromLTRB(
-                                  //             30.h, 18.v, 20.h, 18.v),
-                                  //         child: CustomImageView(
-                                  //             imagePath: ImageConstant
-                                  //                 .imgArrowdownGray80003,
-                                  //             height: 16.adaptSize,
-                                  //             width: 16.adaptSize)),
-                                  //     hintText: "lbl_select_country".tr,
-                                  //     hintStyle:
-                                  //         CustomTextStyles.titleSmallGray700,
-                                  //     items: controller.accountCreationOneModelObj.value.dropdownItemList!.value,
-                                  //     contentPadding: EdgeInsets.only(
-                                  //         left: 20.h, top: 17.v, bottom: 17.v),
-                                  //     onChanged: (value) {
-                                  //       controller.onSelected(value);
-                                  //     }),
+                                  CustomDropDown(
+                                      icon: Container(
+                                          margin: EdgeInsets.fromLTRB(
+                                              30.h, 18.v, 20.h, 18.v),
+                                          child: CustomImageView(
+                                              imagePath: ImageConstant
+                                                  .imgArrowdownGray80003,
+                                              height: 16.adaptSize,
+                                              width: 16.adaptSize)),
+                                      hintText: "lbl_select_country".tr,
+                                      hintStyle:
+                                          CustomTextStyles.titleSmallGray700,
+                                      items: controller
+                                          .accountCreationOneModelObj
+                                          .value
+                                          .dropdownItemList!
+                                          .value,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 20.h, top: 17.v, bottom: 17.v),
+                                      onChanged: (value) {
+                                        controller.onSelected(value);
+                                      }),
                                   SizedBox(height: 20.v),
                                   Obx(() => CustomPhoneNumber(
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter a phone number.';
+                                        }
+                                        // Add more validation logic as per your requirements
+                                        return null; // Return null if the input is valid
+                                      },
                                       country: controller.selectedCountry.value,
                                       controller:
                                           controller.phoneNumberController,
@@ -82,10 +93,27 @@ class AccountCreationOneScreen extends GetWidget<AccountCreationOneController> {
                                       })),
                                   SizedBox(height: 40.v),
                                   CustomElevatedButton(
-                                    onPressed: (){
-                                        Get.lazyPut(()=>AccountCreationScreen());
-                Get.toNamed(AppRoutes.accountCreationScreen);
-                                    },
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          // If the form is valid, proceed with the action
+                                          Get.lazyPut(
+                                              () => AccountCreationScreen());
+                                          Get.toNamed(
+                                              AppRoutes.accountCreationScreen);
+                                        } else {
+                                          // If the form is not valid, display error messages or handle invalid input cases
+                                          // For example, you can display a snackbar with an error message
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'Please correct the errors in the form.'),
+                                            ),
+                                          );
+                                        }
+                                        //                         Get.lazyPut(()=>AccountCreationScreen());
+                                        // Get.toNamed(AppRoutes.accountCreationScreen);
+                                      },
                                       text: "lbl_proceed".tr,
                                       buttonStyle: CustomButtonStyles.none,
                                       decoration: CustomButtonStyles

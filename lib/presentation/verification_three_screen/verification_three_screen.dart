@@ -1,4 +1,4 @@
-import 'package:muhammad_zubair_s_application4/presentation/verification_four_screen/verification_four_screen.dart';
+
 
 import 'controller/verification_three_controller.dart';
 import 'package:flutter/material.dart';
@@ -55,12 +55,18 @@ class VerificationThreeScreen extends GetWidget<VerificationThreeController> {
                   left: 23.h,
                   right: 22.h,
                 ),
-                child: Obx(
-                  () => CustomPinCodeTextField(
-                    context: Get.context!,
-                    controller: controller.otpController.value,
-                    onChanged: (value) {},
-                  ),
+                child: CustomPinCodeTextField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter all fields.';
+                    }
+                    return null;
+                  },
+                  context: Get.context!,
+                  // controller: controller.otpController.value,
+                  onChanged: (value) {
+                    controller.enteredPin = value;
+                  },
                 ),
               ),
               SizedBox(height: 20.v),
@@ -112,15 +118,17 @@ class VerificationThreeScreen extends GetWidget<VerificationThreeController> {
                 bottom: 1.v,
               ),
               strokeWidth: 1.h,
-            gradient: LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
-      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
-    ],
-     stops: [0.2, 1.0],
-  ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 163, 226, 15)
+                      .withOpacity(0.8), // Start with yellow at the top
+                  Color.fromARGB(
+                      255, 43, 112, 45), // Transition to green at the bottom
+                ],
+                stops: [0.2, 1.0],
+              ),
               corners: Corners(
                 topLeft: Radius.circular(24),
                 topRight: Radius.circular(24),
@@ -128,7 +136,7 @@ class VerificationThreeScreen extends GetWidget<VerificationThreeController> {
                 bottomRight: Radius.circular(24),
               ),
               child: CustomOutlinedButton(
-                onPressed: (){
+                onPressed: () {
                   Get.back();
                 },
                 text: "lbl_previous".tr,
@@ -138,9 +146,16 @@ class VerificationThreeScreen extends GetWidget<VerificationThreeController> {
         ),
         Expanded(
           child: CustomElevatedButton(
-            onPressed: (){
-                Get.lazyPut(()=>VerificationFourScreen());
-                Get.toNamed(AppRoutes.verificationFourScreen);
+            onPressed: () async {
+              if (controller.enteredPin.length != 4) {
+                Get.snackbar("Error", "Please fill the OTP Fields");
+              } else {
+                String enteredPin = controller.enteredPin;
+                await controller.verifyOTP(enteredPin);
+              }
+
+              // Get.lazyPut(()=>VerificationFourScreen());
+              // Get.toNamed(AppRoutes.verificationFourScreen);
             },
             height: 48.v,
             text: "lbl_proceed".tr,

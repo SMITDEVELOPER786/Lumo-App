@@ -31,13 +31,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Obx((){
-        return
-        controller.isLoading.value
-          ? Container(
-            color: Colors.black.withOpacity(0.75),
-            child: Center(child: CircularProgressIndicator())) // Show loading indicator
-          :
+      child: 
+      
          Scaffold(
              
           appBar: _buildAppBar(),
@@ -113,8 +108,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        );
-   } ),
+        ),
+ 
     );
   }
 
@@ -223,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if( controller.checkSquare.value == true){
                      String email = controller.emailController.text;
                   String password = controller.passwordController.text;
-                  controller.signUp(email, password);
+                  controller.signUp(email, password, context);
 
                   }
                   else{

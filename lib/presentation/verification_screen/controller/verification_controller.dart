@@ -16,6 +16,8 @@ class VerificationController extends GetxController with CodeAutoFill {
   void codeUpdated() {
     otpController.value.text = code ?? '';
   }
+  String enteredPin = '';
+  
 
   @override
   void onInit() {

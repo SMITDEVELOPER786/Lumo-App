@@ -3,10 +3,17 @@ import 'package:muhammad_zubair_s_application4/presentation/account_creation_one
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
 ///
 /// This class manages the state of the SignUpScreen, including the
 /// current signUpModelObj
 class SignUpController extends GetxController {
+  var spinkit = SpinKitRotatingCircle(
+  color: Colors.black,
+  size: 50.0,
+);
+
   TextEditingController emailController = TextEditingController();
 
  var isLoading = false.obs;
@@ -19,9 +26,15 @@ Rx<bool> isShowPassword = true.obs;
 
 Rx<bool> checkSquare = false.obs;
 
-Future<void> signUp(String email, String password) async {
+Future<void> signUp(String email, String password, context) async {
 
-  isLoading(true);
+  Get.dialog(
+      Center(
+        child:
+            CircularProgressIndicator(), // Replace this with your custom loader widget
+      ),
+      barrierDismissible: false,
+    );
     var headers = {
       'Content-Type': 'application/json'
     };
@@ -39,9 +52,10 @@ Future<void> signUp(String email, String password) async {
       var res_data = json.decode(response.body.toString());
 
       if (response.statusCode == 201) {
+     signupToken = res_data["token"];   
         
-      
-         Get.snackbar("Message", "${res_data["message"]}");
+      Get.back();
+         Get.snackbar("Message", "OTP has been sent on your email");
       
      
           Get.lazyPut(()=>AccountCreationOneScreen());

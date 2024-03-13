@@ -42,6 +42,14 @@ class CustomPinCodeTextField extends StatelessWidget {
   }
 
   Widget get pinCodeTextFieldWidget => PinCodeTextField(
+        
+        
+         validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter all fields.';
+          }
+          return null;
+        },
         appContext: context,
         controller: controller,
         length: 4,
@@ -65,6 +73,6 @@ class CustomPinCodeTextField extends StatelessWidget {
           selectedColor: Colors.transparent,
         ),
         onChanged: (value) => onChanged(value),
-        validator: validator,
+       
       );
 }
