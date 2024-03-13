@@ -40,7 +40,7 @@ class VipTabbarView extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Image(
-              image: AssetImage('assets/images/top.png'),
+              image: AssetImage('assets/images/Last.jpg'),
               width: double.infinity,
               // fit: BoxFit.cover,
             ),

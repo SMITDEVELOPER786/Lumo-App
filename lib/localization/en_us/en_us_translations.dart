@@ -35,7 +35,7 @@ final Map<String, String> enUs = {
 
   // Account creation Two Screen
   "lbl_allow": "Allow", "lbl_deny": "Deny",
-  "msg_allow_hi_live_to": "Allow Hi Live to make phone call",
+  "msg_allow_hi_live_to": "Allow Monzo to make phone call",
 
   // Verification Three Screen
   "msg_enter_the_code_sent": "Enter the code sent to your mobile number",
@@ -637,7 +637,7 @@ final Map<String, String> enUs = {
   "lbl_withdrawal": "Withdrawal",
   "lbl_xxx": "XXX ",
   "lbl_yes_please": "Yes, please",
-  "msg_accept_hi_live_terms": "Accept Hi Live Terms and conditions",
+  "msg_accept_hi_live_terms": "Accept Monzo Terms and conditions",
   "msg_already_have_an": "Already have an account? Sign in",
   "msg_already_have_an2": "Already have an account? ",
   "msg_california_united": "California, United States",

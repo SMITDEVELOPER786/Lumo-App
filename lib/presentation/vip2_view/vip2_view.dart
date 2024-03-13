@@ -15,7 +15,7 @@ class Vip2View extends StatelessWidget {
           score: '2000000',
         ),
         VipScreenBottomWidget(
-            vipBadgetTitle: 'VIP Budget',
+            vipBadgetTitle: 'VIP Badge',
             VipBadgetImageUrl: 'assets/images/vip badget.png',
             frameTitle: 'Frame',
             FrameImageUrl: 'assets/images/farme.png',
