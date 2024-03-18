@@ -89,15 +89,18 @@ class ForgotPasswordScreen extends GetWidget<ForgotPasswordController> {
                                               .labelLargeGreen70002SemiBold)),
                                   SizedBox(height: 35.v),
                                   CustomElevatedButton(
-                                    onPressed: (){
-                                       Get.lazyPut(()=>VerificationOneScreen());
-                Get.toNamed(AppRoutes.verificationOneScreen);
+                                    onPressed: () {
+                                      Get.lazyPut(
+                                          () => VerificationOneScreen());
+                                      Get.toNamed(
+                                          AppRoutes.verificationOneScreen);
                                     },
-                                      text: "msg_recover_password".tr,
-                                      margin: EdgeInsets.only(left: 8.h),
-                                      buttonStyle: CustomButtonStyles.none,
-                decoration:
-                    CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,),
+                                    text: "msg_recover_password".tr,
+                                    margin: EdgeInsets.only(left: 8.h),
+                                    buttonStyle: CustomButtonStyles.none,
+                                    decoration: CustomButtonStyles
+                                        .gradientGreenToPrimaryTL25Decoration,
+                                  ),
                                   SizedBox(height: 5.v)
                                 ])))))));
   }
