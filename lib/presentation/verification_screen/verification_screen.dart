@@ -59,8 +59,7 @@ class VerificationScreen extends GetWidget<VerificationController> {
                     context: Get.context!,
                     controller: controller.otpController.value,
                     onChanged: (value) {
-                       controller.enteredPin = value; 
-
+                      controller.enteredPin = value;
                     },
                   ),
                 ),
@@ -90,10 +89,11 @@ class VerificationScreen extends GetWidget<VerificationController> {
               ),
               SizedBox(height: 61.v),
               CustomElevatedButton(
-                onPressed: () {
-                  
-                  Get.lazyPut(() => CreatePasswordScreen());
-                  Get.toNamed(AppRoutes.createPasswordScreen);
+                onPressed: () async {
+                  String otp = controller.otpController.value.text.toString();
+                  if (otp.length == 4) {
+                    await controller.verifyOtp(otp, context);
+                  }
                 },
                 text: "lbl_confirm".tr,
                 buttonStyle: CustomButtonStyles.none,

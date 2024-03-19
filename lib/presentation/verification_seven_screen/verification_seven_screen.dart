@@ -9,61 +9,70 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_outlined_button.da
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 
 class VerificationSevenScreen extends GetWidget<VerificationSevenController> {
-  const VerificationSevenScreen({Key? key}) : super(key: key);
-
+  final  profileImage;
+  VerificationSevenScreen({
+    Key? key,
+     this.profileImage,
+  }) : super(key: key);
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            body: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(horizontal: 19.h, vertical: 56.v),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomImageView(
-                          imagePath: ImageConstant.imgGroup1025,
-                          height: 5.v,
-                          width: 352.h),
-                      SizedBox(height: 40.v),
-                      Text("msg_tell_us_about_yourself".tr,
-                          style: theme.textTheme.titleLarge),
-                      SizedBox(height: 7.v),
-                      Text("msg_help_us_personalize".tr,
-                          style: CustomTextStyles.labelLargeGray40005),
-                      SizedBox(height: 37.v),
-                      Text("lbl_your_gender".tr,
-                          style:
-                              CustomTextStyles.titleSmallMontserratGray90001),
-                      SizedBox(height: 5.v),
-                      CustomDropDown(
-                          icon: Container(
-                              margin:
-                                  EdgeInsets.fromLTRB(30.h, 18.v, 20.h, 18.v),
-                              child: CustomImageView(
-                                  imagePath:
-                                      ImageConstant.imgArrowdownGray80003,
-                                  height: 16.adaptSize,
-                                  width: 16.adaptSize)),
-                          hintText: "lbl_select_gender".tr,
-                          hintStyle: CustomTextStyles.titleSmallGray50006,
-                          items: controller.verificationSevenModelObj.value
-                              .dropdownItemList!.value,
-                          contentPadding: EdgeInsets.only(
-                              left: 20.h, top: 17.v, bottom: 17.v),
-                          onChanged: (value) {
-                            controller.onSelected(value);
-                          }),
-                      SizedBox(height: 26.v),
-                      Text("lbl_date_of_birth".tr,
-                          style:
-                              CustomTextStyles.titleSmallMontserratGray90001),
-                      SizedBox(height: 7.v),
-                      _buildSix(),
-                      SizedBox(height: 48.v),
-                      _buildFrame(),
-                      SizedBox(height: 5.v)
-                    ]))));
+        child: Form(
+      key: _formKey,
+      child: Scaffold(
+          body: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(horizontal: 19.h, vertical: 56.v),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomImageView(
+                        imagePath: ImageConstant.imgGroup1025,
+                        height: 5.v,
+                        width: 352.h),
+                    SizedBox(height: 40.v),
+                    Text("msg_tell_us_about_yourself".tr,
+                        style: theme.textTheme.titleLarge),
+                    SizedBox(height: 7.v),
+                    Text("msg_help_us_personalize".tr,
+                        style: CustomTextStyles.labelLargeGray40005),
+                    SizedBox(height: 37.v),
+                    Text("lbl_your_gender".tr,
+                        style: CustomTextStyles.titleSmallMontserratGray90001),
+                    SizedBox(height: 5.v),
+                    CustomDropDown(
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a gender';
+                          }
+                          return null;
+                        },
+                        icon: Container(
+                            margin: EdgeInsets.fromLTRB(30.h, 18.v, 20.h, 18.v),
+                            child: CustomImageView(
+                                imagePath: ImageConstant.imgArrowdownGray80003,
+                                height: 16.adaptSize,
+                                width: 16.adaptSize)),
+                        hintText: "lbl_select_gender".tr,
+                        hintStyle: CustomTextStyles.titleSmallGray50006,
+                        items: controller.verificationSevenModelObj.value
+                            .dropdownItemList!.value,
+                        contentPadding: EdgeInsets.only(
+                            left: 20.h, top: 17.v, bottom: 17.v),
+                        onChanged: (value) {
+                          controller.onSelected(value);
+                        }),
+                    SizedBox(height: 26.v),
+                    Text("lbl_date_of_birth".tr,
+                        style: CustomTextStyles.titleSmallMontserratGray90001),
+                    SizedBox(height: 7.v),
+                    _buildSix(),
+                    SizedBox(height: 48.v),
+                    _buildFrame(),
+                    SizedBox(height: 5.v)
+                  ]))),
+    ));
   }
 
   /// Section Widget
@@ -112,10 +121,19 @@ class VerificationSevenScreen extends GetWidget<VerificationSevenController> {
                   child: CustomOutlinedButton(text: "lbl_previous".tr)))),
       Expanded(
           child: CustomElevatedButton(
-            onPressed: (){
-                      Get.lazyPut(()=>VerificationSixScreen());
-                Get.toNamed(AppRoutes.verificationSixScreen);
-            },
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Form validation successful
+                  if (controller.verificationSevenModelObj.value.chooseYourDate
+                      .value.isEmpty) {
+                    Get.snackbar("Error", "Please select date of birth");
+                  } else {
+                    // Date of birth is selected
+                    Get.lazyPut(() => VerificationSixScreen());
+                    Get.toNamed(AppRoutes.verificationSixScreen);
+                  }
+                }
+              },
               height: 48.v,
               text: "lbl_proceed".tr,
               margin: EdgeInsets.only(left: 4.h),

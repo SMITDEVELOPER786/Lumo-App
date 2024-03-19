@@ -4,6 +4,8 @@ import 'userprofile_item_model.dart';
 /// This class defines the variables used in the [verification_six_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
 class VerificationSixModel {
+
+
   Rx<List<UserprofileItemModel>> userprofileItemList = Rx([
     UserprofileItemModel(
         userImage: ImageConstant.imgEllipse12.obs,
@@ -15,6 +17,7 @@ class VerificationSixModel {
         empireBaby: "Monalisa".obs),
     UserprofileItemModel(
         userImage: ImageConstant.imgEllipse121.obs,
+        userImage1: ImageConstant.imgCheckcircle.obs,
         empireBaby: "Oneil’ gurl".obs),
     UserprofileItemModel(
         userImage: ImageConstant.imgEllipse122.obs,
@@ -22,7 +25,7 @@ class VerificationSixModel {
         empireBaby: "Chris".obs),
     UserprofileItemModel(
         userImage: ImageConstant.imgEllipse123.obs,
-        userImage1: ImageConstant.imgCheckmark.obs,
+        userImage1: ImageConstant.imgCheckcircle.obs,
         empireBaby: "Shawn".obs),
     UserprofileItemModel(
         userImage: ImageConstant.imgEllipse124.obs,

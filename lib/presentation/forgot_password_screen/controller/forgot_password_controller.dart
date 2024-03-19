@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/state_manager.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/forgot_password_screen/models/forgot_password_model.dart';

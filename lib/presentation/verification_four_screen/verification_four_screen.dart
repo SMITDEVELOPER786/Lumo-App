@@ -1,4 +1,6 @@
-import 'package:muhammad_zubair_s_application4/presentation/verification_five_screen/verification_five_screen.dart';
+import 'dart:io';
+
+import 'package:muhammad_zubair_s_application4/presentation/host_request.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_seven_screen/verification_seven_screen.dart';
 
 import 'controller/verification_four_controller.dart';
@@ -9,15 +11,47 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_outlined_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ignore_for_file: must_be_immutable
-class VerificationFourScreen extends GetWidget<VerificationFourController> {
-  VerificationFourScreen({Key? key})
-      : super(
-          key: key,
-        );
+class VerificationFourScreen extends StatefulWidget {
+  const VerificationFourScreen({Key? key}) : super(key: key);
+
+  @override
+  _VerificationFourScreenState createState() => _VerificationFourScreenState();
+}
+
+class _VerificationFourScreenState extends State<VerificationFourScreen> {
+  final VerificationFourController controller =
+      Get.put(VerificationFourController());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ImagePicker _picker = ImagePicker();
+  File? imageFile;
+  late String _selectedValue1;
+
+  _getFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+
+    XFile? xFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 2000,
+      maxHeight: 2000,
+    );
+
+    if (xFile != null && xFile.path != null) {
+      print(
+          "Selected file path: ${xFile.path}"); // Check the selected file path
+      imageFile = File(xFile.path);
+      print("imageFile data: $imageFile");
+      setState(() {});
+      print(
+          "imageFile after setState: $imageFile"); // Check the value of imageFile after setState
+    } else {
+      print(
+          "Failed to select an image"); // Print a message if image selection fails
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +93,31 @@ class VerificationFourScreen extends GetWidget<VerificationFourController> {
                     Container(
                       height: 120.adaptSize,
                       width: 120.adaptSize,
-                      padding: EdgeInsets.all(28.h),
+                      // padding: EdgeInsets.all(28.h),
                       decoration: AppDecoration.gradientGreenToPrimary.copyWith(
                         borderRadius: BorderRadiusStyle.circleBorder60,
                       ),
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgCameraWhiteA700,
-                        height: 64.adaptSize,
-                        width: 64.adaptSize,
-                        alignment: Alignment.center,
-                      ),
+                      // ignore: unnecessary_null_comparison
+                      child: imageFile != null &&
+                              imageFile!.path.toString() != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.file(
+                                imageFile!,
+                                fit: BoxFit.cover,
+                                height: 64.adaptSize,
+                                width: 64.adaptSize,
+                              ),
+                            )
+                          : CustomImageView(
+                              onTap: () {
+                                _getFromGallery();
+                              },
+                              imagePath: ImageConstant.imgCameraWhiteA700,
+                              height: 64.adaptSize,
+                              width: 64.adaptSize,
+                              alignment: Alignment.center,
+                            ),
                     ),
                     SizedBox(height: 28.v),
                     CustomTextFormField(
@@ -77,10 +126,11 @@ class VerificationFourScreen extends GetWidget<VerificationFourController> {
                       hintStyle: CustomTextStyles.titleSmallGray700,
                       textInputAction: TextInputAction.done,
                       validator: (value) {
-                        if (!isText(value)) {
-                          return "err_msg_please_enter_valid_text".tr;
+                        if (value!.isEmpty) {
+                          return 'Please enter a user name.';
                         }
-                        return null;
+                        // Add more validation logic as per your requirements
+                        return null; // Return null if the input is valid
                       },
                     ),
                     SizedBox(height: 43.v),
@@ -112,15 +162,17 @@ class VerificationFourScreen extends GetWidget<VerificationFourController> {
                 bottom: 1.v,
               ),
               strokeWidth: 1.h,
-            gradient: LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
-      Color.fromARGB(255, 43, 112, 45),   // Transition to green at the bottom
-    ],
-     stops: [0.2, 1.0],
-  ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 163, 226, 15)
+                      .withOpacity(0.8), // Start with yellow at the top
+                  Color.fromARGB(
+                      255, 43, 112, 45), // Transition to green at the bottom
+                ],
+                stops: [0.2, 1.0],
+              ),
               corners: Corners(
                 topLeft: Radius.circular(24),
                 topRight: Radius.circular(24),
@@ -128,8 +180,8 @@ class VerificationFourScreen extends GetWidget<VerificationFourController> {
                 bottomRight: Radius.circular(24),
               ),
               child: CustomOutlinedButton(
-                onPressed: (){
-                   Get.back();
+                onPressed: () {
+                  Get.back();
                 },
                 text: "lbl_previous".tr,
               ),
@@ -138,9 +190,19 @@ class VerificationFourScreen extends GetWidget<VerificationFourController> {
         ),
         Expanded(
           child: CustomElevatedButton(
-            onPressed: (){
-                Get.lazyPut(()=>VerificationSevenScreen());
-                Get.toNamed(AppRoutes.verificationSevenScreen);
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                if (imageFile == null) {
+                  Get.snackbar("Error", "Please select profile image");
+                } else {
+                  Get.lazyPut(() => VerificationSevenScreen(
+                    
+                    profileImage: imageFile!.path,
+
+                  ));
+                  Get.toNamed(AppRoutes.verificationSevenScreen);
+                }
+              }
             },
             height: 48.v,
             text: "lbl_proceed".tr,
