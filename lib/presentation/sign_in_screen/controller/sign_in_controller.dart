@@ -22,7 +22,7 @@ class SignInController extends GetxController {
   Rx<bool> isShowPassword = true.obs;
 
   Rx<bool> rememberMe = false.obs;
-
+  
   var isLoading = false.obs;
 
   Future<void> signIn(String email, String password, context) async {
