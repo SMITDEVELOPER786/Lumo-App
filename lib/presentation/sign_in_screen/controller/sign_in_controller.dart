@@ -48,7 +48,7 @@ class SignInController extends GetxController {
         authToken = res_data["token"];
 
         Get.back();
-        Get.snackbar("Success", res_data["message"]);
+        Get.snackbar("Success", res_data["message"].toString());
         Get.lazyPut(() => HomepageThreePage());
         Get.to(() => HomepageThreePage());
       } else {
@@ -57,7 +57,7 @@ class SignInController extends GetxController {
             "Error",
             res_data["message"] == "user not fount"
                 ? "User not found"
-                : res_data["message"]);
+                : res_data["message"].toString());
         print(res_data);
         // Handle other status codes, if needed
       }

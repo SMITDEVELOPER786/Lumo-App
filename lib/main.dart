@@ -20,8 +20,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
+        
+       theme: ThemeData(
+              textTheme: Theme.of(context).textTheme.apply(
+                    fontFamily: 'Poppins',
+                  ),
+              useMaterial3: false),
         debugShowCheckedModeBanner: false,
-        theme: theme,
+     
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting localization strings
         fallbackLocale: Locale('en', 'US'),

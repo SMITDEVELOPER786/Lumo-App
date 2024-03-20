@@ -1,4 +1,5 @@
 import 'package:muhammad_zubair_s_application4/presentation/verification_five_screen/verification_five_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/verification_seven_screen/controller/verification_seven_controller.dart';
 
 import '../verification_four_screen/controller/verification_four_controller.dart';
 import '../verification_six_screen/widgets/userprofile_item_widget.dart';
@@ -12,7 +13,8 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 
 // ignore_for_file: must_be_immutable
 class VerificationSixScreen extends StatefulWidget {
-  const VerificationSixScreen({Key? key}) : super(key: key);
+   final profileImage;
+   VerificationSixScreen({Key? key,  this.profileImage, }) : super(key: key);
 
   @override
   _VerificationSixScreenState createState() => _VerificationSixScreenState();
@@ -20,6 +22,7 @@ class VerificationSixScreen extends StatefulWidget {
 
 class _VerificationSixScreenState extends State<VerificationSixScreen> {
   var broadcastController = Get.put(VerificationSixController());
+  final createProfileController = Get.put(VerificationSevenController());
   var NameorImageController = Get.put(VerificationFourController());
     @override
   void initState() {
@@ -84,7 +87,9 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                             broadcastController.isSelected.add(false);
                           return GestureDetector(
                             onTap: () {
-                              broadcastController.toggleSelection(index);
+                              String broadcasterId = broadcastController.broadcasterList[index]["_id"];
+        // Toggle selection and store the selected broadcaster ID
+        broadcastController.toggleSelection(index, broadcasterId);
                             },
                             child: Container(
                               width: double
@@ -166,12 +171,20 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                         },
                       );
               }),
+             
               SizedBox(height: 51.v),
               CustomElevatedButton(
                 onPressed: () async {
                   var completeProfile = {
-                    "username": NameorImageController.userNameController,
+                    "username": NameorImageController.userNameController.value.text,
+                   "profileImage" : widget.profileImage,
+                    "gender" :  createProfileController.gender.value,
+                    "dateOfBirth" : createProfileController.dateController.value.toString(),
+                    "favBroadcaster" : broadcastController.selectedBroadcasterId,
+
+
                   };
+                  print(completeProfile);
 
                   // Delay navigation after 2 seconds (adjust the duration as needed)
 

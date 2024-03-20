@@ -26,8 +26,17 @@ class VerificationSixController extends GetxController {
   }
   final List<bool> isSelected = [];
 
-   void toggleSelection(int index) {
-    isSelected[index] = !isSelected[index];
+  String? selectedBroadcasterId;
+
+  void toggleSelection(int index, String broadcasterId) {
+    // Deselect all other broadcasters
+    for (int i = 0; i < isSelected.length; i++) {
+      isSelected[i] = false;
+    }
+    // Select the broadcaster at the specified index
+    isSelected[index] = true;
+    // Store the selected broadcaster ID
+    selectedBroadcasterId = broadcasterId;
     update(); // Notify GetBuilder to rebuild the widget
   }
 
