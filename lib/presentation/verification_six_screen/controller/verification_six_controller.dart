@@ -90,11 +90,10 @@ class VerificationSixController extends GetxController {
         Uri.parse(
             'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
     request.fields.addAll({
-      'username':
-          NameorImageController.userNameController.value.text.toString(),
-      'dateOfBirth': createProfileController.selectedDate.value.toString(),
-      'gender': createProfileController.gender.value.toString(),
-      'favBroadcaster': selectedBroadcasterId!.toString()
+      'username': NameorImageController.userNameController.value.text.toString(),
+      'dateOfBirth': '12/10/22',  
+      'gender': "Others",
+      'favBroadcaster': "65edf2c5134ebfb130fd50f4!"
     });
     var MyFilename = path.basename(file.path);
     var multipartFile = await http.MultipartFile.fromPath(
@@ -111,6 +110,7 @@ class VerificationSixController extends GetxController {
       Get.back();
       if (response.statusCode == 200) {
         Get.snackbar("Message", "Profile created successfully");
+        NameorImageController.userNameController.clear();
         Get.lazyPut(() => VerificationFiveScreen());
         Get.toNamed(AppRoutes.verificationFiveScreen);
       } else {

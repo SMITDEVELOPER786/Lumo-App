@@ -22,7 +22,7 @@ class VerificationSevenController extends GetxController {
     dateController.value.text = dateRangeText.toString();
   }
 
-  var gender = "Male".obs;
+ var gender = "Male".obs;
   
   var gendersList = [
     "Male",
