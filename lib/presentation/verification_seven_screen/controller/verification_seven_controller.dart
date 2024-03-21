@@ -11,6 +11,16 @@ class VerificationSevenController extends GetxController {
 
   Rx<TextEditingController> dateController = TextEditingController().obs;
   Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
+  void updateDateRange(DateTime? start, DateTime? end) {
+    selectedDate.value = start!;
+   
+
+    String formattedStartDate = start != null ? DateFormat('yyyy-MM-dd').format(start) : '';
+    
+
+    String dateRangeText = '$formattedStartDate ';
+    dateController.value.text = dateRangeText.toString();
+  }
 
   var gender = "Male".obs;
   

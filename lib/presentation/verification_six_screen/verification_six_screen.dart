@@ -13,17 +13,17 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 
 // ignore_for_file: must_be_immutable
 class VerificationSixScreen extends StatefulWidget {
-   final profileImage;
-   VerificationSixScreen({Key? key,  this.profileImage, }) : super(key: key);
+  
+   VerificationSixScreen({Key? key,   }) : super(key: key);
 
   @override
   _VerificationSixScreenState createState() => _VerificationSixScreenState();
 }
 
 class _VerificationSixScreenState extends State<VerificationSixScreen> {
-  var broadcastController = Get.put(VerificationSixController());
+  final broadcastController = Get.put(VerificationSixController());
   final createProfileController = Get.put(VerificationSevenController());
-  var NameorImageController = Get.put(VerificationFourController());
+  final NameorImageController = Get.put(VerificationFourController());
     @override
   void initState() {
     broadcastController.getBroadcasterAPI();
@@ -177,14 +177,15 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                 onPressed: () async {
                   var completeProfile = {
                     "username": NameorImageController.userNameController.value.text,
-                   "profileImage" : widget.profileImage,
+                   "profileImage" : NameorImageController.imageFile.value,
                     "gender" :  createProfileController.gender.value,
-                    "dateOfBirth" : createProfileController.dateController.value.toString(),
+                    "dateOfBirth" :  createProfileController.selectedDate.value,
                     "favBroadcaster" : broadcastController.selectedBroadcasterId,
 
 
                   };
                   print(completeProfile);
+                  broadcastController.createProfile( file: NameorImageController.imageFile.value, );
 
                   // Delay navigation after 2 seconds (adjust the duration as needed)
 

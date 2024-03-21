@@ -10,8 +10,16 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
-class CreatePasswordScreen extends GetWidget<CreatePasswordController> {
-  CreatePasswordScreen({Key? key}) : super(key: key);
+class CreatePasswordScreen extends StatefulWidget {
+  const CreatePasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  _CreatePasswordScreenState createState() => _CreatePasswordScreenState();
+}
+
+class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
+
+  var controller = Get.put(CreatePasswordController());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -130,9 +138,22 @@ class CreatePasswordScreen extends GetWidget<CreatePasswordController> {
                                           bottom: 17.v))),
                                   SizedBox(height: 40.v),
                                   CustomElevatedButton(
-                                    onPressed: (){
-                                          Get.lazyPut(()=>VerificationTwoScreen());
-                Get.toNamed(AppRoutes.verificationTwoScreen);
+                                    onPressed: () async {
+                                      var newpassword =controller.newpasswordController.value.text;
+                                      var confirmpassword = controller.confirmpasswordController.value.text; 
+                                        if (_formKey.currentState!.validate()) {
+                                          if(newpassword!=confirmpassword){
+                                             Get.snackbar("Error", "Password does'not match");
+                                          }
+                                          else{
+                                           
+                                           await controller.updatePassword(newpassword, context);
+
+                                          }
+
+                                      }
+                //                           Get.lazyPut(()=>VerificationTwoScreen());
+                // Get.toNamed(AppRoutes.verificationTwoScreen);
                                     },
                                       text: "lbl_confirm".tr,
                                       buttonStyle: CustomButtonStyles.none,

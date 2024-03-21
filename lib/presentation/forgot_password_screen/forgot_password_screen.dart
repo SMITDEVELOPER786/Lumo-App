@@ -10,8 +10,16 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
-class ForgotPasswordScreen extends GetWidget<ForgotPasswordController> {
-  ForgotPasswordScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+
+  var controller = Get.put(ForgotPasswordController());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -90,10 +98,12 @@ class ForgotPasswordScreen extends GetWidget<ForgotPasswordController> {
                                   SizedBox(height: 35.v),
                                   CustomElevatedButton(
                                     onPressed: () {
-                                      Get.lazyPut(
-                                          () => VerificationOneScreen());
-                                      Get.toNamed(
-                                          AppRoutes.verificationOneScreen);
+                                      if (_formKey.currentState!.validate()) {
+                                        String email =
+                                            controller.emailController.text;
+                                        controller.forgptPassword(
+                                            email, context);
+                                      }
                                     },
                                     text: "msg_recover_password".tr,
                                     margin: EdgeInsets.only(left: 8.h),

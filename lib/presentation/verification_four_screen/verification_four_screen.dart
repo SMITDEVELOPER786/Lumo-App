@@ -22,7 +22,7 @@ class VerificationFourScreen extends StatefulWidget {
 }
 
 class _VerificationFourScreenState extends State<VerificationFourScreen> {
-  final VerificationFourController controller =
+  final VerificationFourController imageandnameControllen =
       Get.put(VerificationFourController());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -30,118 +30,102 @@ class _VerificationFourScreenState extends State<VerificationFourScreen> {
   File? imageFile;
   late String _selectedValue1;
 
-  _getFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-
-    XFile? xFile = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 2000,
-      maxHeight: 2000,
-    );
-
-    if (xFile != null && xFile.path != null) {
-      print(
-          "Selected file path: ${xFile.path}"); // Check the selected file path
-      imageFile = File(xFile.path);
-      print("imageFile data: $imageFile");
-      setState(() {});
-      print(
-          "imageFile after setState: $imageFile"); // Check the value of imageFile after setState
-    } else {
-      print(
-          "Failed to select an image"); // Print a message if image selection fails
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SizedBox(
-          width: SizeUtils.width,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.h,
-                  vertical: 56.v,
-                ),
-                child: Column(
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgGroup1025,
-                      height: 5.v,
-                      width: 352.h,
-                    ),
-                    SizedBox(height: 40.v),
-                    Text(
-                      "msg_upload_your_profile".tr,
-                      style: CustomTextStyles.titleLargeGray90008,
-                    ),
-                    SizedBox(height: 7.v),
-                    Text(
-                      "msg_enter_your_preferred".tr,
-                      style: CustomTextStyles.labelLargeGray40005,
-                    ),
-                    SizedBox(height: 22.v),
-                    Container(
-                      height: 120.adaptSize,
-                      width: 120.adaptSize,
-                      // padding: EdgeInsets.all(28.h),
-                      decoration: AppDecoration.gradientGreenToPrimary.copyWith(
-                        borderRadius: BorderRadiusStyle.circleBorder60,
+      child: GetBuilder(
+         init: imageandnameControllen,
+        builder: (controller) {
+          return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SizedBox(
+            width: SizeUtils.width,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.h,
+                    vertical: 56.v,
+                  ),
+                  child: Column(
+                    children: [
+                      CustomImageView(
+                        imagePath: ImageConstant.imgGroup1025,
+                        height: 5.v,
+                        width: 352.h,
                       ),
-                      // ignore: unnecessary_null_comparison
-                      child: imageFile != null &&
-                              imageFile!.path.toString() != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.file(
-                                imageFile!,
-                                fit: BoxFit.cover,
+                      SizedBox(height: 40.v),
+                      Text(
+                        "msg_upload_your_profile".tr,
+                        style: CustomTextStyles.titleLargeGray90008,
+                      ),
+                      SizedBox(height: 7.v),
+                      Text(
+                        "msg_enter_your_preferred".tr,
+                        style: CustomTextStyles.labelLargeGray40005,
+                      ),
+                      SizedBox(height: 22.v),
+                      Container(
+                        height: 120.adaptSize,
+                        width: 120.adaptSize,
+                        // padding: EdgeInsets.all(28.h),
+                        decoration: AppDecoration.gradientGreenToPrimary.copyWith(
+                          borderRadius: BorderRadiusStyle.circleBorder60,
+                        ),
+                        // ignore: unnecessary_null_comparison
+                        child: imageandnameControllen.imageFile.value != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.file(
+                                  imageandnameControllen.imageFile.value!,
+                                  fit: BoxFit.cover,
+                                  height: 64.adaptSize,
+                                  width: 64.adaptSize,
+                                ),
+                              )
+                            : CustomImageView(
+                                onTap: () {
+                                  imageandnameControllen.pickImageFromGallery();
+                                },
+                                imagePath: ImageConstant.imgCameraWhiteA700,
                                 height: 64.adaptSize,
                                 width: 64.adaptSize,
+                                alignment: Alignment.center,
                               ),
-                            )
-                          : CustomImageView(
-                              onTap: () {
-                                _getFromGallery();
-                              },
-                              imagePath: ImageConstant.imgCameraWhiteA700,
-                              height: 64.adaptSize,
-                              width: 64.adaptSize,
-                              alignment: Alignment.center,
-                            ),
-                    ),
-                    SizedBox(height: 28.v),
-                    CustomTextFormField(
-                      controller: controller.userNameController,
-                      hintText: "lbl_username".tr,
-                      hintStyle: CustomTextStyles.titleSmallGray700,
-                      textInputAction: TextInputAction.done,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter a user name.';
-                        }
-                        // Add more validation logic as per your requirements
-                        return null; // Return null if the input is valid
-                      },
-                    ),
-                    SizedBox(height: 43.v),
-                    _buildFrame(),
-                    SizedBox(height: 5.v),
-                  ],
+                      ),
+                      SizedBox(height: 28.v),
+                      CustomTextFormField(
+                        controller: imageandnameControllen.userNameController,
+                        hintText: "lbl_username".tr,
+                        hintStyle: CustomTextStyles.titleSmallGray700,
+                        textInputAction: TextInputAction.done,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a user name.';
+                          }
+                          // Add more validation logic as per your requirements
+                          return null; // Return null if the input is valid
+                        },
+                      ),
+                      SizedBox(height: 43.v),
+                      _buildFrame(),
+                      SizedBox(height: 5.v),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        );
+
+        }
+      
+        
       ),
     );
   }
@@ -192,14 +176,10 @@ class _VerificationFourScreenState extends State<VerificationFourScreen> {
           child: CustomElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                if (imageFile == null) {
+                if (imageandnameControllen.imageFile == null) {
                   Get.snackbar("Error", "Please select profile image");
                 } else {
-                  Get.lazyPut(() => VerificationSevenScreen(
-                    
-                    profileImage: imageFile!.path,
-
-                  ));
+                  Get.lazyPut(() => VerificationSevenScreen());
                   Get.toNamed(AppRoutes.verificationSevenScreen);
                 }
               }

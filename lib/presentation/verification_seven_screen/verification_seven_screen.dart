@@ -10,11 +10,8 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_outlined_button.da
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 
 class VerificationSevenScreen extends StatefulWidget {
-  final profileImage;
-
   const VerificationSevenScreen({
     Key? key,
-    this.profileImage,
   }) : super(key: key);
 
   @override
@@ -97,28 +94,6 @@ class _VerificationSevenScreenState extends State<VerificationSevenScreen> {
                       },
                     ),
                     SizedBox(height: 5.v),
-                    // CustomDropDown(
-                    //     validator: (value) {
-                    //       if (value == null) {
-                    //         return 'Please select a gender';
-                    //       }
-                    //       return null;
-                    //     },
-                    //     icon: Container(
-                    //         margin: EdgeInsets.fromLTRB(30.h, 18.v, 20.h, 18.v),
-                    //         child: CustomImageView(
-                    //             imagePath: ImageConstant.imgArrowdownGray80003,
-                    //             height: 16.adaptSize,
-                    //             width: 16.adaptSize)),
-                    //     hintText: "lbl_select_gender".tr,
-                    //     hintStyle: CustomTextStyles.titleSmallGray50006,
-                    //     // items: createProfileController.gender.to,
-                    //     contentPadding: EdgeInsets.only(
-                    //         left: 20.h, top: 17.v, bottom: 17.v),
-                    //     onChanged: (value) {
-                    //       createProfileController.selectGender(value);
-                    //     }),
-
                     SizedBox(height: 26.v),
                     Text("lbl_date_of_birth".tr,
                         style: CustomTextStyles.titleSmallMontserratGray90001),
@@ -132,6 +107,14 @@ class _VerificationSevenScreenState extends State<VerificationSevenScreen> {
                             lastDate: DateTime.now(),
                           );
                           if (pickedDate != null) {
+                            String formattedStartDate = createProfileController
+                                        .selectedDate.value !=
+                                    null
+                                ? DateFormat('yyyy-MM-dd').format(
+                                    createProfileController.selectedDate.value!)
+                                : '';
+                            createProfileController.selectedDate.value =
+                                pickedDate;
                             createProfileController.selectedDate.value =
                                 pickedDate;
                           }
@@ -191,18 +174,13 @@ class _VerificationSevenScreenState extends State<VerificationSevenScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   // Form validation successful
                                   if (createProfileController
-                                      .verificationSevenModelObj
-                                      .value
-                                      .chooseYourDate
-                                      .value
-                                      .isEmpty) {
+                                          .selectedDate.value ==
+                                      "") {
                                     Get.snackbar(
                                         "Error", "Please select date of birth");
                                   } else {
                                     // Date of birth is selected
-                                    Get.lazyPut(() => VerificationSixScreen(
-                                          profileImage: widget.profileImage,
-                                        ));
+                                    Get.lazyPut(() => VerificationSixScreen());
                                     Get.toNamed(
                                         AppRoutes.verificationSixScreen);
                                   }
