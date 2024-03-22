@@ -44,7 +44,7 @@ class SignInController extends GetxController {
       );
       var res_data = json.decode(response.body.toString());
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         authToken = res_data["token"];
 
         Get.back();
