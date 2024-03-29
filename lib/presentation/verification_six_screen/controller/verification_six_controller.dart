@@ -111,6 +111,7 @@ class VerificationSixController extends GetxController {
       if (response.statusCode == 200) {
         Get.snackbar("Message", "Profile created successfully");
         NameorImageController.userNameController.clear();
+        // NameorImageController.imageFile = null;
         Get.lazyPut(() => VerificationFiveScreen());
         Get.toNamed(AppRoutes.verificationFiveScreen);
       } else {
