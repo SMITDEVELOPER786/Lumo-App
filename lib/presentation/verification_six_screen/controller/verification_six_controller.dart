@@ -77,6 +77,8 @@ class VerificationSixController extends GetxController {
   createProfile({
     file,
   }) async {
+   final createProfileController = Get.put(VerificationSevenController());
+     final broadcastController = Get.put(VerificationSixController());
     Get.dialog(
       Center(
         child:
@@ -91,9 +93,9 @@ class VerificationSixController extends GetxController {
             'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
     request.fields.addAll({
       'username': NameorImageController.userNameController.value.text.toString(),
-      'dateOfBirth': '12/10/22',  
-      'gender': "Others",
-      'favBroadcaster': "65edf2c5134ebfb130fd50f4!"
+      'dateOfBirth': createProfileController.selectedDate.value.toString(),  
+      'gender':  createProfileController.gender.value.toLowerCase(),
+      'favBroadcaster': broadcastController.selectedBroadcasterId.toString()
     });
     var MyFilename = path.basename(file.path);
     var multipartFile = await http.MultipartFile.fromPath(

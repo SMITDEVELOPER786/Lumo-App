@@ -1,6 +1,7 @@
 import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/level_screen/level_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/my_wallet_screen/my_wallet_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
 
 import '../profile_page/widgets/profile_item_widget.dart';
 import 'controller/profile_controller.dart';
@@ -484,6 +485,9 @@ class ProfilePage extends StatelessWidget {
   /// Section Widget
   Widget _buildLogout() {
     return CustomElevatedButton(
+      onPressed: (){
+        Get.to(SignInScreen());
+      },
       text: "lbl_logout".tr,
       margin: EdgeInsets.symmetric(horizontal: 31.h),
       rightIcon: Container(
