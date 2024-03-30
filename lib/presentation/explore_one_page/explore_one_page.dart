@@ -1,8 +1,10 @@
+import 'package:chewie/chewie.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/controller/explore_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/explore_bottomsheet.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_one_page/Gift_Screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
+import 'package:video_player/video_player.dart';
 
 import 'controller/explore_one_controller.dart';
 import 'models/explore_one_model.dart';
@@ -10,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-class ExploreOnePage extends StatefulWidget  {
+class ExploreOnePage extends StatefulWidget {
   ExploreOnePage({Key? key})
       : super(
           key: key,
@@ -20,15 +22,21 @@ class ExploreOnePage extends StatefulWidget  {
   State<ExploreOnePage> createState() => _ExploreOnePageState();
 }
 
-class _ExploreOnePageState extends State<ExploreOnePage> with SingleTickerProviderStateMixin {
+class _ExploreOnePageState extends State<ExploreOnePage>
+    with SingleTickerProviderStateMixin {
   ExploreOneController controller =
       Get.put(ExploreOneController(ExploreOneModel().obs));
 
-late TabController _tabController;
+  late TabController _tabController;
+  final videoController = Get.put(ExploreOneController(ExploreOneModel().obs));
+  ChewieController? _chewieController;
 
- @override
+  @override
   void initState() {
     super.initState();
+
+    videoController.GetReels();
+
     _tabController = TabController(length: 7, vsync: this);
   }
 
@@ -38,9 +46,9 @@ late TabController _tabController;
   // }
   // }
 
-
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -50,60 +58,66 @@ late TabController _tabController;
         extendBody: true,
         extendBodyBehindAppBar: true,
         backgroundColor: appTheme.whiteA700,
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          decoration: BoxDecoration(
-            color: appTheme.whiteA700,
-            image: DecorationImage(
-              image: AssetImage(
-                ImageConstant.imgGroup744,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            width: double.maxFinite,
-            decoration: AppDecoration.white.copyWith(
-              image: DecorationImage(
-                image: AssetImage(
-                  ImageConstant.imgGroup744,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Column(
-              children: [
-                Spacer(
-                  flex: 73,
-                ),
-                CustomImageView(
-                  imagePath: ImageConstant.imgPlayWhiteA700,
-                  height: 64.adaptSize,
-                  width: 64.adaptSize,
-                ),
-                SizedBox(height: 18.v),
-                _buildMarylan(),
-                Spacer(
-                  flex: 26,
-                ),
-                Container(
-                  height: 4.v,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: appTheme.lime50,
-                  ),
-                  child: ClipRRect(
-                    child: LinearProgressIndicator(
-                      value: 0.4,
-                      backgroundColor: appTheme.lime50,
+        body: GetBuilder<ExploreOneController>(builder: (videoController) {
+          return videoController.ReelsList.isNotEmpty
+              ? Stack(
+                  children: [
+                    SingleChildScrollView(
+                       scrollDirection: Axis.vertical, 
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width ,
+                        height: MediaQuery.of(context).size.height ,
+                        child: PageView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                         
+                          itemCount: videoController.ReelsList.length,
+                          itemBuilder: (context, index) {
+                            print(videoController.ReelsList[index]['video']);
+                            return AspectRatio(
+                                aspectRatio: 16 /
+                                    9, // Adjust aspect ratio according to your video
+                                child: VideoPlayerWidget(
+                                  videoUrl:
+                                      "https://res.cloudinary.com/dk3hy0n39/image/upload/${videoController.ReelsList[index]["video"]}",
+                                ));
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                  
+                  
+                    // Column(
+                    //   children: [
+                    //     Spacer(flex: 73),
+                    //     CustomImageView(
+                    //       imagePath: ImageConstant.imgPlayWhiteA700,
+                    //       height: 64.adaptSize,
+                    //       width: 64.adaptSize,
+                    //     ),
+                    //     SizedBox(height: 18.v),
+                    //     _buildMarylan(),
+                    //     Spacer(flex: 26),
+                    //     Container(
+                    //       height: 4.v,
+                    //       width: double.maxFinite,
+                    //       decoration: BoxDecoration(
+                    //         color: appTheme.lime50,
+                    //       ),
+                    //       child: ClipRRect(
+                    //         child: LinearProgressIndicator(
+                    //           value: 0.4,
+                    //           backgroundColor: appTheme.lime50,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  // 
+                  ],
+                )
+              : Center(child: CircularProgressIndicator());
+        }),
       ),
     );
   }
@@ -234,7 +248,6 @@ late TabController _tabController;
                                             ),
                                           ),
                                           SizedBox(height: 10),
-
                                         ],
                                       ),
                                     )
@@ -302,11 +315,10 @@ late TabController _tabController;
               ),
               SizedBox(height: 14.v),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   // showData()
 
-                   showBottomSheet(context);
-
+                  showBottomSheet(context);
                 },
                 child: CustomIconButton(
                   height: 36.adaptSize,
@@ -362,88 +374,120 @@ late TabController _tabController;
   }
 
   showBottomSheet(context) {
-    return 
-    showModalBottomSheet(
-                backgroundColor: Colors.transparent,
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(width: 1,color: Color.fromARGB(255, 147, 202, 10)),
-                      borderRadius: BorderRadius.circular(20)),
-                    height: 300,
-                    child: Column(
-                      children: [
-                        TabBar(
-                          isScrollable: true, // Set isScrollable to true
-                          labelPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                          controller: _tabController,
-                          indicatorColor: Color.fromARGB(255, 154, 240, 15),
-                          tabs: const [
-                            Tab(
-                                child: Text(
-                              'Popular',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'Regular',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'New',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'Valentine',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'Luxury',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'Grand',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                            Tab(
-                                child: Text(
-                              'Super hero',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 87, 205, 2)),
-                            )),
-                          ],
-                        ),
-                        Expanded(
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: const [
-                              // View for Tab 1
-                              GiftScreens(),
-                              GiftScreens(),
-                              GiftScreens(),
-                              GiftScreens(),
-                              GiftScreens(),
-                              GiftScreens(),
-                              GiftScreens(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                  width: 1, color: Color.fromARGB(255, 147, 202, 10)),
+              borderRadius: BorderRadius.circular(20)),
+          height: 300,
+          child: Column(
+            children: [
+              TabBar(
+                isScrollable: true, // Set isScrollable to true
+                labelPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                controller: _tabController,
+                indicatorColor: Color.fromARGB(255, 154, 240, 15),
+                tabs: const [
+                  Tab(
+                      child: Text(
+                    'Popular',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'Regular',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'New',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'Valentine',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'Luxury',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'Grand',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                  Tab(
+                      child: Text(
+                    'Super hero',
+                    style: TextStyle(color: Color.fromARGB(255, 87, 205, 2)),
+                  )),
+                ],
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    // View for Tab 1
+                    GiftScreens(),
+                    GiftScreens(),
+                    GiftScreens(),
+                    GiftScreens(),
+                    GiftScreens(),
+                    GiftScreens(),
+                    GiftScreens(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class VideoPlayerWidget extends StatefulWidget {
+  final String videoUrl;
+
+  VideoPlayerWidget({required this.videoUrl});
+
+  @override
+  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
+}
+
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      autoPlay: true,
+      looping: true,
+      aspectRatio: 16 / 9, // Adjust aspect ratio according to your video
+      autoInitialize: true,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Chewie(controller: _chewieController);
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    _chewieController.dispose();
+    super.dispose();
   }
 }
