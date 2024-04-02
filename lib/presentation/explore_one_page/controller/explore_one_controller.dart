@@ -17,7 +17,7 @@ class ExploreOneController extends GetxController {
   var ReelsList = [];
 
   void ReelsItem(data) {
-  
+  ReelsList.clear();
     ReelsList = data;
     update();
   }
@@ -26,6 +26,15 @@ class ExploreOneController extends GetxController {
   setLoading(bool val) {
     isLoding = val;
     update();
+  }
+
+ // Make isLiked observable
+
+ bool isLiked = false; // Initialize as RxBool
+
+  void updateLikeStatus(bool newStatus) {
+    isLiked = newStatus; // Assign value to .value
+    update(); // Notify the UI to update
   }
 
   GetReels() async {
