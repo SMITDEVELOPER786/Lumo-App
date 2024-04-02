@@ -80,7 +80,7 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                   9, // Adjust aspect ratio according to your video
                               child: VideoPlayerWidget(
                                 videoUrl:
-                                    "https://res.cloudinary.com/dk3hy0n39/image/upload/${videoController.ReelsList[index]["video"]}",
+                                    "https://res.cloudinary.com/dk3hy0n39/video/upload/${videoController.ReelsList[index]["video"]}",
                               )),
                         ),
                         Positioned(
@@ -118,7 +118,10 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                         ),
                                         SizedBox(height: 8.v),
                                         Text(
-                                           videoController.ReelsList[index]["title"].toString().tr,
+                                          videoController.ReelsList[index]
+                                                  ["title"]
+                                              .toString()
+                                              .tr,
                                           style: CustomTextStyles
                                               .bodySmallInterWhiteA70012,
                                         ),
@@ -290,12 +293,16 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                         child: GestureDetector(
                                           onTap: () {
                                             Get.to(() => ReelsComments(
-                                              commentsData: videoController.ReelsList[index]["comment"],
-                                            ));
-                                            print(   videoController.ReelsList[index]["comment"]);
+                                                  commentsData: videoController
+                                                          .ReelsList[index]
+                                                      ["comment"],
+                                                ));
+                                            print(videoController
+                                                .ReelsList[index]["comment"]);
                                           },
                                           child: CustomImageView(
-                                            imagePath: ImageConstant.imgMegaphone,
+                                            imagePath:
+                                                ImageConstant.imgMegaphone,
                                             height: 24.adaptSize,
                                             width: 24.adaptSize,
                                           ),
@@ -303,29 +310,43 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                       ),
                                       SizedBox(height: 3.v),
                                       Text(
-                                       videoController.ReelsList[index]["comment"].where((like) => like != null).length.toString(),
+                                        videoController.ReelsList[index]
+                                                ["comment"]
+                                            .where((like) => like != null)
+                                            .length
+                                            .toString(),
                                         style: CustomTextStyles
                                             .bodySmallInterWhiteA70012,
                                       ),
                                       SizedBox(height: 14.v),
                                       GestureDetector(
-                                        onTap: () {
-                                          print("object");
-                                       setState(() {
-                                          videoController.updateLikeStatus(!videoController.isLiked);
-                                       });
- 
-                                        },
-                                        child: CustomImageView(
-                                          color: videoController.isLiked ? Colors.red : null,
-                                          imagePath: ImageConstant.imgContrast,
-                                          height: 24.adaptSize,
-                                          width: 24.adaptSize,
-                                        ),
-                                      ),
+                                          onTap: () {
+                                            print("object");
+                                            setState(() {
+                                              videoController.updateLikeStatus(
+                                                  !videoController.isLiked);
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.favorite,
+                                            color: videoController.isLiked
+                                                ? Colors.red
+                                                : Colors.white,
+                                          )
+                                          //  CustomImageView(
+                                          //   color:  Colors.red : null,
+                                          //   imagePath: ImageConstant.imgContrast,
+                                          //   height: 24.adaptSize,
+                                          //   width: 24.adaptSize,
+                                          // ),
+                                          ),
                                       SizedBox(height: 3.v),
                                       Text(
-                                        videoController.ReelsList[index]["like"].where((like) => like != null).length.toString().tr,
+                                        videoController.ReelsList[index]["like"]
+                                            .where((like) => like != null)
+                                            .length
+                                            .toString()
+                                            .tr,
                                         style: CustomTextStyles
                                             .bodySmallInterWhiteA70012,
                                       ),
@@ -337,7 +358,12 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                       ),
                                       SizedBox(height: 3.v),
                                       Text(
-                                         videoController.ReelsList[index]["share"].where((like) => like != null).length.toString().tr,
+                                        videoController.ReelsList[index]
+                                                ["share"]
+                                            .where((like) => like != null)
+                                            .length
+                                            .toString()
+                                            .tr,
                                         style: CustomTextStyles
                                             .bodySmallInterWhiteA70012,
                                       ),
@@ -362,7 +388,6 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                       ),
                                     ],
                                   ),
-                           
                                 ],
                               ),
                             ),
