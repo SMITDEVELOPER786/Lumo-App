@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/controller/explore_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_bottomsheet/explore_bottomsheet.dart';
 import 'package:muhammad_zubair_s_application4/presentation/explore_one_page/Gift_Screen.dart';
@@ -320,26 +321,68 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                       ),
                                       SizedBox(height: 14.v),
                                       GestureDetector(
-                                          onTap: () {
+                                          onTap: () async {
                                             print("object");
-                                            setState(() {
-                                              videoController.updateLikeStatus(
-                                                  !videoController.isLiked);
-                                            });
+
+                                            if (!videoController
+                                                .ReelsList[index]["like"]
+                                                .contains(UserID)) {
+                                              videoController.ReelsList[index]
+                                                      ["like"]
+                                                  .add(UserID);
+                                                   setState(() {
+                                                  videoController
+                                                      .ReelsList[index]["like"]
+                                                      .add(UserID);
+                                                });
+                                              try {
+                                                var data = {
+                                                  "reelId": videoController
+                                                      .ReelsList[index]["_id"],
+                                                  "userId": UserID
+                                                };
+                                                await videoController.LikeReel(
+                                                    data);
+                                                // Update the UI and the like count
+                                               
+                                              } catch (e) {
+                                                print("Error liking reel: $e");
+                                                // Handl
+                                                //e the error
+                                              }
+                                            } else {
+                                              setState(() {
+                                                 videoController.ReelsList[index]["like"].remove(UserID);
+                                              });
+                                            //  try {
+                                            //     var data = {
+                                            //       "reelId": videoController
+                                            //           .ReelsList[index]["_id"],
+                                            //       "userId": UserID
+                                            //     };
+                                            //     await videoController.DisLikeReel(
+                                            //         data);
+                                            //     // Update the UI and the like count
+                                            //     setState(() {
+                                            //       videoController
+                                            //           .ReelsList[index]["like"]
+                                            //           .remove(UserID);
+                                            //     });
+                                            //   } catch (e) {
+                                            //     print("Error liking reel: $e");
+                                            //     // Handl
+                                            //     //e the error
+                                            //   }
+                                            }
                                           },
                                           child: Icon(
                                             Icons.favorite,
-                                            color: videoController.isLiked
+                                            color: videoController
+                                                    .ReelsList[index]["like"]
+                                                    .contains(UserID)
                                                 ? Colors.red
                                                 : Colors.white,
-                                          )
-                                          //  CustomImageView(
-                                          //   color:  Colors.red : null,
-                                          //   imagePath: ImageConstant.imgContrast,
-                                          //   height: 24.adaptSize,
-                                          //   width: 24.adaptSize,
-                                          // ),
-                                          ),
+                                          )),
                                       SizedBox(height: 3.v),
                                       Text(
                                         videoController.ReelsList[index]["like"]
@@ -563,8 +606,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     super.initState();
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
     _chewieController = ChewieController(
+      allowFullScreen: true,
       videoPlayerController: _videoPlayerController,
-      autoPlay: true,
+      autoPlay: false,
       looping: true,
       aspectRatio: 16 / 9, // Adjust aspect ratio according to your video
       autoInitialize: true,

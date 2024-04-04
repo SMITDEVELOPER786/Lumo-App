@@ -17,28 +17,68 @@ class ExploreOneController extends GetxController {
   var ReelsList = [];
 
   void ReelsItem(data) {
-  ReelsList.clear();
+    ReelsList.clear();
     ReelsList = data;
     update();
   }
-    bool isLoding = false;
+
+  bool isLoding = false;
 
   setLoading(bool val) {
     isLoding = val;
     update();
   }
 
- // Make isLiked observable
+  // Make isLiked observable
 
- bool isLiked = false; // Initialize as RxBool
+  bool isLiked = false;
 
-  void updateLikeStatus(bool newStatus) {
-    isLiked = newStatus; // Assign value to .value
+  DisLikeReel(data) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/reel/dislike'));
+    request.body =
+        json.encode({"reelId": data["reelId"], "likeId": data["userId"]});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  // Initialize as RxBool
+  LikeReel(data) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/reel/like'));
+    request.body =
+        json.encode({"reelId": data["reelId"], "userId": data["userId"]});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  void updateLikeStatus(bool newStatus, int index) {
+    ReelsList[index].isLiked = newStatus; // Assign value to .value
     update(); // Notify the UI to update
   }
 
   GetReels() async {
-   setLoading(true);
+    setLoading(true);
     var request = http.Request(
         'GET',
         Uri.parse(
@@ -48,9 +88,9 @@ class ExploreOneController extends GetxController {
 
     if (response.statusCode == 200) {
       setLoading(false);
-       String responseBody = await response.stream.bytesToString();
+      String responseBody = await response.stream.bytesToString();
       var resData = jsonDecode(responseBody);
-     
+
       if (resData != null) {
         ReelsItem(resData["data"]);
         print(ReelsList);

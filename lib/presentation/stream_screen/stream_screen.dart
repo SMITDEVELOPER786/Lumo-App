@@ -1,6 +1,8 @@
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/multi_live_screen/multi_live_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/select_tag_dialog/select_tag_dialog.dart';
 import 'package:muhammad_zubair_s_application4/presentation/stream_level_dialog/stream_level_dialog.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
 
 import '../audio_live_screen/audio_live_screen.dart';
 import '../schedule_time_dialog/schedule_time_dialog.dart';
@@ -11,6 +13,7 @@ import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_contain
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_drop_down.dart';
+
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
@@ -156,6 +159,15 @@ class _StreamScreenState extends State<StreamScreen> {
                 // _buildStreamLevel(),
                 SizedBox(height: 21.v),
                 CustomElevatedButton(
+                  onPressed: (() {
+                  LivePage(
+                    isHost: true,
+                    localUserID: UserID,
+                     localUserName: "Test User",
+                     roomID: "123",
+
+                  );
+                  }),
                   text: "lbl_start_streaming".tr,
                   margin: EdgeInsets.symmetric(horizontal: 28.h),
                   rightIcon: Container(

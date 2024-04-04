@@ -46,6 +46,7 @@ class SignInController extends GetxController {
 
       if (response.statusCode == 200) {
         authToken = res_data["token"];
+        UserID = res_data["data"]["_id"];
 
         Get.back();
         Get.snackbar("Success", res_data["message"].toString());
