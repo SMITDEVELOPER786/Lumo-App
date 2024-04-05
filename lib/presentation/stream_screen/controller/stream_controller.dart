@@ -96,6 +96,7 @@ class StreamController extends GetxController
 
   TextEditingController titlecontroller = TextEditingController();
    var hostId;
+   var  hostName;
 
   LiveStreamingAPI(context, streamingdata) async {
     Get.dialog(
@@ -129,7 +130,8 @@ class StreamController extends GetxController
       if(resData["status"] == true){
         Get.back();
         hostId = resData["hostId"].toString();
-       Get.to(LiveStreamingPage(liveID: hostId.toString()));
+        hostName = resData["hostName"].toString();
+       Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: true,));
       }
     } else {
       String responseBody = await response.stream.bytesToString();
