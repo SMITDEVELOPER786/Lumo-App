@@ -226,7 +226,84 @@ class _MultiLiveScreenState extends State<MultiLiveScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: StreamLevelDialog());
+                      child:
+                        Container(
+                                width: 353.h,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 28.h, vertical: 38.v),
+                                decoration: AppDecoration.fillLime.copyWith(
+                                    borderRadius:
+                                        BorderRadiusStyle.roundedBorder10),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomImageView(
+                                          imagePath:
+                                              ImageConstant.imgCloseGray80003,
+                                          height: 16.adaptSize,
+                                          width: 16.adaptSize,
+                                          alignment: Alignment.centerRight,
+                                          margin: EdgeInsets.only(right: 4.h),
+                                          onTap: () {
+                                          Get.close(1);
+                                          }),
+                                      SizedBox(height: 8.v),
+                                      Text("lbl_stream_level".tr,
+                                          style: CustomTextStyles
+                                              .titleSmallGray80001SemiBold_1),
+                                      SizedBox(height: 10.v),
+                                      Text("msg_select_who_can_access".tr,
+                                          style: CustomTextStyles
+                                              .labelLargeGray50005),
+                                      SizedBox(height: 26.v),
+                    //                   DropdownButtonFormField<String>(
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please select an option';
+                    //     }
+                    //     return null; // Return null if the value is valid
+                    //   },
+                    //   decoration: InputDecoration(
+                    //       contentPadding: EdgeInsets.only(
+                    //           left: 20.h, top: 17.v, bottom: 17.v),
+                    //       filled: true,
+                    //       fillColor: appTheme.lightGreen5004,
+                    //       focusedBorder: OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(35),
+                    //           borderSide: BorderSide(
+                    //             color: Colors.white,
+                    //           )),
+                    //       enabledBorder: OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(35),
+                    //           borderSide: BorderSide(
+                    //             color: Colors.white,
+                    //           )),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(35),
+                    //         borderSide: BorderSide(color: Colors.white),
+                    //       )),
+                    //   isExpanded: true,
+                    //   borderRadius: BorderRadius.circular(25),
+                    //   value: Streamcontroller.streamType.toString(),
+                    //   hint: Text(
+                    //     "lbl_select_gender".tr,
+                    //     style: CustomTextStyles.titleSmallGray50006,
+                    //   ),
+                    //   items: Streamcontroller.streamlist.map((item) {
+                    //     return DropdownMenuItem(
+                    //       value: item,
+                    //       child: Text(item),
+                    //     );
+                    //   }).toList(),
+                    //   onChanged: (value) {
+                    //     Streamcontroller.SelectStreamType(value);
+                    //     // ignore: invalid_use_of_protected_member
+                    //     // _formController.floorList.value;
+                    //   },
+                    // ),
+                                    ])),
+                       
+                      );
                 },
               );
             },

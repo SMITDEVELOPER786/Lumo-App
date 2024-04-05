@@ -330,11 +330,11 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                               videoController.ReelsList[index]
                                                       ["like"]
                                                   .add(UserID);
-                                                   setState(() {
-                                                  videoController
-                                                      .ReelsList[index]["like"]
-                                                      .add(UserID);
-                                                });
+                                              setState(() {
+                                                videoController.ReelsList[index]
+                                                        ["like"]
+                                                    .add(UserID);
+                                              });
                                               try {
                                                 var data = {
                                                   "reelId": videoController
@@ -344,7 +344,6 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                                 await videoController.LikeReel(
                                                     data);
                                                 // Update the UI and the like count
-                                               
                                               } catch (e) {
                                                 print("Error liking reel: $e");
                                                 // Handl
@@ -352,27 +351,10 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                                               }
                                             } else {
                                               setState(() {
-                                                 videoController.ReelsList[index]["like"].remove(UserID);
+                                                videoController.ReelsList[index]
+                                                        ["like"]
+                                                    .remove(UserID);
                                               });
-                                            //  try {
-                                            //     var data = {
-                                            //       "reelId": videoController
-                                            //           .ReelsList[index]["_id"],
-                                            //       "userId": UserID
-                                            //     };
-                                            //     await videoController.DisLikeReel(
-                                            //         data);
-                                            //     // Update the UI and the like count
-                                            //     setState(() {
-                                            //       videoController
-                                            //           .ReelsList[index]["like"]
-                                            //           .remove(UserID);
-                                            //     });
-                                            //   } catch (e) {
-                                            //     print("Error liking reel: $e");
-                                            //     // Handl
-                                            //     //e the error
-                                            //   }
                                             }
                                           },
                                           child: Icon(
@@ -435,19 +417,19 @@ class _ExploreOnePageState extends State<ExploreOnePage>
                               ),
                             ),
                             Spacer(flex: 26),
-                            Container(
-                              height: 4.v,
-                              width: double.maxFinite,
-                              decoration: BoxDecoration(
-                                color: appTheme.lime50,
-                              ),
-                              child: ClipRRect(
-                                child: LinearProgressIndicator(
-                                  value: 0.4,
-                                  backgroundColor: appTheme.lime50,
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   height: 4.v,
+                            //   width: double.maxFinite,
+                            //   decoration: BoxDecoration(
+                            //     color: appTheme.lime50,
+                            //   ),
+                            //   child: ClipRRect(
+                            //     child: LinearProgressIndicator(
+                            //       value: 0.4,
+                            //       backgroundColor: appTheme.lime50,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ))
                       ]);

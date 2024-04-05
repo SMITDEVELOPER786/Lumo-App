@@ -1,52 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
-class LivePage extends StatefulWidget {
-  const LivePage({
-    Key? key,
-    required this.isHost,
-    required this.localUserID,
-    required this.localUserName,
-    required this.roomID,
-  }) : super(key: key);
-
+class LiveStreamingPage extends StatefulWidget {
+  final String liveID;
   final bool isHost;
-  final String localUserID;
-  final String localUserName;
-  final String roomID;
+
+   LiveStreamingPage({Key? key, required this.liveID, this.isHost = false}) : super(key: key);
 
   @override
-  State<LivePage> createState() => _LivePageState();
+  State<LiveStreamingPage> createState() => _LiveStreamingPageState();
 }
 
-class _LivePageState extends State<LivePage> {
-  Widget? localView;
-  int? localViewID;
-  Widget? remoteView;
-  int? remoteViewID;
-
+class _LiveStreamingPageState extends State<LiveStreamingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Live page")),
-      body: Stack(
-        children: [
-          (widget.isHost ? localView : remoteView) ?? Container(),
-          Positioned(
-            bottom: MediaQuery.of(context).size.height / 20,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 4,
-                height: MediaQuery.of(context).size.width / 7,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(widget.isHost ? 'End Live' : 'Leave Live'),
-                ),
-              ),
-            ),
-          ),
-        ],
+    return SafeArea(
+      child: ZegoUIKitPrebuiltLiveStreaming(
+        appID: 1684715250,// Fill in the appID that you get from ZEGOCLOUD Admin Console.
+        appSign: "b59452274110f3a3da5900ad0635b6e1cb100259564384115f1f5c603d372783",// Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+        userID: '01',
+        userName: 'Tester',
+        liveID: widget.liveID,
+        config: widget.isHost
+            ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
+            : ZegoUIKitPrebuiltLiveStreamingConfig.audience(),
       ),
     );
   }
