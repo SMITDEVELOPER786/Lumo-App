@@ -14,6 +14,7 @@ class ExploreOneController extends GetxController {
 
   Rx<ExploreOneModel> exploreOneModelObj;
   final RxBool _isLoading = false.obs;
+ 
   var ReelsList = [];
 
   void ReelsItem(data) {

@@ -2,8 +2,12 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
 import 'package:muhammad_zubair_s_application4/presentation/stream_screen/models/stream_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 /// A controller class for the StreamScreen.
 ///
@@ -71,16 +75,68 @@ class StreamController extends GetxController
     update();
   }
 
-   final tags = [
- "#Video",
- "#LiveStreaming",
- "#Public",
- "#Private" ,
+  final tags = [
+    "#video",
+    "#liveStreaming",
+    "#public",
+    "#private",
     // Add more tags as needed
   ].obs;
   final List<bool> selectedTags = List.filled(4, false).obs;
+  final List<String> selectedTagNames = <String>[].obs;
 
   void toggleTagSelection(int index) {
     selectedTags[index] = !selectedTags[index];
+    if (selectedTags[index]) {
+      selectedTagNames.add(tags[index]);
+    } else {
+      selectedTagNames.remove(tags[index]);
+    }
+  }
+
+  TextEditingController titlecontroller = TextEditingController();
+   var hostId;
+
+  LiveStreamingAPI(context, streamingdata) async {
+    Get.dialog(
+      Center(
+        child:
+            CircularProgressIndicator(), // Replace this with your custom loader widget
+      ),
+      barrierDismissible: false,
+    );
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authToken}'
+    };
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream'));
+    request.body = json.encode({
+      "streamType": "live",
+      "title": streamingdata["title"],
+      "streamLevel": streamingdata["streamLevel"],
+      "tags": streamingdata["tags"]
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String responseBody = await response.stream.bytesToString();
+      var resData = jsonDecode(responseBody);
+      if(resData["status"] == true){
+        Get.back();
+        hostId = resData["hostId"].toString();
+       Get.to(LiveStreamingPage(liveID: hostId.toString()));
+      }
+    } else {
+      String responseBody = await response.stream.bytesToString();
+      var resData = jsonDecode(responseBody);
+      Get.back();
+      Get.snackbar("error", resData["message"]);
+      print(response.reasonPhrase);
+    }
   }
 }

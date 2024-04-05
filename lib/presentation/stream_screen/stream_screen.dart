@@ -163,7 +163,15 @@ class _StreamScreenState extends State<StreamScreen> {
                     SizedBox(height: 21.v),
                     CustomElevatedButton(
                       onPressed: (() {
-                        Get.to(LiveStreamingPage(liveID: "123"));
+                        var streamingdata = {
+                          "title": Streamcontroller.titlecontroller.value.text.toLowerCase(),
+                          "streamLevel": Streamcontroller.streamType.value.toLowerCase(),
+                          "tags": Streamcontroller.selectedTagNames,
+
+                        };
+                        print(streamingdata);
+                        Streamcontroller.LiveStreamingAPI( context, streamingdata);
+                        // Get.to(LiveStreamingPage(liveID: "123"));
                       }),
                       text: "lbl_start_streaming".tr,
                       margin: EdgeInsets.symmetric(horizontal: 28.h),
@@ -306,6 +314,7 @@ class _StreamScreenState extends State<StreamScreen> {
                     Container(
                       width: 200,
                       child: TextFormField(
+                        controller: Streamcontroller.titlecontroller,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                             focusedBorder: InputBorder.none,
@@ -549,9 +558,9 @@ class _StreamScreenState extends State<StreamScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: StatefulBuilder(
-                         builder: (BuildContext context, StateSetter setState){
-return    Container(
+                      child: StatefulBuilder(builder:
+                          (BuildContext context, StateSetter setState) {
+                        return Container(
                             width: 353.h,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 23.h, vertical: 27.v),
@@ -586,8 +595,7 @@ return    Container(
                                                                   .tr,
                                                               style: CustomTextStyles
                                                                   .titleSmallGray80003SemiBold),
-                                                          SizedBox(
-                                                              height: 7.v),
+                                                          SizedBox(height: 7.v),
                                                           SizedBox(
                                                               width: 266.h,
                                                               child: Text(
@@ -631,7 +639,7 @@ return    Container(
                                             onTap: () {
                                               setState(() {
                                                 Streamcontroller
-                                                  .toggleTagSelection(index);
+                                                    .toggleTagSelection(index);
                                               });
                                             },
                                             child: Container(
@@ -650,13 +658,9 @@ return    Container(
                                     ),
                                   ),
                                 ]));
-                     
-                         }
-                    
-                      ));
+                      }));
                 },
               );
-            
             },
             child: Container(
               width: 120.h,

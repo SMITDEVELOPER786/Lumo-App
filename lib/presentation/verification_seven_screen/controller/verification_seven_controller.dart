@@ -27,7 +27,7 @@ class VerificationSevenController extends GetxController {
   var gendersList = [
     "Male",
     "Female",
-    "Others"
+    "Other"
    
   ].obs;
    selectGender(value) {
