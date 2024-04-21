@@ -167,6 +167,7 @@ class _StreamScreenState extends State<StreamScreen> {
                           "title": Streamcontroller.titlecontroller.value.text.toLowerCase(),
                           "streamLevel": Streamcontroller.streamType.value.toLowerCase(),
                           "tags": Streamcontroller.selectedTagNames,
+                          "scheduleTime" : DateTime.now().toString()
 
                         };
                         print(streamingdata);
@@ -314,6 +315,7 @@ class _StreamScreenState extends State<StreamScreen> {
                     Container(
                       width: 200,
                       child: TextFormField(
+                        
                         controller: Streamcontroller.titlecontroller,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
