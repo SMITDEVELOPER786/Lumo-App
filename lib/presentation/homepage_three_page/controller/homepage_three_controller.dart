@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
@@ -12,14 +14,16 @@ class HomepageThreeController extends GetxController {
 
   Rx<HomepageThreeModel> homepageThreeModelObj;
 
-  List streamData = [].obs;
+  var isLoading = true.obs;
+  List<dynamic> streamData = [].obs;
 
-  addStreamData(data) {
+  addStreamData(dynamic data) {
     streamData.add(data);
     update();
   }
 
   FetchStreams() async {
+    isLoading(true);
     var headers = {'Authorization': 'Bearer ${authToken} '};
     var request = http.Request(
         'GET',
@@ -31,10 +35,17 @@ class HomepageThreeController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      String data = await response.stream.bytesToString();
-      addStreamData(data);
+       String data = await response.stream.bytesToString();
+      final decodedData = jsonDecode(data);
+      if (decodedData['status']) {
+        final List<dynamic> streams = decodedData['data'];
+        streams.forEach((stream) {
+          addStreamData(stream);
+        });
+      }
     } else {
       print(response.reasonPhrase);
     }
+    isLoading(false);
   }
 }

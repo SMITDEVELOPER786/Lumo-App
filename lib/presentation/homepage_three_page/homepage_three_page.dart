@@ -32,7 +32,13 @@ class HomepageThreePage extends StatefulWidget {
 }
 
 class _HomepageThreePageState extends State<HomepageThreePage> {
-  HomepageThreeController controller = Get.put(HomepageThreeController(HomepageThreeModel().obs));
+  HomepageThreeController controller =
+      Get.put(HomepageThreeController(HomepageThreeModel().obs));
+  @override
+  void initState() {
+    super.initState();
+    controller.FetchStreams();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,22 +75,31 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
               children: [
                 _buildAll(),
                 SizedBox(height: 16.v),
-                Container(
-                  height: 600,
-                  width: double.infinity,
-                  child: GridView.builder(
-                    padding: EdgeInsets.zero,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of columns
-                      crossAxisSpacing: 8.0, // Spacing between columns
-                      mainAxisSpacing: 8.0,
-                      // Spacing between rows
-                    ),
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _buildFrame5();
-                    },
-                  ),
+                GetBuilder<HomepageThreeController>(
+                  builder: (controller) {
+                    if (controller.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Container(
+                        height: 600,
+                        width: double.infinity,
+                        child: GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of columns
+                            crossAxisSpacing: 8.0, // Spacing between columns
+                            mainAxisSpacing: 8.0,
+                            // Spacing between rows
+                          ),
+                          itemCount: controller.streamData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return _buildFrame5();
+                          },
+                        ),
+                      );
+                    }
+                  },
                 ),
                 // _buildFrame5(),
 
