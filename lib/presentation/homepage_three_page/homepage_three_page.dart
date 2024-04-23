@@ -100,8 +100,16 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Get.lazyPut(() => LiveStreamingPage(liveID: controller.streamData[index]["hostId"],isHost: true,));
-                                    Get.to(() => LiveStreamingPage(liveID: controller.streamData[index]["hostId"], isHost: true,));
+                                    Get.lazyPut(() => LiveStreamingPage(
+                                          liveID: controller.streamData[index]
+                                              ["hostId"],
+                                          isHost: true,
+                                        ));
+                                    Get.to(() => LiveStreamingPage(
+                                          liveID: controller.streamData[index]
+                                              ["hostId"],
+                                          isHost: true,
+                                        ));
                                   },
                                   child: SizedBox(
                                     height: 200.v,
@@ -168,7 +176,10 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     Text(
-                                                     controller.streamData[index]["hostName"].toString(),
+                                                      controller
+                                                          .streamData[index]
+                                                              ["hostName"]
+                                                          .toString(),
                                                       style: CustomTextStyles
                                                           .labelLargeSemiBold,
                                                     ),
