@@ -131,7 +131,7 @@ class StreamController extends GetxController
         Get.back();
         hostId = resData["hostId"].toString();
         hostName = resData["hostName"].toString();
-       Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: true,));
+       Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: false,));
       }
     } else {
       String responseBody = await response.stream.bytesToString();

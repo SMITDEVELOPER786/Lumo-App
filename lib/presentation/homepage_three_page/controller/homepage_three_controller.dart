@@ -35,7 +35,8 @@ class HomepageThreeController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-       String data = await response.stream.bytesToString();
+      streamData.clear();
+      String data = await response.stream.bytesToString();
       final decodedData = jsonDecode(data);
       if (decodedData['status']) {
         final List<dynamic> streams = decodedData['data'];

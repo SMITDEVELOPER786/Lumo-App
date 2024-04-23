@@ -9,7 +9,7 @@ class LiveStreamingPage extends StatefulWidget {
   final String liveID;
   final bool isHost;
 
-  LiveStreamingPage({Key? key, required this.liveID, this.isHost = false})
+  LiveStreamingPage({Key? key, required this.liveID,  required this.isHost})
       : super(key: key);
 
   @override
