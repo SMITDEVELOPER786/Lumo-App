@@ -82,7 +82,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return Container(
-                        height: 600,
+                        height: 550,
                         width: double.infinity,
                         child: GridView.builder(
                           padding: EdgeInsets.zero,
@@ -103,12 +103,12 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                     Get.lazyPut(() => LiveStreamingPage(
                                           liveID: controller.streamData[index]
                                               ["hostId"],
-                                          isHost: true,
+                                          isHost: false,
                                         ));
                                     Get.to(() => LiveStreamingPage(
                                           liveID: controller.streamData[index]
                                               ["hostId"],
-                                          isHost: true,
+                                          isHost: false,
                                         ));
                                   },
                                   child: SizedBox(

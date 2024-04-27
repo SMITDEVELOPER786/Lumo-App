@@ -27,6 +27,9 @@ dependencies:
   chewie: ^1.7.0
   flutter_screenutil: ^5.9.0
   zego_uikit_prebuilt_live_streaming: ^3.3.1
+  devicelocale: ^0.7.1
+  geocoding: ^3.0.0
+  geolocator: ^11.0.0
  
 dev_dependencies: 
   flutter_test: 
