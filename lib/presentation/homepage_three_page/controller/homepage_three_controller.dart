@@ -4,6 +4,7 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
 
 /// A controller class for the HomepageThreePage.
 ///
@@ -48,5 +49,39 @@ class HomepageThreeController extends GetxController {
       print(response.reasonPhrase);
     }
     isLoading(false);
+  }
+
+  ConnectStream(connectstreamData) async {
+     isLoading(true);
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer ${authToken}'
+    };
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/join'));
+    request.body = json.encode({"streamId": connectstreamData["HostID"]});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      ;Get.snackbar("Message", "JOin Stream Successfully");
+        Get.lazyPut(() => LiveStreamingPage(
+                                          liveID: connectstreamData["HostID"],
+                                          isHost: false,
+                                        ));
+                                    Get.to(() => LiveStreamingPage(
+                                          liveID: connectstreamData["HostID"]
+                                              ["hostId"],
+                                          isHost: false,
+                                        ));
+
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+       isLoading(false);
+    }
   }
 }

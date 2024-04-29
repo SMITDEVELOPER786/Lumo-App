@@ -81,7 +81,9 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      return Container(
+                      return 
+                       controller.streamData.length < 0 ?
+                      Container(
                         height: 550,
                         width: double.infinity,
                         child: GridView.builder(
@@ -95,21 +97,29 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                           ),
                           itemCount: controller.streamData.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Row(
+                            return 
+                           
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 GestureDetector(
-                                  onTap: () {
-                                    Get.lazyPut(() => LiveStreamingPage(
-                                          liveID: controller.streamData[index]
-                                              ["hostId"],
-                                          isHost: false,
-                                        ));
-                                    Get.to(() => LiveStreamingPage(
-                                          liveID: controller.streamData[index]
-                                              ["hostId"],
-                                          isHost: false,
-                                        ));
+                                  onTap: () async{
+                                    var connectstreamData = {
+                                      "HostID" : controller.streamData[index]["hostId"],
+                                      "isHost": false,
+
+
+                                    };
+                                    await controller.ConnectStream(connectstreamData);
+                                    // Get.lazyPut(() => LiveStreamingPage(
+                                    //       liveID: controller.streamData[index]["hostId"],
+                                    //       isHost: false,
+                                    //     ));
+                                    // Get.to(() => LiveStreamingPage(
+                                    //       liveID: controller.streamData[index]
+                                    //           ["hostId"],
+                                    //       isHost: false,
+                                    //     ));
                                   },
                                   child: SizedBox(
                                     height: 200.v,
@@ -314,10 +324,11 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                 //   ),
                                 // ),
                               ],
-                            );
+                            ) ;
+                        
                           },
                         ),
-                      );
+                      ) : Center(child: Text("No Stream Available"));
                     }
                   },
                 ),
