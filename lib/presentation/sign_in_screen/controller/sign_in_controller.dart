@@ -44,11 +44,12 @@ class SignInController extends GetxController {
       );
       var res_data = json.decode(response.body.toString());
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         authToken = res_data["token"];
+        UserID = res_data["data"]["_id"];
 
         Get.back();
-        Get.snackbar("Success", res_data["message"]);
+        Get.snackbar("Success", res_data["message"].toString());
         Get.lazyPut(() => HomepageThreePage());
         Get.to(() => HomepageThreePage());
       } else {
@@ -57,7 +58,7 @@ class SignInController extends GetxController {
             "Error",
             res_data["message"] == "user not fount"
                 ? "User not found"
-                : res_data["message"]);
+                : res_data["message"].toString());
         print(res_data);
         // Handle other status codes, if needed
       }

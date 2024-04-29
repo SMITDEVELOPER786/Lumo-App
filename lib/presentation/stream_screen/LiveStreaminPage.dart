@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
+
+class LiveStreamingPage extends StatefulWidget {
+  final String liveID;
+  final bool isHost;
+
+   LiveStreamingPage({Key? key, required this.liveID, this.isHost = false}) : super(key: key);
+
+  @override
+  State<LiveStreamingPage> createState() => _LiveStreamingPageState();
+}
+
+class _LiveStreamingPageState extends State<LiveStreamingPage> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: ZegoUIKitPrebuiltLiveStreaming(
+        appID: 1684715250,// Fill in the appID that you get from ZEGOCLOUD Admin Console.
+        appSign: "b59452274110f3a3da5900ad0635b6e1cb100259564384115f1f5c603d372783",// Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+        userID: '01',
+        userName: 'Tester',
+        liveID: widget.liveID,
+        config: widget.isHost
+            ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
+            : ZegoUIKitPrebuiltLiveStreamingConfig.audience(),
+      ),
+    );
+  }
+}

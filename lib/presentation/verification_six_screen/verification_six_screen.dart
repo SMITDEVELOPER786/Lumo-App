@@ -1,4 +1,5 @@
 import 'package:muhammad_zubair_s_application4/presentation/verification_five_screen/verification_five_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/verification_seven_screen/controller/verification_seven_controller.dart';
 
 import '../verification_four_screen/controller/verification_four_controller.dart';
 import '../verification_six_screen/widgets/userprofile_item_widget.dart';
@@ -12,15 +13,17 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 
 // ignore_for_file: must_be_immutable
 class VerificationSixScreen extends StatefulWidget {
-  const VerificationSixScreen({Key? key}) : super(key: key);
+  
+   VerificationSixScreen({Key? key,   }) : super(key: key);
 
   @override
   _VerificationSixScreenState createState() => _VerificationSixScreenState();
 }
 
 class _VerificationSixScreenState extends State<VerificationSixScreen> {
-  var broadcastController = Get.put(VerificationSixController());
-  var NameorImageController = Get.put(VerificationFourController());
+  final broadcastController = Get.put(VerificationSixController());
+  final createProfileController = Get.put(VerificationSevenController());
+  final NameorImageController = Get.put(VerificationFourController());
     @override
   void initState() {
     broadcastController.getBroadcasterAPI();
@@ -84,7 +87,9 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                             broadcastController.isSelected.add(false);
                           return GestureDetector(
                             onTap: () {
-                              broadcastController.toggleSelection(index);
+                              String broadcasterId = broadcastController.broadcasterList[index]["_id"];
+        // Toggle selection and store the selected broadcaster ID
+        broadcastController.toggleSelection(index, broadcasterId);
                             },
                             child: Container(
                               width: double
@@ -166,12 +171,21 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                         },
                       );
               }),
+             
               SizedBox(height: 51.v),
               CustomElevatedButton(
                 onPressed: () async {
                   var completeProfile = {
-                    "username": NameorImageController.userNameController,
+                    "username": NameorImageController.userNameController.value.text,
+                   "profileImage" : NameorImageController.imageFile.value,
+                    "gender" :  createProfileController.gender.value,
+                    "dateOfBirth" :  createProfileController.selectedDate.value,
+                    "favBroadcaster" : broadcastController.selectedBroadcasterId,
+
+
                   };
+                  print(completeProfile);
+                  broadcastController.createProfile( file: NameorImageController.imageFile.value, );
 
                   // Delay navigation after 2 seconds (adjust the duration as needed)
 
