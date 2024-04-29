@@ -96,6 +96,7 @@ class StreamController extends GetxController
 
   TextEditingController titlecontroller = TextEditingController();
    var hostId;
+   var  hostName;
 
   LiveStreamingAPI(context, streamingdata) async {
     Get.dialog(
@@ -112,12 +113,13 @@ class StreamController extends GetxController
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo//live-stream/create'));
     request.body = json.encode({
       "streamType": "live",
       "title": streamingdata["title"],
       "streamLevel": streamingdata["streamLevel"],
-      "tags": streamingdata["tags"]
+      "tags": streamingdata["tags"],
+      "country": streamingdata["country"]
     });
     request.headers.addAll(headers);
 
@@ -129,13 +131,16 @@ class StreamController extends GetxController
       if(resData["status"] == true){
         Get.back();
         hostId = resData["hostId"].toString();
-       Get.to(LiveStreamingPage(liveID: hostId.toString()));
+        hostName = resData["hostName"].toString();
+       Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: true,));
       }
     } else {
+       Get.back();
       String responseBody = await response.stream.bytesToString();
       var resData = jsonDecode(responseBody);
-      Get.back();
+      
       Get.snackbar("error", resData["message"]);
+     
       print(response.reasonPhrase);
     }
   }

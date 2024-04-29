@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/live_one_screen/live_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/live_view/live_view.dart';
@@ -11,6 +12,7 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_floating_button.da
 
 import '../heart_view/heart_view.dart';
 import '../homepage_three_page/widgets/homepagethree_item_widget.dart';
+import '../stream_screen/LiveStreaminPage.dart';
 import 'controller/homepage_three_controller.dart';
 import 'models/homepage_three_model.dart';
 import 'models/homepagethree_item_model.dart';
@@ -20,14 +22,24 @@ import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.da
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 
-class HomepageThreePage extends StatelessWidget {
+class HomepageThreePage extends StatefulWidget {
   HomepageThreePage({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<HomepageThreePage> createState() => _HomepageThreePageState();
+}
+
+class _HomepageThreePageState extends State<HomepageThreePage> {
   HomepageThreeController controller =
       Get.put(HomepageThreeController(HomepageThreeModel().obs));
+  @override
+  void initState() {
+    super.initState();
+    controller.FetchStreams();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,22 +67,272 @@ class HomepageThreePage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             width: double.maxFinite,
+            // height: double.infinity,
+
             decoration: AppDecoration.fillLime,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 _buildAll(),
                 SizedBox(height: 16.v),
-                Column(
-                  children: [
-                    _buildFrame4(),
-                    _buildFrame5(),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    _buildFrame4(),
-                  ],
+                GetBuilder<HomepageThreeController>(
+                  builder: (controller) {
+                    if (controller.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Container(
+                        height: 550,
+                        width: double.infinity,
+                        child: GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of columns
+                            crossAxisSpacing: 8.0, // Spacing between columns
+                            mainAxisSpacing: 8.0,
+                            // Spacing between rows
+                          ),
+                          itemCount: controller.streamData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.lazyPut(() => LiveStreamingPage(
+                                          liveID: controller.streamData[index]
+                                              ["hostId"],
+                                          isHost: false,
+                                        ));
+                                    Get.to(() => LiveStreamingPage(
+                                          liveID: controller.streamData[index]
+                                              ["hostId"],
+                                          isHost: false,
+                                        ));
+                                  },
+                                  child: SizedBox(
+                                    height: 200.v,
+                                    width: 170.h,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        CustomImageView(
+                                          imagePath:
+                                              ImageConstant.imgEllipse471,
+                                          height: 205.v,
+                                          width: 170.h,
+                                          radius: BorderRadius.circular(
+                                            10.h,
+                                          ),
+                                          alignment: Alignment.center,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                width: 153.h,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 8.h),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    _buildNew1(),
+                                                    CustomIconButton(
+                                                      height: 24.adaptSize,
+                                                      width: 24.adaptSize,
+                                                      padding:
+                                                          EdgeInsets.all(4.h),
+                                                      decoration:
+                                                          IconButtonStyleHelper
+                                                              .gradientGreenToPrimary,
+                                                      child: CustomImageView(
+                                                        imagePath: ImageConstant
+                                                            .imgUpload,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 133.v),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 30.h,
+                                                  vertical: 4.v,
+                                                ),
+                                                decoration: AppDecoration
+                                                    .fillGrayC
+                                                    .copyWith(
+                                                  borderRadius:
+                                                      BorderRadiusStyle
+                                                          .customBorderBL10,
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      controller
+                                                          .streamData[index]
+                                                              ["hostName"]
+                                                          .toString(),
+                                                      style: CustomTextStyles
+                                                          .labelLargeSemiBold,
+                                                    ),
+                                                    SizedBox(height: 2.v),
+                                                    SizedBox(
+                                                      width: 110.h,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          CustomImageView(
+                                                            imagePath:
+                                                                ImageConstant
+                                                                    .imgMappin,
+                                                            height:
+                                                                12.adaptSize,
+                                                            width: 12.adaptSize,
+                                                          ),
+                                                          // Text(
+                                                          //   "lbl_illinois_texas"
+                                                          //       .tr,
+                                                          //   style: CustomTextStyles
+                                                          //       .bodySmallInterWhiteA70010_1,
+                                                          // ),
+                                                          CustomImageView(
+                                                            imagePath:
+                                                                ImageConstant
+                                                                    .imgConfetti,
+                                                            height:
+                                                                12.adaptSize,
+                                                            width: 12.adaptSize,
+                                                          ),
+                                                          // Text(
+                                                          //   "lbl_28".tr,
+                                                          //   style: CustomTextStyles
+                                                          //       .bodySmallInterWhiteA70010_1,
+                                                          // ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                // Container(
+                                //   height: 205.v,
+                                //   width: 170.h,
+                                //   margin: EdgeInsets.only(left: 13.h),
+                                //   child: Stack(
+                                //     alignment: Alignment.center,
+                                //     children: [
+                                //       CustomImageView(
+                                //         imagePath: ImageConstant.imgRectangle112,
+                                //         height: 205.v,
+                                //         width: 170.h,
+                                //         radius: BorderRadius.circular(
+                                //           10.h,
+                                //         ),
+                                //         alignment: Alignment.center,
+                                //       ),
+                                //       Align(
+                                //         alignment: Alignment.center,
+                                //         child: Column(
+                                //           mainAxisSize: MainAxisSize.min,
+                                //           children: [
+                                //             Container(
+                                //               width: 153.h,
+                                //               margin: EdgeInsets.symmetric(horizontal: 8.h),
+                                //               child: Row(
+                                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //                 children: [
+                                //                   Container(
+                                //                     width: 67.h,
+                                //                     margin: EdgeInsets.only(
+                                //                       top: 1.v,
+                                //                       bottom: 4.v,
+                                //                     ),
+                                //                     padding: EdgeInsets.symmetric(
+                                //                       horizontal: 9.h,
+                                //                       vertical: 1.v,
+                                //                     ),
+                                //                     decoration: AppDecoration.fillGrayF.copyWith(
+                                //                       borderRadius: BorderRadiusStyle.roundedBorder10,
+                                //                     ),
+                                //                     child: Row(
+                                //                       mainAxisAlignment:
+                                //                           MainAxisAlignment.spaceBetween,
+                                //                       children: [
+                                //                         CustomImageView(
+                                //                           imagePath: ImageConstant.imgCollision,
+                                //                           height: 16.adaptSize,
+                                //                           width: 16.adaptSize,
+                                //                         ),
+                                //                         Text(
+                                //                           "lbl_house".tr,
+                                //                           style: theme.textTheme.labelMedium,
+                                //                         ),
+                                //                       ],
+                                //                     ),
+                                //                   ),
+                                //                   CustomIconButton(
+                                //                     height: 24.adaptSize,
+                                //                     width: 24.adaptSize,
+                                //                     padding: EdgeInsets.all(4.h),
+                                //                     decoration:
+                                //                         IconButtonStyleHelper.gradientGreenToPrimary,
+                                //                     child: CustomImageView(
+                                //                       imagePath: ImageConstant.imgUpload,
+                                //                     ),
+                                //                   ),
+                                //                 ],
+                                //               ),
+                                //             ),
+                                //             SizedBox(height: 133.v),
+                                //             _buildPrice(
+                                //               price: "lbl_sam".tr,
+                                //               illinoisTexas: "lbl_illinois_texas".tr,
+                                //               thirtyTwo: "lbl_23".tr,
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  },
                 ),
+                // _buildFrame5(),
+
+                // Column(
+                //   children: [
+                //     // _buildFrame4(),
+                //     _buildFrame5(),
+                //     SizedBox(
+                //       height: 40,
+                //     ),
+                //     // _buildFrame4(),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -82,13 +344,13 @@ class HomepageThreePage extends StatelessWidget {
   /// Section Widget
   Widget _buildAll() {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+      // scrollDirection: Axis.horizontal,
       padding: EdgeInsets.only(left: 20.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 80.h,
+            // width: 80.h,
             margin: EdgeInsets.only(bottom: 5.v),
             decoration: AppDecoration.outline.copyWith(
               borderRadius: BorderRadiusStyle.circleBorder15,
@@ -130,134 +392,134 @@ class HomepageThreePage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: 100.h,
-            margin: EdgeInsets.only(
-              left: 7.h,
-              bottom: 5.v,
-            ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 11.h,
-              vertical: 6.v,
-            ),
-            decoration: AppDecoration.outlineGray.copyWith(
-              borderRadius: BorderRadiusStyle.circleBorder15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgBangladesh,
-                  height: 16.adaptSize,
-                  width: 16.adaptSize,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 2.h,
-                    top: 2.v,
-                  ),
-                  child: Text(
-                    "lbl_bangladesh".tr,
-                    style: CustomTextStyles.labelMediumGray80001SemiBold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 80.h,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 7.h,
-                bottom: 5.v,
-              ),
-              child: _buildFrame(
-                countryImage: ImageConstant.imgIndia,
-                countryName: "lbl_india".tr,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 7.h,
-              bottom: 5.v,
-            ),
-            child: _buildFrame(
-              countryImage: ImageConstant.imgUsa,
-              countryName: "lbl_usa".tr,
-            ),
-          ),
-          Container(
-            width: 100.h,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 7.h,
-                bottom: 5.v,
-              ),
-              child: _buildFrame(
-                countryImage: ImageConstant.imgNigeriaCircular,
-                countryName: "lbl_nigeria".tr,
-              ),
-            ),
-          ),
-          Container(
-            width: 70.h,
-            margin: EdgeInsets.only(left: 7.h),
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.h,
-              vertical: 6.v,
-            ),
-            decoration: AppDecoration.outlineGray30008.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder5,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "lbl_2".tr,
-                  style: CustomTextStyles.bodyMediumGray70008,
-                ),
-                CustomImageView(
-                  imagePath: ImageConstant.imgStar,
-                  height: 17.adaptSize,
-                  width: 17.adaptSize,
-                  margin: EdgeInsets.only(
-                    left: 2.h,
-                    bottom: 2.v,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 69.h,
-            margin: EdgeInsets.only(left: 7.h),
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.h,
-              vertical: 6.v,
-            ),
-            decoration: AppDecoration.outlineGray30008.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder5,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "lbl_1".tr,
-                  style: CustomTextStyles.bodyMediumGray70008,
-                ),
-                CustomImageView(
-                  imagePath: ImageConstant.imgStar,
-                  height: 17.adaptSize,
-                  width: 17.adaptSize,
-                  margin: EdgeInsets.only(
-                    left: 2.h,
-                    bottom: 2.v,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   width: 100.h,
+          //   margin: EdgeInsets.only(
+          //     left: 7.h,
+          //     bottom: 5.v,
+          //   ),
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 11.h,
+          //     vertical: 6.v,
+          //   ),
+          //   decoration: AppDecoration.outlineGray.copyWith(
+          //     borderRadius: BorderRadiusStyle.circleBorder15,
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       CustomImageView(
+          //         imagePath: ImageConstant.imgBangladesh,
+          //         height: 16.adaptSize,
+          //         width: 16.adaptSize,
+          //       ),
+          //       Padding(
+          //         padding: EdgeInsets.only(
+          //           left: 2.h,
+          //           top: 2.v,
+          //         ),
+          //         child: Text(
+          //           "lbl_bangladesh".tr,
+          //           style: CustomTextStyles.labelMediumGray80001SemiBold,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Container(
+          //   width: 80.h,
+          //   child: Padding(
+          //     padding: EdgeInsets.only(
+          //       left: 7.h,
+          //       bottom: 5.v,
+          //     ),
+          //     child: _buildFrame(
+          //       countryImage: ImageConstant.imgIndia,
+          //       countryName: "lbl_india".tr,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     left: 7.h,
+          //     bottom: 5.v,
+          //   ),
+          //   child: _buildFrame(
+          //     countryImage: ImageConstant.imgUsa,
+          //     countryName: "lbl_usa".tr,
+          //   ),
+          // ),
+          // Container(
+          //   width: 100.h,
+          //   child: Padding(
+          //     padding: EdgeInsets.only(
+          //       left: 7.h,
+          //       bottom: 5.v,
+          //     ),
+          //     child: _buildFrame(
+          //       countryImage: ImageConstant.imgNigeriaCircular,
+          //       countryName: "lbl_nigeria".tr,
+          //     ),
+          //   ),
+          // ),
+          // Container(
+          //   width: 70.h,
+          //   margin: EdgeInsets.only(left: 7.h),
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 20.h,
+          //     vertical: 6.v,
+          //   ),
+          //   decoration: AppDecoration.outlineGray30008.copyWith(
+          //     borderRadius: BorderRadiusStyle.roundedBorder5,
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text(
+          //         "lbl_2".tr,
+          //         style: CustomTextStyles.bodyMediumGray70008,
+          //       ),
+          //       CustomImageView(
+          //         imagePath: ImageConstant.imgStar,
+          //         height: 17.adaptSize,
+          //         width: 17.adaptSize,
+          //         margin: EdgeInsets.only(
+          //           left: 2.h,
+          //           bottom: 2.v,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Container(
+          //   width: 69.h,
+          //   margin: EdgeInsets.only(left: 7.h),
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 20.h,
+          //     vertical: 6.v,
+          //   ),
+          //   decoration: AppDecoration.outlineGray30008.copyWith(
+          //     borderRadius: BorderRadiusStyle.roundedBorder5,
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text(
+          //         "lbl_1".tr,
+          //         style: CustomTextStyles.bodyMediumGray70008,
+          //       ),
+          //       CustomImageView(
+          //         imagePath: ImageConstant.imgStar,
+          //         height: 17.adaptSize,
+          //         width: 17.adaptSize,
+          //         margin: EdgeInsets.only(
+          //           left: 2.h,
+          //           bottom: 2.v,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -304,141 +566,141 @@ class HomepageThreePage extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildFrame4() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.lazyPut(() => HeartView());
-              Get.to(() => HeartView());
-            },
-            child: SizedBox(
-              height: 205.v,
-              width: 170.h,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgRectangle11,
-                    height: 205.v,
-                    width: 170.h,
-                    radius: BorderRadius.circular(
-                      10.h,
-                    ),
-                    alignment: Alignment.center,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 153.h,
-                          margin: EdgeInsets.symmetric(horizontal: 8.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildNew(),
-                              CustomIconButton(
-                                height: 24.adaptSize,
-                                width: 24.adaptSize,
-                                // padding: EdgeInsets.all(4.h),
-                                decoration: IconButtonStyleHelper
-                                    .gradientGreenToPrimary,
-                                child: Icon(
-                                 Icons.spatial_audio,
-                                 color: Colors.white,
-                                 size: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 133.v),
-                        _buildPrice(
-                          price: "lbl_naomi_as".tr,
-                          illinoisTexas: "lbl_illinois_texas".tr,
-                          thirtyTwo: "lbl_23".tr,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.lazyPut(() => HeartView());
-              Get.to(() => HeartView());
-            },
-            child: Container(
-              height: 205.v,
-              width: 170.h,
-              margin: EdgeInsets.only(left: 13.h),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgRectangle11205x170,
-                    height: 205.v,
-                    width: 170.h,
-                    radius: BorderRadius.circular(
-                      10.h,
-                    ),
-                    alignment: Alignment.center,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 1.h),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 154.h,
-                            margin: EdgeInsets.symmetric(horizontal: 7.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildVeteran(),
-                                CustomIconButton(
-                                height: 24.adaptSize,
-                                width: 24.adaptSize,
-                                // padding: EdgeInsets.all(4.h),
-                                decoration: IconButtonStyleHelper
-                                    .gradientGreenToPrimary,
-                                child: Icon(
-                                 Icons.spatial_audio,
-                                 color: Colors.white,
-                                 size: 15,
-                                ),
-                              ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 133.v),
-                          _buildPrice(
-                            price: "lbl_xxx".tr,
-                            illinoisTexas: "lbl_illinois_texas".tr,
-                            thirtyTwo: "lbl_32".tr,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildFrame4() {
+  //   return Align(
+  //     alignment: Alignment.topCenter,
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         GestureDetector(
+  //           onTap: () {
+  //             Get.lazyPut(() => HeartView());
+  //             Get.to(() => HeartView());
+  //           },
+  //           child: SizedBox(
+  //             height: 205.v,
+  //             width: 170.h,
+  //             child: Stack(
+  //               alignment: Alignment.center,
+  //               children: [
+  //                 // CustomImageView(
+  //                 //   imagePath: ImageConstant.imgRectangle11,
+  //                 //   height: 205.v,
+  //                 //   width: 170.h,
+  //                 //   radius: BorderRadius.circular(
+  //                 //     10.h,
+  //                 //   ),
+  //                 //   alignment: Alignment.center,
+  //                 // ),
+  //                 Align(
+  //                   alignment: Alignment.center,
+  //                   child: Column(
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: [
+  //                       Container(
+  //                         width: 153.h,
+  //                         margin: EdgeInsets.symmetric(horizontal: 8.h),
+  //                         child: Row(
+  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                           children: [
+  //                             _buildNew(),
+  //                             CustomIconButton(
+  //                               height: 24.adaptSize,
+  //                               width: 24.adaptSize,
+  //                               // padding: EdgeInsets.all(4.h),
+  //                               decoration: IconButtonStyleHelper
+  //                                   .gradientGreenToPrimary,
+  //                               child: Icon(
+  //                                Icons.spatial_audio,
+  //                                color: Colors.white,
+  //                                size: 15,
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                       SizedBox(height: 133.v),
+  //                       _buildPrice(
+  //                         price: "lbl_naomi_as".tr,
+  //                         illinoisTexas: "lbl_illinois_texas".tr,
+  //                         thirtyTwo: "lbl_23".tr,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {
+  //             Get.lazyPut(() => HeartView());
+  //             Get.to(() => HeartView());
+  //           },
+  //           child: Container(
+  //             height: 205.v,
+  //             width: 170.h,
+  //             margin: EdgeInsets.only(left: 13.h),
+  //             child: Stack(
+  //               alignment: Alignment.center,
+  //               children: [
+  //                 // CustomImageView(
+  //                 //   imagePath: ImageConstant.imgRectangle11205x170,
+  //                 //   height: 205.v,
+  //                 //   width: 170.h,
+  //                 //   radius: BorderRadius.circular(
+  //                 //     10.h,
+  //                 //   ),
+  //                 //   alignment: Alignment.center,
+  //                 // ),
+  //                 Align(
+  //                   alignment: Alignment.center,
+  //                   child: Padding(
+  //                     padding: EdgeInsets.only(right: 1.h),
+  //                     child: Column(
+  //                       mainAxisSize: MainAxisSize.min,
+  //                       children: [
+  //                         Container(
+  //                           width: 154.h,
+  //                           margin: EdgeInsets.symmetric(horizontal: 7.h),
+  //                           child: Row(
+  //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                             children: [
+  //                               _buildVeteran(),
+  //                               CustomIconButton(
+  //                               height: 24.adaptSize,
+  //                               width: 24.adaptSize,
+  //                               // padding: EdgeInsets.all(4.h),
+  //                               decoration: IconButtonStyleHelper
+  //                                   .gradientGreenToPrimary,
+  //                               child: Icon(
+  //                                Icons.spatial_audio,
+  //                                color: Colors.white,
+  //                                size: 15,
+  //                               ),
+  //                             ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 133.v),
+  //                         _buildPrice(
+  //                           price: "lbl_xxx".tr,
+  //                           illinoisTexas: "lbl_illinois_texas".tr,
+  //                           thirtyTwo: "lbl_32".tr,
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildNew1() {
@@ -465,198 +727,209 @@ class HomepageThreePage extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildFrame5() {
-    return Align(
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.lazyPut(() => LiveView());
-              Get.to(() => LiveView());
-            },
-            child: SizedBox(
-              height: 205.v,
-              width: 170.h,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgRectangle111,
-                    height: 205.v,
-                    width: 170.h,
-                    radius: BorderRadius.circular(
-                      10.h,
-                    ),
-                    alignment: Alignment.center,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 153.h,
-                          margin: EdgeInsets.symmetric(horizontal: 8.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildNew1(),
-                              CustomIconButton(
-                                height: 24.adaptSize,
-                                width: 24.adaptSize,
-                                padding: EdgeInsets.all(4.h),
-                                decoration: IconButtonStyleHelper
-                                    .gradientGreenToPrimary,
-                                child: CustomImageView(
-                                  imagePath: ImageConstant.imgUpload,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 133.v),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 30.h,
-                            vertical: 4.v,
-                          ),
-                          decoration: AppDecoration.fillGrayC.copyWith(
-                            borderRadius: BorderRadiusStyle.customBorderBL10,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "lbl_sexy_mercy".tr,
-                                style: CustomTextStyles.labelLargeSemiBold,
-                              ),
-                              SizedBox(height: 2.v),
-                              SizedBox(
-                                width: 110.h,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgMappin,
-                                      height: 12.adaptSize,
-                                      width: 12.adaptSize,
-                                    ),
-                                    Text(
-                                      "lbl_illinois_texas".tr,
-                                      style: CustomTextStyles
-                                          .bodySmallInterWhiteA70010_1,
-                                    ),
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgConfetti,
-                                      height: 12.adaptSize,
-                                      width: 12.adaptSize,
-                                    ),
-                                    Text(
-                                      "lbl_28".tr,
-                                      style: CustomTextStyles
-                                          .bodySmallInterWhiteA70010_1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            height: 205.v,
-            width: 170.h,
-            margin: EdgeInsets.only(left: 13.h),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgRectangle112,
-                  height: 205.v,
-                  width: 170.h,
-                  radius: BorderRadius.circular(
-                    10.h,
-                  ),
-                  alignment: Alignment.center,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 153.h,
-                        margin: EdgeInsets.symmetric(horizontal: 8.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 67.h,
-                              margin: EdgeInsets.only(
-                                top: 1.v,
-                                bottom: 4.v,
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 9.h,
-                                vertical: 1.v,
-                              ),
-                              decoration: AppDecoration.fillGrayF.copyWith(
-                                borderRadius: BorderRadiusStyle.roundedBorder10,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomImageView(
-                                    imagePath: ImageConstant.imgCollision,
-                                    height: 16.adaptSize,
-                                    width: 16.adaptSize,
-                                  ),
-                                  Text(
-                                    "lbl_house".tr,
-                                    style: theme.textTheme.labelMedium,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            CustomIconButton(
-                              height: 24.adaptSize,
-                              width: 24.adaptSize,
-                              padding: EdgeInsets.all(4.h),
-                              decoration:
-                                  IconButtonStyleHelper.gradientGreenToPrimary,
-                              child: CustomImageView(
-                                imagePath: ImageConstant.imgUpload,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 133.v),
-                      _buildPrice(
-                        price: "lbl_sam".tr,
-                        illinoisTexas: "lbl_illinois_texas".tr,
-                        thirtyTwo: "lbl_23".tr,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+  Widget _LiveStreaming() {
+    return Container(
+      width: 210.v,
+      height: 190.h,
+      child: Column(
+        children: [],
       ),
     );
   }
+
+  // Widget _buildFrame5() {
+
+  //   return
+  //   Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       GestureDetector(
+  //         onTap: () {
+  //           Get.lazyPut(() => LiveView());
+  //           Get.to(() => LiveView());
+  //         },
+  //         child: SizedBox(
+  //           height: 200.v,
+  //           width: 170.h,
+  //           child: Stack(
+  //             alignment: Alignment.center,
+  //             children: [
+  //               CustomImageView(
+  //                 imagePath: ImageConstant.imgRectangle111,
+  //                 height: 205.v,
+  //                 width: 170.h,
+  //                 radius: BorderRadius.circular(
+  //                   10.h,
+  //                 ),
+  //                 alignment: Alignment.center,
+  //               ),
+  //               Align(
+  //                 alignment: Alignment.center,
+  //                 child: Column(
+  //                   mainAxisSize: MainAxisSize.min,
+  //                   children: [
+  //                     Container(
+  //                       width: 153.h,
+  //                       margin: EdgeInsets.symmetric(horizontal: 8.h),
+  //                       child: Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           _buildNew1(),
+  //                           CustomIconButton(
+  //                             height: 24.adaptSize,
+  //                             width: 24.adaptSize,
+  //                             padding: EdgeInsets.all(4.h),
+  //                             decoration:
+  //                                 IconButtonStyleHelper.gradientGreenToPrimary,
+  //                             child: CustomImageView(
+  //                               imagePath: ImageConstant.imgUpload,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                     SizedBox(height: 133.v),
+  //                     Container(
+  //                       padding: EdgeInsets.symmetric(
+  //                         horizontal: 30.h,
+  //                         vertical: 4.v,
+  //                       ),
+  //                       decoration: AppDecoration.fillGrayC.copyWith(
+  //                         borderRadius: BorderRadiusStyle.customBorderBL10,
+  //                       ),
+  //                       child: Column(
+  //                         mainAxisSize: MainAxisSize.min,
+  //                         children: [
+  //                           Text(
+  //                             "lbl_sexy_mercy".tr,
+  //                             style: CustomTextStyles.labelLargeSemiBold,
+  //                           ),
+  //                           SizedBox(height: 2.v),
+  //                           SizedBox(
+  //                             width: 110.h,
+  //                             child: Row(
+  //                               mainAxisAlignment:
+  //                                   MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 CustomImageView(
+  //                                   imagePath: ImageConstant.imgMappin,
+  //                                   height: 12.adaptSize,
+  //                                   width: 12.adaptSize,
+  //                                 ),
+  //                                 Text(
+  //                                   "lbl_illinois_texas".tr,
+  //                                   style: CustomTextStyles
+  //                                       .bodySmallInterWhiteA70010_1,
+  //                                 ),
+  //                                 CustomImageView(
+  //                                   imagePath: ImageConstant.imgConfetti,
+  //                                   height: 12.adaptSize,
+  //                                   width: 12.adaptSize,
+  //                                 ),
+  //                                 Text(
+  //                                   "lbl_28".tr,
+  //                                   style: CustomTextStyles
+  //                                       .bodySmallInterWhiteA70010_1,
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+
+  //       // Container(
+  //       //   height: 205.v,
+  //       //   width: 170.h,
+  //       //   margin: EdgeInsets.only(left: 13.h),
+  //       //   child: Stack(
+  //       //     alignment: Alignment.center,
+  //       //     children: [
+  //       //       CustomImageView(
+  //       //         imagePath: ImageConstant.imgRectangle112,
+  //       //         height: 205.v,
+  //       //         width: 170.h,
+  //       //         radius: BorderRadius.circular(
+  //       //           10.h,
+  //       //         ),
+  //       //         alignment: Alignment.center,
+  //       //       ),
+  //       //       Align(
+  //       //         alignment: Alignment.center,
+  //       //         child: Column(
+  //       //           mainAxisSize: MainAxisSize.min,
+  //       //           children: [
+  //       //             Container(
+  //       //               width: 153.h,
+  //       //               margin: EdgeInsets.symmetric(horizontal: 8.h),
+  //       //               child: Row(
+  //       //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       //                 children: [
+  //       //                   Container(
+  //       //                     width: 67.h,
+  //       //                     margin: EdgeInsets.only(
+  //       //                       top: 1.v,
+  //       //                       bottom: 4.v,
+  //       //                     ),
+  //       //                     padding: EdgeInsets.symmetric(
+  //       //                       horizontal: 9.h,
+  //       //                       vertical: 1.v,
+  //       //                     ),
+  //       //                     decoration: AppDecoration.fillGrayF.copyWith(
+  //       //                       borderRadius: BorderRadiusStyle.roundedBorder10,
+  //       //                     ),
+  //       //                     child: Row(
+  //       //                       mainAxisAlignment:
+  //       //                           MainAxisAlignment.spaceBetween,
+  //       //                       children: [
+  //       //                         CustomImageView(
+  //       //                           imagePath: ImageConstant.imgCollision,
+  //       //                           height: 16.adaptSize,
+  //       //                           width: 16.adaptSize,
+  //       //                         ),
+  //       //                         Text(
+  //       //                           "lbl_house".tr,
+  //       //                           style: theme.textTheme.labelMedium,
+  //       //                         ),
+  //       //                       ],
+  //       //                     ),
+  //       //                   ),
+  //       //                   CustomIconButton(
+  //       //                     height: 24.adaptSize,
+  //       //                     width: 24.adaptSize,
+  //       //                     padding: EdgeInsets.all(4.h),
+  //       //                     decoration:
+  //       //                         IconButtonStyleHelper.gradientGreenToPrimary,
+  //       //                     child: CustomImageView(
+  //       //                       imagePath: ImageConstant.imgUpload,
+  //       //                     ),
+  //       //                   ),
+  //       //                 ],
+  //       //               ),
+  //       //             ),
+  //       //             SizedBox(height: 133.v),
+  //       //             _buildPrice(
+  //       //               price: "lbl_sam".tr,
+  //       //               illinoisTexas: "lbl_illinois_texas".tr,
+  //       //               thirtyTwo: "lbl_23".tr,
+  //       //             ),
+  //       //           ],
+  //       //         ),
+  //       //       ),
+  //       //     ],
+  //       //   ),
+  //       // ),
+  //     ],
+  //   );
+
+  // }
 
   /// Section Widget
   Widget _buildHomepageThree() {

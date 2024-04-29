@@ -1,8 +1,8 @@
-import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+
+import 'package:flutter/services.dart';
 import 'package:muhammad_zubair_s_application4/presentation/multi_live_screen/multi_live_screen.dart';
-import 'package:muhammad_zubair_s_application4/presentation/select_tag_dialog/select_tag_dialog.dart';
-import 'package:muhammad_zubair_s_application4/presentation/stream_level_dialog/stream_level_dialog.dart';
-import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../audio_live_screen/audio_live_screen.dart';
 import '../schedule_time_dialog/schedule_time_dialog.dart';
@@ -12,7 +12,7 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
-import 'package:muhammad_zubair_s_application4/widgets/custom_drop_down.dart';
+
 
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
@@ -28,7 +28,53 @@ class StreamScreen extends StatefulWidget {
 class _StreamScreenState extends State<StreamScreen> {
   final StreamController Streamcontroller =
       Get.put(StreamController()); // Adjust the controller creation
+Position? _currentPosition;
+  late double latitude;
+  late double longitude;
+  String? currentAddress;
 
+Future<void> _getCurrentPosition() async {
+  try {
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = position;
+      latitude = _currentPosition!.latitude;
+      longitude = _currentPosition!.longitude;
+    });
+    _getAddressFromLatLng(_currentPosition!);
+  } catch (e) {
+    debugPrint("Error getting current position: $e");
+  }
+}
+
+Future<void> _getAddressFromLatLng(Position position) async {
+  try {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+    setState(() {
+      currentAddress = '${place.country}';
+    });
+  } catch (e) {
+    debugPrint("Error getting address from coordinates: $e");
+    if (e.runtimeType == PlatformException) {
+      PlatformException platformException = e as PlatformException;
+      debugPrint(
+          "PlatformException: ${platformException.code} - ${platformException.message}");
+    }
+    setState(() {
+      currentAddress = "Address not available";
+    });
+  }
+}
+
+
+  @override
+   void initState() {
+    super.initState();
+    _getCurrentPosition();
+  
+  }
 //
   @override
   Widget build(BuildContext context) {
@@ -167,6 +213,8 @@ class _StreamScreenState extends State<StreamScreen> {
                           "title": Streamcontroller.titlecontroller.value.text.toLowerCase(),
                           "streamLevel": Streamcontroller.streamType.value.toLowerCase(),
                           "tags": Streamcontroller.selectedTagNames,
+                          "scheduleTime" : DateTime.now().toString(),
+                          "country": currentAddress.toString().toLowerCase(),
 
                         };
                         print(streamingdata);
@@ -281,6 +329,7 @@ class _StreamScreenState extends State<StreamScreen> {
                           ),
                     CustomImageView(
                       onTap: () {
+                        _getCurrentPosition();
                         Streamcontroller.pickImageFromGallery();
                       },
                       imagePath: ImageConstant.imgVuesaxLinearCamera,
@@ -314,6 +363,7 @@ class _StreamScreenState extends State<StreamScreen> {
                     Container(
                       width: 200,
                       child: TextFormField(
+                        
                         controller: Streamcontroller.titlecontroller,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(

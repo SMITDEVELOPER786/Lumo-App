@@ -55,7 +55,8 @@ class SignUpController extends GetxController {
         signupToken = res_data["token"];
 
         Get.back();
-        Get.snackbar("Message", "OTP has been sent on your email");
+         Get.snackbar("Success", res_data["message"].toString());
+        // Get.snackbar("Message", "OTP has been sent on your email");
 
         Get.lazyPut(() => AccountCreationOneScreen());
         Get.toNamed(AppRoutes.accountCreationOneScreen);
