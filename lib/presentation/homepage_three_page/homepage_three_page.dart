@@ -81,7 +81,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      return controller.streamData.length < 0
+                      return controller.streamData.length > 0
                           ? Container(
                               height: 550,
                               width: double.infinity,
@@ -103,6 +103,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                       GestureDetector(
                                         onTap: () async {
                                           var connectstreamData = {
+                                            "_id":controller
+                                                .streamData[index]["_id"],
                                             "HostID": controller
                                                 .streamData[index]["hostId"],
                                             "isHost": false,

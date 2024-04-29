@@ -52,36 +52,35 @@ class HomepageThreeController extends GetxController {
   }
 
   ConnectStream(connectstreamData) async {
-     isLoading(true);
+    isLoading(true);
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization':'Bearer ${authToken}'
+      'Authorization': 'Bearer ${authToken}'
     };
     var request = http.Request(
         'POST',
         Uri.parse(
             'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/join'));
-    request.body = json.encode({"streamId": connectstreamData["HostID"]});
+    request.body = json.encode({"streamId": connectstreamData["_id"]});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      ;Get.snackbar("Message", "JOin Stream Successfully");
-        Get.lazyPut(() => LiveStreamingPage(
-                                          liveID: connectstreamData["HostID"],
-                                          isHost: false,
-                                        ));
-                                    Get.to(() => LiveStreamingPage(
-                                          liveID: connectstreamData["HostID"]
-                                              ["hostId"],
-                                          isHost: false,
-                                        ));
+      Get.snackbar("Message", "JOin Stream Successfully");
+      Get.lazyPut(() => LiveStreamingPage(
+            liveID: connectstreamData["HostID"],
+            isHost: false,
+          ));
+      // Get.to(() => LiveStreamingPage(
+      //       liveID: connectstreamData["HostID"],
+      //       isHost: false,
+      //     ));
 
       print(await response.stream.bytesToString());
     } else {
       print(response.reasonPhrase);
-       isLoading(false);
+      isLoading(false);
     }
   }
 }
