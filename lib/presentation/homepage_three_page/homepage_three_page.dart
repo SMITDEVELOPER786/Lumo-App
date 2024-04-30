@@ -103,6 +103,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                       GestureDetector(
                                         onTap: () async {
                                           var connectstreamData = {
+                                            "_id":controller
+                                                .streamData[index]["_id"],
                                             "HostID": controller
                                                 .streamData[index]["_id"],
                                             "isHost": false,
