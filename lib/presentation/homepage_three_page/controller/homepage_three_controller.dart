@@ -52,10 +52,10 @@ class HomepageThreeController extends GetxController {
   }
 
   ConnectStream(connectstreamData) async {
-     isLoading(true);
+    isLoading(true);
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization':'Bearer ${authToken}'
+      'Authorization': 'Bearer ${authToken}'
     };
     var request = http.Request(
         'POST',
@@ -67,21 +67,21 @@ class HomepageThreeController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      ;Get.snackbar("Message", "JOin Stream Successfully");
-        Get.lazyPut(() => LiveStreamingPage(
-                                          liveID: connectstreamData["HostID"],
-                                          isHost: false,
-                                        ));
-                                    Get.to(() => LiveStreamingPage(
-                                          liveID: connectstreamData["HostID"]
-                                              ["hostId"],
-                                          isHost: false,
-                                        ));
+      ;
+      Get.snackbar("Message", "Join Stream Successfully");
+      Get.lazyPut(() => LiveStreamingPage(
+            liveID: connectstreamData["HostID"],
+            isHost: false,
+          ));
+      Get.to(() => LiveStreamingPage(
+            liveID: connectstreamData["HostID"],
+            isHost: false,
+          ));
 
       print(await response.stream.bytesToString());
     } else {
       print(response.reasonPhrase);
-       isLoading(false);
+      isLoading(false);
     }
   }
 }

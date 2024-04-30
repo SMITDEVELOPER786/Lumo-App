@@ -24,11 +24,12 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ZegoUIKitPrebuiltLiveStreaming(
+
         appID:
             1684715250, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign:
             "b59452274110f3a3da5900ad0635b6e1cb100259564384115f1f5c603d372783", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
-        userID: UserID.toString(),
+        userID: UserID,
         userName: 'Tester',
         liveID: widget.liveID,
         config: widget.isHost

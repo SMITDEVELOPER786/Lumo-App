@@ -81,7 +81,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      return controller.streamData.length < 0
+                      return controller.streamData.length > 0
                           ? Container(
                               height: 550,
                               width: double.infinity,
@@ -104,7 +104,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                         onTap: () async {
                                           var connectstreamData = {
                                             "HostID": controller
-                                                .streamData[index]["hostId"],
+                                                .streamData[index]["_id"],
                                             "isHost": false,
                                           };
                                           await controller.ConnectStream(

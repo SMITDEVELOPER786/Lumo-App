@@ -130,8 +130,8 @@ class StreamController extends GetxController
       var resData = jsonDecode(responseBody);
       if(resData["status"] == true){
         Get.back();
-        hostId = resData["hostId"].toString();
-        hostName = resData["hostName"].toString();
+        hostId = resData["data"]["_id"].toString();
+        hostName = resData["data"]["hostName"].toString();
        Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: true,));
       }
     } else {
