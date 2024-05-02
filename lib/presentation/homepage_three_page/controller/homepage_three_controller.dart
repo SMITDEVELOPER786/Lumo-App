@@ -51,6 +51,28 @@ class HomepageThreeController extends GetxController {
     isLoading(false);
   }
 
+  leftStream(String liveID) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'Bearer ${authToken}'
+    };
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/end'));
+    request.body = json.encode({"streamId": liveID});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
   ConnectStream(connectstreamData) async {
     isLoading(true);
     var headers = {

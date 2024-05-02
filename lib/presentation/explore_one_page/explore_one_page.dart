@@ -61,7 +61,10 @@ class _ExploreOnePageState extends State<ExploreOnePage>
         extendBody: true,
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.black,
-        body: GetBuilder<ExploreOneController>(builder: (videoController) {
+        body: 
+        
+        videoController.ReelsList.length > 0?
+         GetBuilder<ExploreOneController>(builder: (videoController) {
           return videoController.ReelsList.isNotEmpty
               ? SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -443,7 +446,11 @@ class _ExploreOnePageState extends State<ExploreOnePage>
               //   )
 
               : Center(child: CircularProgressIndicator());
-        }),
+        }):
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Center(child: Text("No Reels Available"))],),
       ),
     );
   }

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/controller/homepage_three_controller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
+import 'package:muhammad_zubair_s_application4/presentation/host_request.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 class LiveStreamingPage extends StatefulWidget {
@@ -20,6 +23,14 @@ class LiveStreamingPage extends StatefulWidget {
 class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
    final StreamController Streamcontroller = Get.put(StreamController());
+    HomepageThreeController controller = Get.put(HomepageThreeController(HomepageThreeModel().obs));
+     @override
+  void dispose() {
+    if (!widget.isHost) {
+    controller.leftStream(widget.liveID);
+    }
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
