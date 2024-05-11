@@ -1,4 +1,3 @@
-
 import 'package:flutter/services.dart';
 import 'package:muhammad_zubair_s_application4/presentation/multi_live_screen/multi_live_screen.dart';
 import 'package:geocoding/geocoding.dart';
@@ -12,7 +11,6 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
-
 
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
@@ -28,53 +26,52 @@ class StreamScreen extends StatefulWidget {
 class _StreamScreenState extends State<StreamScreen> {
   final StreamController Streamcontroller =
       Get.put(StreamController()); // Adjust the controller creation
-Position? _currentPosition;
+  Position? _currentPosition;
   late double latitude;
   late double longitude;
   String? currentAddress;
 
-Future<void> _getCurrentPosition() async {
-  try {
-    Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = position;
-      latitude = _currentPosition!.latitude;
-      longitude = _currentPosition!.longitude;
-    });
-    _getAddressFromLatLng(_currentPosition!);
-  } catch (e) {
-    debugPrint("Error getting current position: $e");
-  }
-}
-
-Future<void> _getAddressFromLatLng(Position position) async {
-  try {
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    Placemark place = placemarks[0];
-    setState(() {
-      currentAddress = '${place.country}';
-    });
-  } catch (e) {
-    debugPrint("Error getting address from coordinates: $e");
-    if (e.runtimeType == PlatformException) {
-      PlatformException platformException = e as PlatformException;
-      debugPrint(
-          "PlatformException: ${platformException.code} - ${platformException.message}");
+  Future<void> _getCurrentPosition() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      setState(() {
+        _currentPosition = position;
+        latitude = _currentPosition!.latitude;
+        longitude = _currentPosition!.longitude;
+      });
+      _getAddressFromLatLng(_currentPosition!);
+    } catch (e) {
+      debugPrint("Error getting current position: $e");
     }
-    setState(() {
-      currentAddress = "Address not available";
-    });
   }
-}
 
+  Future<void> _getAddressFromLatLng(Position position) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        currentAddress = '${place.country}';
+      });
+    } catch (e) {
+      debugPrint("Error getting address from coordinates: $e");
+      if (e.runtimeType == PlatformException) {
+        PlatformException platformException = e as PlatformException;
+        debugPrint(
+            "PlatformException: ${platformException.code} - ${platformException.message}");
+      }
+      setState(() {
+        currentAddress = "Address not available";
+      });
+    }
+  }
 
   @override
-   void initState() {
+  void initState() {
     super.initState();
     _getCurrentPosition();
-  
   }
+
 //
   @override
   Widget build(BuildContext context) {
@@ -210,15 +207,17 @@ Future<void> _getAddressFromLatLng(Position position) async {
                     CustomElevatedButton(
                       onPressed: (() {
                         var streamingdata = {
-                          "title": Streamcontroller.titlecontroller.value.text.toLowerCase(),
-                          "streamLevel": Streamcontroller.streamType.value.toLowerCase(),
+                          "title": Streamcontroller.titlecontroller.value.text
+                              .toLowerCase(),
+                          "streamLevel":
+                              Streamcontroller.streamType.value.toLowerCase(),
                           "tags": Streamcontroller.selectedTagNames,
-                          "scheduleTime" : DateTime.now().toString(),
+                          "scheduleTime": DateTime.now().toString(),
                           "country": currentAddress.toString().toLowerCase(),
-
                         };
                         print(streamingdata);
-                        Streamcontroller.LiveStreamingAPI( context, streamingdata);
+                        Streamcontroller.LiveStreamingAPI(
+                            context, streamingdata);
                         // Get.to(LiveStreamingPage(liveID: "123"));
                       }),
                       text: "lbl_start_streaming".tr,
@@ -363,7 +362,6 @@ Future<void> _getAddressFromLatLng(Position position) async {
                     Container(
                       width: 200,
                       child: TextFormField(
-                        
                         controller: Streamcontroller.titlecontroller,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -745,6 +743,56 @@ Future<void> _getAddressFromLatLng(Position position) async {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Obx(() {
+            if (Streamcontroller.streamType.value == 'Private') {
+              // Render password field
+              return Container(
+                width: 150,
+                height: 30,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                  
+                    // if you want to change the focusColor
+                    // see https://github.com/flutter/flutter/issues/117852#issuecomment-1368611791
+                    // you can have a background colour for your text fields
+                    filled: true,
+                    // you may use conditions to set different colours for different states
+                    fillColor: 
+                       Colors.white,
+                     
+                    // you may use the OutlineInputBorder,
+                    // or extend the InputBorder class to create your own
+                    // the default is UnderlineInputBorder
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    // you can also define different border styles for different states
+                    // e.g. when the field is enabled / focused / has error
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              // Render nothing if stream type is Public
+              return SizedBox(); // or Container(), or any other widget you prefer
+            }
+          })
           // CustomDropDown(
           //   width: 120.h,
           //   icon: Container(

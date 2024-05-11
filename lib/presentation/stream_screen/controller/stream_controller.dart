@@ -70,6 +70,7 @@ class StreamController extends GetxController
     "Public",
     "Private",
   ].obs;
+  
   SelectStreamType(value) {
     streamType.value = value;
     update();

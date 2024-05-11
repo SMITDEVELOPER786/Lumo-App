@@ -65,8 +65,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
         //   ),
         // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: 
-        GetBuilder<HomepageThreeController>(builder: (controller) {
+        body: GetBuilder<HomepageThreeController>(builder: (controller) {
           if (controller.isLoading.value) {
             return Center(child: CircularProgressIndicator());
           } else {
@@ -82,10 +81,10 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                         children: [
                           Row(children: [
                             GestureDetector(
-                              onTap: () {
-                               controller.setSelectedCountry('All');
-                              },
-                              child: _buildAll()),
+                                onTap: () {
+                                  controller.setSelectedCountry('All');
+                                },
+                                child: _buildAll()),
                             SizedBox(
                               width: 5,
                             ),
@@ -99,9 +98,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                    
-                                      
-                                      controller.setSelectedCountry(controller.uniqueCountries[index]);
+                                      controller.setSelectedCountry(
+                                          controller.uniqueCountries[index]);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -120,7 +118,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                               // bottom: 1.v,
                                               ),
                                           strokeWidth: 1.h,
-                                          gradient: LinearGradient(
+                                          gradient: controller.selectedCountry == controller.uniqueCountries[index]?LinearGradient(
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
@@ -129,6 +127,16 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                       0.8), // Start with yellow at the top
                                               Color.fromARGB(255, 43, 112,
                                                   45), // Transition to green at the bottom
+                                            ],
+                                            stops: [0.2, 1.0],
+                                          ):LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.white
+                                                  .withOpacity(
+                                                      0.8), // Start with yellow at the top
+                                              Colors.white, // Transition to green at the bottom
                                             ],
                                             stops: [0.2, 1.0],
                                           ),
@@ -171,9 +179,11 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                   mainAxisSpacing: 8.0,
                                   // Spacing between rows
                                 ),
-                                itemCount: controller.getDisplayedStreams().length,
+                                itemCount:
+                                    controller.getDisplayedStreams().length,
                                 itemBuilder: (BuildContext context, int index) {
-                                 var stream = controller.getDisplayedStreams()[index];
+                                  var stream =
+                                      controller.getDisplayedStreams()[index];
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -445,7 +455,6 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                         ])));
           }
         }),
-      
       ),
     );
   }

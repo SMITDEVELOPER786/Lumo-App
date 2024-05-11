@@ -71,8 +71,7 @@ class HomepageThreeController extends GetxController {
 
           countryStreams[countryName]?.add(streams);
         });
-        print(uniqueCountries);
-        print(countryStreams);
+      
       }
     } else {
       print(response.reasonPhrase);
