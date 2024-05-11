@@ -16,7 +16,21 @@ class HomepageThreeController extends GetxController {
   Rx<HomepageThreeModel> homepageThreeModelObj;
 
   var isLoading = true.obs;
+  String selectedCountry = 'All';
+  List<dynamic> uniqueCountries = [];
+  Map<String, List<dynamic>> countryStreams = {};
   List<dynamic> streamData = [].obs;
+
+  List<dynamic> getDisplayedStreams() {
+    return selectedCountry == 'All'
+        ? streamData
+        : countryStreams[selectedCountry] ?? [];
+  }
+
+  void setSelectedCountry(String country) {
+    selectedCountry = country;
+    update();
+  }
 
   addStreamData(dynamic data) {
     streamData.add(data);
@@ -36,7 +50,10 @@ class HomepageThreeController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      isLoading(false);
+
       streamData.clear();
+      uniqueCountries.clear();
       String data = await response.stream.bytesToString();
       final decodedData = jsonDecode(data);
       if (decodedData['status']) {
@@ -44,6 +61,18 @@ class HomepageThreeController extends GetxController {
         streams.forEach((stream) {
           addStreamData(stream);
         });
+        final List<dynamic> countries = decodedData["data"];
+        countries.forEach((countries) {
+          String countryName = countries['country'];
+          if (!uniqueCountries.contains(countryName)) {
+            uniqueCountries.add(countryName);
+            countryStreams[countryName] = [];
+          }
+
+          countryStreams[countryName]?.add(streams);
+        });
+        print(uniqueCountries);
+        print(countryStreams);
       }
     } else {
       print(response.reasonPhrase);
@@ -54,8 +83,7 @@ class HomepageThreeController extends GetxController {
   leftStream(String liveID) async {
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer ${authToken}'
+      'Authorization': 'Bearer ${authToken}'
     };
     var request = http.Request(
         'POST',

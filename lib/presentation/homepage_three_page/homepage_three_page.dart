@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/live_one_screen/live_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/live_view/live_view.dart';
@@ -64,28 +65,103 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
         //   ),
         // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-            // height: double.infinity,
+        body: 
+        GetBuilder<HomepageThreeController>(builder: (controller) {
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return SingleChildScrollView(
+                child: Container(
+                    width: double.maxFinite,
+                    // height: double.infinity,
 
-            decoration: AppDecoration.fillLime,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                _buildAll(),
-                SizedBox(height: 16.v),
-                GetBuilder<HomepageThreeController>(
-                  builder: (controller) {
-                    if (controller.isLoading.value) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
-                      return controller.streamData.length > 0
-                          ? Container(
-                              height: 550,
-                              width: double.infinity,
-                              child: GridView.builder(
+                    decoration: AppDecoration.fillLime,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(children: [
+                            GestureDetector(
+                              onTap: () {
+                               controller.setSelectedCountry('All');
+                              },
+                              child: _buildAll()),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: 250,
+                              height: 25,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: controller.uniqueCountries.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                    
+                                      
+                                      controller.setSelectedCountry(controller.uniqueCountries[index]);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 3),
+                                      child: Container(
+                                        decoration:
+                                            AppDecoration.outline.copyWith(
+                                          borderRadius:
+                                              BorderRadiusStyle.circleBorder15,
+                                        ),
+                                        child: OutlineGradientButton(
+                                          padding: EdgeInsets.only(
+                                              // left: 1.h,
+                                              // top: 1.v,
+                                              // right: 1.h,
+                                              // bottom: 1.v,
+                                              ),
+                                          strokeWidth: 1.h,
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Color.fromARGB(255, 163, 226, 15)
+                                                  .withOpacity(
+                                                      0.8), // Start with yellow at the top
+                                              Color.fromARGB(255, 43, 112,
+                                                  45), // Transition to green at the bottom
+                                            ],
+                                            stops: [0.2, 1.0],
+                                          ),
+                                          corners: Corners(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15),
+                                            bottomRight: Radius.circular(15),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10.h,
+                                              vertical: 6.v,
+                                            ),
+                                            child: Text(
+                                              controller.uniqueCountries[index],
+                                              style: CustomTextStyles
+                                                  .bodyMediumGray70008,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ]),
+                          SizedBox(height: 16.v),
+                          Container(
+                            height: 550,
+                            width: double.infinity,
+                            child: GridView.builder(
                                 padding: EdgeInsets.zero,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,16 +171,17 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                   mainAxisSpacing: 8.0,
                                   // Spacing between rows
                                 ),
-                                itemCount: controller.streamData.length,
+                                itemCount: controller.getDisplayedStreams().length,
                                 itemBuilder: (BuildContext context, int index) {
+                                 var stream = controller.getDisplayedStreams()[index];
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       GestureDetector(
                                         onTap: () async {
                                           var connectstreamData = {
-                                            "_id":controller
-                                                .streamData[index]["_id"],
+                                            "_id": controller.streamData[index]
+                                                ["_id"],
                                             "HostID": controller
                                                 .streamData[index]["_id"],
                                             "isHost": false,
@@ -252,112 +329,123 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                         ),
                                       ),
 
-                                      // Container(
-                                      //   height: 205.v,
-                                      //   width: 170.h,
-                                      //   margin: EdgeInsets.only(left: 13.h),
-                                      //   child: Stack(
-                                      //     alignment: Alignment.center,
-                                      //     children: [
-                                      //       CustomImageView(
-                                      //         imagePath: ImageConstant.imgRectangle112,
-                                      //         height: 205.v,
-                                      //         width: 170.h,
-                                      //         radius: BorderRadius.circular(
-                                      //           10.h,
+                                      // GetBuilder<HomepageThreeController>(
+                                      //   builder: (controller) {
+                                      //     if (controller.isLoading.value) {
+                                      //       return Center(child: CircularProgressIndicator());
+                                      //     } else {
+                                      //       return
+
+                                      //                 // Container(
+                                      //                 //   height: 205.v,
+                                      //                 //   width: 170.h,
+                                      //                 //   margin: EdgeInsets.only(left: 13.h),
+                                      //                 //   child: Stack(
+                                      //                 //     alignment: Alignment.center,
+                                      //                 //     children: [
+                                      //                 //       CustomImageView(
+                                      //                 //         imagePath: ImageConstant.imgRectangle112,
+                                      //                 //         height: 205.v,
+                                      //                 //         width: 170.h,
+                                      //                 //         radius: BorderRadius.circular(
+                                      //                 //           10.h,
+                                      //                 //         ),
+                                      //                 //         alignment: Alignment.center,
+                                      //                 //       ),
+                                      //                 //       Align(
+                                      //                 //         alignment: Alignment.center,
+                                      //                 //         child: Column(
+                                      //                 //           mainAxisSize: MainAxisSize.min,
+                                      //                 //           children: [
+                                      //                 //             Container(
+                                      //                 //               width: 153.h,
+                                      //                 //               margin: EdgeInsets.symmetric(horizontal: 8.h),
+                                      //                 //               child: Row(
+                                      //                 //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //                 //                 children: [
+                                      //                 //                   Container(
+                                      //                 //                     width: 67.h,
+                                      //                 //                     margin: EdgeInsets.only(
+                                      //                 //                       top: 1.v,
+                                      //                 //                       bottom: 4.v,
+                                      //                 //                     ),
+                                      //                 //                     padding: EdgeInsets.symmetric(
+                                      //                 //                       horizontal: 9.h,
+                                      //                 //                       vertical: 1.v,
+                                      //                 //                     ),
+                                      //                 //                     decoration: AppDecoration.fillGrayF.copyWith(
+                                      //                 //                       borderRadius: BorderRadiusStyle.roundedBorder10,
+                                      //                 //                     ),
+                                      //                 //                     child: Row(
+                                      //                 //                       mainAxisAlignment:
+                                      //                 //                           MainAxisAlignment.spaceBetween,
+                                      //                 //                       children: [
+                                      //                 //                         CustomImageView(
+                                      //                 //                           imagePath: ImageConstant.imgCollision,
+                                      //                 //                           height: 16.adaptSize,
+                                      //                 //                           width: 16.adaptSize,
+                                      //                 //                         ),
+                                      //                 //                         Text(
+                                      //                 //                           "lbl_house".tr,
+                                      //                 //                           style: theme.textTheme.labelMedium,
+                                      //                 //                         ),
+                                      //                 //                       ],
+                                      //                 //                     ),
+                                      //                 //                   ),
+                                      //                 //                   CustomIconButton(
+                                      //                 //                     height: 24.adaptSize,
+                                      //                 //                     width: 24.adaptSize,
+                                      //                 //                     padding: EdgeInsets.all(4.h),
+                                      //                 //                     decoration:
+                                      //                 //                         IconButtonStyleHelper.gradientGreenToPrimary,
+                                      //                 //                     child: CustomImageView(
+                                      //                 //                       imagePath: ImageConstant.imgUpload,
+                                      //                 //                     ),
+                                      //                 //                   ),
+                                      //                 //                 ],
+                                      //                 //               ),
+                                      //                 //             ),
+                                      //                 //             SizedBox(height: 133.v),
+                                      //                 //             _buildPrice(
+                                      //                 //               price: "lbl_sam".tr,
+                                      //                 //               illinoisTexas: "lbl_illinois_texas".tr,
+                                      //                 //               thirtyTwo: "lbl_23".tr,
+                                      //                 //             ),
+                                      //                 //           ],
+                                      //                 //         ),
+                                      //                 //       ),
+                                      //                 //     ],
+                                      //                 //   ),
+                                      //                 // ),
+                                      //               ],
+                                      //             );
+                                      //           },
                                       //         ),
-                                      //         alignment: Alignment.center,
-                                      //       ),
-                                      //       Align(
-                                      //         alignment: Alignment.center,
-                                      //         child: Column(
-                                      //           mainAxisSize: MainAxisSize.min,
-                                      //           children: [
-                                      //             Container(
-                                      //               width: 153.h,
-                                      //               margin: EdgeInsets.symmetric(horizontal: 8.h),
-                                      //               child: Row(
-                                      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //                 children: [
-                                      //                   Container(
-                                      //                     width: 67.h,
-                                      //                     margin: EdgeInsets.only(
-                                      //                       top: 1.v,
-                                      //                       bottom: 4.v,
-                                      //                     ),
-                                      //                     padding: EdgeInsets.symmetric(
-                                      //                       horizontal: 9.h,
-                                      //                       vertical: 1.v,
-                                      //                     ),
-                                      //                     decoration: AppDecoration.fillGrayF.copyWith(
-                                      //                       borderRadius: BorderRadiusStyle.roundedBorder10,
-                                      //                     ),
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment.spaceBetween,
-                                      //                       children: [
-                                      //                         CustomImageView(
-                                      //                           imagePath: ImageConstant.imgCollision,
-                                      //                           height: 16.adaptSize,
-                                      //                           width: 16.adaptSize,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           "lbl_house".tr,
-                                      //                           style: theme.textTheme.labelMedium,
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   ),
-                                      //                   CustomIconButton(
-                                      //                     height: 24.adaptSize,
-                                      //                     width: 24.adaptSize,
-                                      //                     padding: EdgeInsets.all(4.h),
-                                      //                     decoration:
-                                      //                         IconButtonStyleHelper.gradientGreenToPrimary,
-                                      //                     child: CustomImageView(
-                                      //                       imagePath: ImageConstant.imgUpload,
-                                      //                     ),
-                                      //                   ),
-                                      //                 ],
-                                      //               ),
-                                      //             ),
-                                      //             SizedBox(height: 133.v),
-                                      //             _buildPrice(
-                                      //               price: "lbl_sam".tr,
-                                      //               illinoisTexas: "lbl_illinois_texas".tr,
-                                      //               thirtyTwo: "lbl_23".tr,
-                                      //             ),
-                                      //           ],
-                                      //         ),
-                                      //       ),
-                                      //     ],
-                                      //   ),
+                                      //       );
+                                      //     }
+                                      //   },
+                                      // ),
+
+                                      // _buildFrame5(),
+
+                                      // Column(
+                                      //   children: [
+                                      //     // _buildFrame4(),
+                                      //     _buildFrame5(),
+                                      //     SizedBox(
+                                      //       height: 40,
+                                      //     ),
+                                      //     // _buildFrame4(),
+                                      //   ],
                                       // ),
                                     ],
                                   );
-                                },
-                              ),
-                            )
-                          : Center(child: Text("No Stream Available"));
-                    }
-                  },
-                ),
-                // _buildFrame5(),
-
-                // Column(
-                //   children: [
-                //     // _buildFrame4(),
-                //     _buildFrame5(),
-                //     SizedBox(
-                //       height: 40,
-                //     ),
-                //     // _buildFrame4(),
-                //   ],
-                // ),
-              ],
-            ),
-          ),
-        ),
+                                }),
+                          )
+                        ])));
+          }
+        }),
+      
       ),
     );
   }
@@ -413,6 +501,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
               ),
             ),
           ),
+
           // Container(
           //   width: 100.h,
           //   margin: EdgeInsets.only(

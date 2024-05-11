@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/models/sign_in_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
+
+import '../../homepage_three_page/USerModel.dart';
 
 /// A controller class for the SignInScreen.
 ///
@@ -26,6 +29,7 @@ class SignInController extends GetxController {
   var isLoading = false.obs;
 
   Future<void> signIn(String email, String password, context) async {
+    final usercontroller = Get.put(UserController());
     Get.dialog(
       Center(
         child:
@@ -47,6 +51,7 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+        usercontroller.User(UserModel.fromJson(res_data));
 
         Get.back();
         Get.snackbar("Success", res_data["message"].toString());
