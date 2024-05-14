@@ -216,7 +216,7 @@ class _StreamScreenState extends State<StreamScreen> {
                           "tags": Streamcontroller.selectedTagNames,
                           "scheduleTime": DateTime.now().toString(),
                           "country": currentAddress.toString().toLowerCase(),
-                          "streamPass": Streamcontroller.passwordController.value.toString(),
+                          "streamPass": Streamcontroller.passwordController.value.text.toString(),
                         };
                         print(streamingdata);
                         Streamcontroller.LiveStreamingAPI(

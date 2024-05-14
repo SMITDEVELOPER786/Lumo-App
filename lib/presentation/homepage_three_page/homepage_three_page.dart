@@ -118,28 +118,34 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                               // bottom: 1.v,
                                               ),
                                           strokeWidth: 1.h,
-                                          gradient: controller.selectedCountry == controller.uniqueCountries[index]?LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Color.fromARGB(255, 163, 226, 15)
-                                                  .withOpacity(
-                                                      0.8), // Start with yellow at the top
-                                              Color.fromARGB(255, 43, 112,
-                                                  45), // Transition to green at the bottom
-                                            ],
-                                            stops: [0.2, 1.0],
-                                          ):LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.white
-                                                  .withOpacity(
-                                                      0.8), // Start with yellow at the top
-                                              Colors.white, // Transition to green at the bottom
-                                            ],
-                                            stops: [0.2, 1.0],
-                                          ),
+                                          gradient: controller
+                                                      .selectedCountry ==
+                                                  controller
+                                                      .uniqueCountries[index]
+                                              ? LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color.fromARGB(
+                                                            255, 163, 226, 15)
+                                                        .withOpacity(
+                                                            0.8), // Start with yellow at the top
+                                                    Color.fromARGB(255, 43, 112,
+                                                        45), // Transition to green at the bottom
+                                                  ],
+                                                  stops: [0.2, 1.0],
+                                                )
+                                              : LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Colors.white.withOpacity(
+                                                        0.8), // Start with yellow at the top
+                                                    Colors
+                                                        .white, // Transition to green at the bottom
+                                                  ],
+                                                  stops: [0.2, 1.0],
+                                                ),
                                           corners: Corners(
                                             topLeft: Radius.circular(15),
                                             topRight: Radius.circular(15),
@@ -189,15 +195,62 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () async {
-                                          var connectstreamData = {
-                                            "_id": controller.streamData[index]
-                                                ["_id"],
-                                            "HostID": controller
-                                                .streamData[index]["_id"],
-                                            "isHost": false,
-                                          };
-                                          await controller.ConnectStream(
-                                              connectstreamData);
+                                          if (controller.streamData[index]["streamLevel"] =="public") {
+                                            var connectstreamData = {
+                                              "_id": controller
+                                                  .streamData[index]["_id"],
+                                              "HostID": controller
+                                                  .streamData[index]["_id"],
+                                              "isHost": false,
+                                            };
+                                            await controller.ConnectStream(
+                                                connectstreamData);
+                                          } else if (controller
+                                                      .streamData[index]
+                                                  ["streamLevel"] ==
+                                              "private") {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        Text('Enter Password'),
+                                                    content: TextField(
+                                                      // controller: _passwordController,
+                                                      obscureText: true,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: 'Password',
+                                                      ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      MaterialButton(
+                                                        // Use MaterialButton instead of FlatButton
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(); // Close the dialog
+                                                        },
+                                                        child: Text('Cancel'),
+                                                      ),
+                                                      MaterialButton(
+                                                        // Use MaterialButton instead of FlatButton
+                                                        onPressed: () {
+                                                          // String password = _passwordController.text;
+                                                          // You can use the password entered by the user here
+                                                          print(
+                                                              'Password entered: ');
+                                                          Navigator.of(context)
+                                                              .pop(); // Close the dialog
+                                                        },
+                                                        child: Text('Submit'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                         
+                                          }
                                           // Get.lazyPut(() => LiveStreamingPage(
                                           //       liveID: controller.streamData[index]["hostId"],
                                           //       isHost: false,
@@ -208,7 +261,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                           //       isHost: false,
                                           //     ));
                                         },
-                                        child: SizedBox(
+                                        child:SizedBox(
                                           height: 200.v,
                                           width: 170.h,
                                           child: Stack(

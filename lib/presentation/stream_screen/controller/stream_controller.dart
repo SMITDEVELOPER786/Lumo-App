@@ -115,19 +115,29 @@ class StreamController extends GetxController
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo//live-stream/create'));
-    Map<String, dynamic> requestBody = {
-      "streamType": "live",
-      "title": streamingdata["title"],
-      "streamLevel": streamingdata["streamLevel"],
-      "tags": streamingdata["tags"],
-      "country": streamingdata["country"]
-    };
-    request.headers.addAll(headers);
-    if (streamingdata["streamType"] == "private") {
-      requestBody["password"] = streamingdata["password"];
-    }
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/create'));
+   if (streamType.value.toLowerCase() == "private") {
+      Map<String, dynamic> requestBody = {
+        "streamType": "live",
+        "title": streamingdata["title"],
+        "streamLevel": streamingdata["streamLevel"],
+        "tags": streamingdata["tags"],
+        "country": streamingdata["country"],
+        "streamPass": streamingdata["streamPass"]
+      };
+    } else {
+      Map<String, dynamic> requestBody = {
+        "streamType": "live",
+        "title": streamingdata["title"],
+        "streamLevel": streamingdata["streamLevel"],
+        "tags": streamingdata["tags"],
+        "country": streamingdata["country"],
+      };
+       request.headers.addAll(headers);
+    
     request.body = json.encode(requestBody);
+    }
+   
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
