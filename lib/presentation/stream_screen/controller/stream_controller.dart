@@ -70,7 +70,7 @@ class StreamController extends GetxController
     "Public",
     "Private",
   ].obs;
-  
+
   SelectStreamType(value) {
     streamType.value = value;
     update();
@@ -96,8 +96,9 @@ class StreamController extends GetxController
   }
 
   TextEditingController titlecontroller = TextEditingController();
-   var hostId;
-   var  hostName;
+  TextEditingController passwordController = TextEditingController();
+  var hostId;
+  var hostName;
 
   LiveStreamingAPI(context, streamingdata) async {
     Get.dialog(
@@ -115,13 +116,18 @@ class StreamController extends GetxController
         'POST',
         Uri.parse(
             'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo//live-stream/create'));
-    request.body = json.encode({
+    Map<String, dynamic> requestBody = {
       "streamType": "live",
       "title": streamingdata["title"],
       "streamLevel": streamingdata["streamLevel"],
       "tags": streamingdata["tags"],
       "country": streamingdata["country"]
-    });
+    };
+    request.headers.addAll(headers);
+    if (streamingdata["streamType"] == "private") {
+      requestBody["password"] = streamingdata["password"];
+    }
+    request.body = json.encode(requestBody);
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -129,19 +135,22 @@ class StreamController extends GetxController
     if (response.statusCode == 200) {
       String responseBody = await response.stream.bytesToString();
       var resData = jsonDecode(responseBody);
-      if(resData["status"] == true){
+      if (resData["status"] == true) {
         Get.back();
         hostId = resData["data"]["_id"].toString();
         hostName = resData["data"]["hostName"].toString();
-       Get.to(LiveStreamingPage(liveID: hostId.toString(), isHost: true,));
+        Get.to(LiveStreamingPage(
+          liveID: hostId.toString(),
+          isHost: true,
+        ));
       }
     } else {
-       Get.back();
+      Get.back();
       String responseBody = await response.stream.bytesToString();
       var resData = jsonDecode(responseBody);
-      
+
       Get.snackbar("error", resData["message"]);
-     
+
       print(response.reasonPhrase);
     }
   }

@@ -1,6 +1,7 @@
 import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/level_screen/level_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/my_wallet_screen/my_wallet_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
 
 import '../profile_page/widgets/profile_item_widget.dart';
@@ -12,12 +13,18 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_icon_button.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+  final UserDetails = Get.put(UserController());
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   ProfileController controller = Get.put(ProfileController(ProfileModel().obs));
 
   @override
@@ -273,6 +280,7 @@ class ProfilePage extends StatelessWidget {
                             padding: EdgeInsets.all(1.h),
                             decoration: AppDecoration.outlineLime.copyWith(
                               borderRadius: BorderRadiusStyle.roundedBorder34,
+                              
                             ),
                             child: CustomImageView(
                               imagePath: ImageConstant.imgEllipse33,
@@ -293,7 +301,8 @@ class ProfilePage extends StatelessWidget {
                           },
                           child: Padding(
                             padding: EdgeInsets.only(right: 2.h),
-                            child: CustomIconButton(
+                            child: 
+                            CustomIconButton(
                               height: 20.adaptSize,
                               width: 20.adaptSize,
                               padding: EdgeInsets.all(4.h),
@@ -303,6 +312,7 @@ class ProfilePage extends StatelessWidget {
                                 imagePath: ImageConstant.imgEdit,
                               ),
                             ),
+                          
                           ),
                         ),
                       ],
@@ -310,12 +320,13 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SizedBox(height: 7.v),
                   Text(
-                    "lbl_sarah_wegan".tr,
+                    "${UserController.user.data!.email}".tr,
+                    overflow: TextOverflow.ellipsis,
                     style: CustomTextStyles.titleMediumGray90005,
                   ),
                   SizedBox(height: 2.v),
                   Text(
-                    "lbl_id_12345678".tr,
+                    "${UserController.user.data!.id}".tr,
                     style: CustomTextStyles.labelLargeGray50016,
                   ),
                 ],

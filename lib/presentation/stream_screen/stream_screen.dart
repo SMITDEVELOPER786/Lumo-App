@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/services.dart';
 import 'package:muhammad_zubair_s_application4/presentation/multi_live_screen/multi_live_screen.dart';
 import 'package:geocoding/geocoding.dart';
@@ -214,6 +216,7 @@ class _StreamScreenState extends State<StreamScreen> {
                           "tags": Streamcontroller.selectedTagNames,
                           "scheduleTime": DateTime.now().toString(),
                           "country": currentAddress.toString().toLowerCase(),
+                          "streamPass": Streamcontroller.passwordController.value.toString(),
                         };
                         print(streamingdata);
                         Streamcontroller.LiveStreamingAPI(
@@ -749,44 +752,50 @@ class _StreamScreenState extends State<StreamScreen> {
           Obx(() {
             if (Streamcontroller.streamType.value == 'Private') {
               // Render password field
-              return Container(
-                width: 150,
-                height: 30,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                  
-                    // if you want to change the focusColor
-                    // see https://github.com/flutter/flutter/issues/117852#issuecomment-1368611791
-                    // you can have a background colour for your text fields
-                    filled: true,
-                    // you may use conditions to set different colours for different states
-                    fillColor: 
-                       Colors.white,
-                     
-                    // you may use the OutlineInputBorder,
-                    // or extend the InputBorder class to create your own
-                    // the default is UnderlineInputBorder
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // you can also define different border styles for different states
-                    // e.g. when the field is enabled / focused / has error
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.black),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.black),
+              return Column(
+                children: [
+                  Text("Set Password"),
+                  Container(
+                    width: 115,
+                    height: 25,
+                    child: TextFormField(
+                      controller: Streamcontroller.passwordController,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 12),
+                        hintText: "Password",
+
+                        // if you want to change the focusColor
+                        // see https://github.com/flutter/flutter/issues/117852#issuecomment-1368611791
+                        // you can have a background colour for your text fields
+                        filled: true,
+                        // you may use conditions to set different colours for different states
+                        fillColor: Colors.white,
+
+                        // you may use the OutlineInputBorder,
+                        // or extend the InputBorder class to create your own
+                        // the default is UnderlineInputBorder
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // you can also define different border styles for different states
+                        // e.g. when the field is enabled / focused / has error
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               );
             } else {
               // Render nothing if stream type is Public
