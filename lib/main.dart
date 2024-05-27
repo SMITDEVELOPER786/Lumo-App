@@ -1,24 +1,48 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_launcher_icons/main.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:muhammad_zubair_s_application4/notification_services.dart';
 
 import 'core/app_export.dart';
 
-void main() {
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+   await  Firebase.initializeApp(
+      options: FirebaseOptions(
+    apiKey: 'AIzaSyApfEvx_qDoiXEqo0eqCjOITJKTBz-Ymaw',
+    appId: '1:669158799463:android:77972a2f29e3ee3774bcc2',
+    messagingSenderId: 'messagingSenderId',
+    projectId: 'monzo-de7a8',
+    storageBucket: 'storageBucket',   ));
  
+  gettoken();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
+   
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     runApp(MyApp());
      _determinePosition();
   });
 }
+
+  gettoken() {
+  FireBaseNotificationServices notificationServices =
+      FireBaseNotificationServices();
+  notificationServices.getDeviceToken().then((value) {
+    print("fcmToken: " + value);
+  
+  });
+}
+
 Future<Position> _determinePosition() async {
   
   LocationPermission permission;
