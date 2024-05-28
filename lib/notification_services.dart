@@ -141,6 +141,7 @@ class FireBaseNotificationServices {
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print("checking");
       handleMessage(context, event);
     });
   }
@@ -148,13 +149,10 @@ class FireBaseNotificationServices {
   void handleMessage(BuildContext context, RemoteMessage message) {
     print("MESSAGE: " + message.data.toString());
 
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+
     // if (message.data['type'] == 'message') {
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) => MessageScreen(
-    //                 id: message.data['id'],
-    //               )));
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
     // }
   }
 

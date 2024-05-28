@@ -30,11 +30,11 @@ dependencies:
   devicelocale: ^0.7.1
   geocoding: ^3.0.0
   geolocator: ^11.0.0
-  firebase_core: ^2.31.1
-  firebase_auth: ^4.19.6
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.15
+  flutter_local_notifications: ^16.3.2
   google_sign_in: ^6.2.1
-  firebase_messaging: ^14.9.3
-  flutter_local_notifications: ^17.1.2
+  firebase_auth: ^4.17.4
  
 dev_dependencies: 
   flutter_test: 
