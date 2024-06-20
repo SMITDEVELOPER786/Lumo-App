@@ -38,10 +38,18 @@ class _ExploreOnePageState extends State<ExploreOnePage>
   @override
   void initState() {
     super.initState();
+    getReels();
 
-    videoController.GetReels();
+  
 
     _tabController = TabController(length: 7, vsync: this);
+  }
+
+  getReels() async {
+  await videoController.GetReels();
+  setState(() {
+    
+  });
   }
 
   // showData(){

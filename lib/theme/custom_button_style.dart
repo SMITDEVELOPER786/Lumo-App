@@ -108,6 +108,55 @@ class CustomButtonStyles {
           ],
         ),
       );
+
+       static BoxDecoration get Level1to11 => BoxDecoration(
+        borderRadius: BorderRadius.circular(10.h),
+        gradient: LinearGradient(
+          begin: Alignment(0.17, 0),
+          end: Alignment(0.66, 2),
+          colors: [
+            appTheme.bluenew,
+                       appTheme.bluenew,
+
+          ],
+        ),
+      );
+
+       static BoxDecoration get Level12to20 => BoxDecoration(
+        borderRadius: BorderRadius.circular(10.h),
+        gradient: LinearGradient(
+          begin: Alignment(0.17, 0),
+          end: Alignment(0.66, 2),
+          colors: [
+            appTheme.yellownew,
+           appTheme.yellownew,
+          ],
+        ),
+      );
+
+      static BoxDecoration get Level20to33 => BoxDecoration(
+        borderRadius: BorderRadius.circular(10.h),
+        gradient: LinearGradient(
+          begin: Alignment(0.17, 0),
+          end: Alignment(0.66, 2),
+          colors: [
+            appTheme.darkbluewnew,
+      appTheme.darkbluewnew,
+          ],
+        ),
+      );
+       static BoxDecoration get Level34to44 => BoxDecoration(
+        borderRadius: BorderRadius.circular(10.h),
+        gradient: LinearGradient(
+          begin: Alignment(0.17, 0),
+          end: Alignment(0.66, 2),
+          colors: [
+            appTheme.darkcyanwnew,
+            appTheme.amberA700,
+          ],
+        ),
+      );
+
   static BoxDecoration get gradientAmberToOrangeDdDecoration => BoxDecoration(
         borderRadius: BorderRadius.circular(12.h),
         gradient: LinearGradient(

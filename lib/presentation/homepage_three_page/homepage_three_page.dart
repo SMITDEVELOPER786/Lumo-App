@@ -181,8 +181,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, // Number of columns
                                   crossAxisSpacing:
-                                      8.0, // Spacing between columns
-                                  mainAxisSpacing: 8.0,
+                                      6.0, // Spacing between columns
+                                  mainAxisSpacing: 6.0,
                                   // Spacing between rows
                                 ),
                                 itemCount:
@@ -262,21 +262,23 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                           //     ));
                                         },
                                         child:SizedBox(
-                                          height: 200.v,
+                                          height: 450.v,
                                           width: 170.h,
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
-                                              CustomImageView(
-                                                imagePath:
-                                                    ImageConstant.imgEllipse471,
-                                                height: 205.v,
-                                                width: 170.h,
-                                                radius: BorderRadius.circular(
-                                                  10.h,
-                                                ),
-                                                alignment: Alignment.center,
+
+                                             controller.streamData[index]["hostImage"].contains("googleusercontent") ? 
+                                             Image.network(controller.streamData[index]["hostImage"]
+                                             ,
+                                               fit: BoxFit.cover,
+                                              ):
+                                             Image.network('https://res.cloudinary.com/dk3hy0n39/image/upload/+${controller.streamData[index]["hostImage"]}' ,
+                                                 fit: BoxFit.cover,
                                               ),
+                                            
+
+                                             
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Column(
@@ -284,7 +286,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     Container(
-                                                      width: 153.h,
+                                                      width: 123.h,
                                                       margin:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 8.h),
@@ -314,11 +316,11 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                         ],
                                                       ),
                                                     ),
-                                                    SizedBox(height: 133.v),
+                                                    SizedBox(height: 103.v),
                                                     Container(
                                                       padding:
                                                           EdgeInsets.symmetric(
-                                                        horizontal: 30.h,
+                                                        horizontal: 10.h,
                                                         vertical: 4.v,
                                                       ),
                                                       decoration: AppDecoration
@@ -878,11 +880,11 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
   Widget _buildNew1() {
     return CustomElevatedButton(
       onPressed: () {
-        Get.lazyPut(() => LiveView());
-        Get.to(() => LiveView());
+        // Get.lazyPut(() => LiveView());
+        // Get.to(() => LiveView());
       },
       height: 20.v,
-      width: 66.h,
+      width: 86.h,
       text: "lbl_new".tr,
       margin: EdgeInsets.only(bottom: 4.v),
       leftIcon: Container(

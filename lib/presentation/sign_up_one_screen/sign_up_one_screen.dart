@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/main.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_up_screen/controller/sign_up_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_up_screen/sign_up_screen.dart';
 
 import 'controller/sign_up_one_controller.dart';
@@ -17,6 +21,8 @@ class SignUpOneScreen extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<SignUpOneScreen> {
+  var controller = Get.put(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +44,22 @@ class _MyWidgetState extends State<SignUpOneScreen> {
                CustomOutlinedButton(
                 onPressed: ()async {
                   print("object");
-await signInWithGooglel();
+          final userCredential = await signInWithGooglel();
+              if (userCredential != null) {
+                // print(userCredential.toString());
+                // print("access101 $accesstoken");
+
+                var data = {
+                
+                  "accessToken": idToken,
+                 
+                  "socialType": "google",
+                };
+                log("BODY: " + data.toString());
+                await controller.signUpGoogle( data,context);
+                // ApiService.socialLogin(context, data);
+              }
+            
                 },
                    
                     text: "msg_continue_with_google".tr,

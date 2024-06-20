@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 84.h,
+                          width: 83.h,
                           padding: EdgeInsets.symmetric(
                             horizontal: 4.h,
                             vertical: 1.v,
@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   bottom: 1.v,
                                 ),
                                 child: Text(
-                                  "lbl_20_000".tr,
+                                 UserController.user.data!.profileId!.diamonds.toString(),
                                   style:
                                       CustomTextStyles.labelMediumGray80001_1,
                                 ),
@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         Container(
-                          width: 84.h,
+                          width: 82.h,
                           margin: EdgeInsets.only(left: 8.h),
                           padding: EdgeInsets.symmetric(
                             horizontal: 5.h,
@@ -127,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   bottom: 1.v,
                                 ),
                                 child: Text(
-                                  "lbl_1_5002".tr,
+                                 UserController.user.data!.profileId!.diamonds.toString(),
                                   style:
                                       CustomTextStyles.labelMediumGray80001_1,
                                 ),
@@ -155,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                         ),
-                        _buildTwentyEight(),
+                        // _buildTwentyEight(),
                         _buildLv10(),
                       ],
                     ),
@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildFrame1(
-                        dynamicText1: "lbl_20m".tr,
+                        dynamicText1: UserController.user.data!.profileId!.friends!.length.toString(),
                         dynamicText2: "lbl_friends".tr,
                       ),
                       Padding(
@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 13.h),
                         child: _buildFrame(
-                          dynamicText: "lbl_10k".tr,
+                          dynamicText:UserController.user.data!.profileId!.followers!.length.toString(),
                           dynamicText1: "lbl_followers".tr,
                         ),
                       ),
@@ -200,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.h),
                         child: _buildFrame(
-                          dynamicText: "lbl_200k".tr,
+                          dynamicText:UserController.user.data!.profileId!.following!.length.toString(),
                           dynamicText1: "lbl_following".tr,
                         ),
                       ),
@@ -218,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.h),
                         child: _buildFrame1(
-                          dynamicText1: "lbl_1k".tr,
+                          dynamicText1: UserController.user.data!.profileId!.visitors!.length.toString(),
                           dynamicText2: "lbl_visitors".tr,
                         ),
                       ),
@@ -282,15 +282,21 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadiusStyle.roundedBorder34,
                               
                             ),
-                            child: CustomImageView(
-                              imagePath: ImageConstant.imgEllipse33,
-                              height: 64.adaptSize,
-                              width: 64.adaptSize,
-                              radius: BorderRadius.circular(
-                                32.h,
-                              ),
-                              alignment: Alignment.center,
+                            child:CircleAvatar(
+                              radius:32.h,
+                              backgroundImage:  UserController.user.data!.profileId!.profileImage!.toString().contains("googleusercontent") ?NetworkImage("${UserController.user.data!.profileId!.profileImage}"):
+                              NetworkImage( 'https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}')
+                             
                             ),
+                          //    CustomImageView(
+                          //     imagePath: ImageConstant.imgEllipse33,
+                          //     height: 64.adaptSize,
+                          //     width: 64.adaptSize,
+                          //     radius: BorderRadius.circular(
+                          //       32.h,
+                          //     ),
+                          //     alignment: Alignment.center,
+                          //   ),
                           ),
                         ),
                         GestureDetector(
@@ -320,7 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   SizedBox(height: 7.v),
                   Text(
-                    "${UserController.user.data!.email}".tr,
+                    "${UserController.user.data!.profileId!.username}".tr,
                     overflow: TextOverflow.ellipsis,
                     style: CustomTextStyles.titleMediumGray90005,
                   ),
@@ -354,11 +360,24 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildLv10() {
     return CustomElevatedButton(
       height: 20.v,
-      width: 44.h,
-      text: "lbl_lv_10".tr,
-      margin: EdgeInsets.only(left: 8.h),
+      width: 59.h,
+      text: "LV."+UserController.user.data!.isLevel.toString(),
+      margin: EdgeInsets.only(left: 0.h),
       buttonStyle: CustomButtonStyles.none,
-      decoration: CustomButtonStyles.gradientAmberAToAmberADecoration,
+      decoration: 
+      UserController.user.data!.isLevel!>=0 && UserController.user.data!.isLevel!<=11 ?
+      CustomButtonStyles.Level1to11:
+
+      UserController.user.data!.isLevel!>=12 && UserController.user.data!.isLevel!<=19 ? 
+       CustomButtonStyles.Level12to20:
+          UserController.user.data!.isLevel!>=21 && UserController.user.data!.isLevel!<=33 ? 
+       CustomButtonStyles.Level20to33:
+         UserController.user.data!.isLevel!>=34 && UserController.user.data!.isLevel!<=44 ? 
+       CustomButtonStyles.Level34to44:
+
+      CustomButtonStyles.gradientAmberAToAmberADecoration
+      
+      ,
       buttonTextStyle: CustomTextStyles.labelMediumSemiBold,
     );
   }

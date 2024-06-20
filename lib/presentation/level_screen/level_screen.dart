@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import '../../widgets/custom_elevated_button.dart';
+import '../sign_in_screen/controller/usercontroller.dart';
 import 'controller/level_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
@@ -27,7 +28,7 @@ class LevelScreen extends GetWidget<LevelController> {
                           _buildSixtyNine(),
                           SizedBox(height: 15.v),
                           Align(
-                              alignment: Alignment.centerRight,
+                              alignment: Alignment.topLeft,
                               child: Container(
                                   height: 32.v,
                                   width: 50.h,
@@ -43,7 +44,7 @@ class LevelScreen extends GetWidget<LevelController> {
                                             alignment: Alignment.center),
                                         Align(
                                             alignment: Alignment.center,
-                                            child: Text("lbl_75".tr,
+                                            child: Text((UserController.user.data!.isLevel!/100).toString()+"%",
                                                 style: CustomTextStyles
                                                     .labelLargeGray80003Bold))
                                       ]))),
@@ -57,7 +58,7 @@ class LevelScreen extends GetWidget<LevelController> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(5.h),
                                   child: LinearProgressIndicator(
-                                      value: 0.65,
+                                      value: UserController.user.data!.isLevel!/100 ,
                                       backgroundColor: appTheme.lime10014))),
                           SizedBox(height: 3.v),
                           _buildFrame1(),
@@ -334,26 +335,48 @@ class LevelScreen extends GetWidget<LevelController> {
               height: 95.v,
               width: 91.h,
               child: Stack(alignment: Alignment.bottomCenter, children: [
-                CustomImageView(
-                    imagePath: ImageConstant.imgEllipse38,
-                    height: 91.adaptSize,
-                    width: 91.adaptSize,
-                    radius: BorderRadius.circular(45.h),
-                    alignment: Alignment.topCenter),
+                CircleAvatar(
+                              radius:32.h,
+                              backgroundImage:
+                               UserController.user.data!.profileId!.profileImage!.toString().contains("googleusercontent") ?NetworkImage("${UserController.user.data!.profileId!.profileImage}"):
+                               NetworkImage('https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}',
+                              //  height: 64.adaptSize,
+                              //   width: 64.adaptSize,
+                                // radius: BorderRadius.circular(
+                                //   32.h,
+                                // ),
+                              ),
+                            ),
+                // CustomImageView(
+                //     imagePath: ImageConstant.imgEllipse38,
+                //     height: 91.adaptSize,
+                //     width: 91.adaptSize,
+                //     radius: BorderRadius.circular(45.h),
+                //     alignment: Alignment.topCenter),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                         width: 37.h,
                         padding: EdgeInsets.symmetric(
                             horizontal: 6.h, vertical: 1.v),
-                        decoration: AppDecoration.gradientAmberAToAmberA
+                        decoration:   UserController.user.data!.isLevel!>=0 && UserController.user.data!.isLevel!<=11 ?
+      CustomButtonStyles.Level1to11:
+
+      UserController.user.data!.isLevel!>=12 && UserController.user.data!.isLevel!<=19 ? 
+       CustomButtonStyles.Level12to20:
+          UserController.user.data!.isLevel!>=21 && UserController.user.data!.isLevel!<=33 ? 
+       CustomButtonStyles.Level20to33:
+         UserController.user.data!.isLevel!>=34 && UserController.user.data!.isLevel!<=44 ? 
+       CustomButtonStyles.Level34to44:
+
+      CustomButtonStyles.gradientAmberAToAmberADecoration
                             .copyWith(
                                 borderRadius: BorderRadiusStyle.roundedBorder5),
-                        child: Text("lbl_lv_10".tr,
+                        child: Text("Lv. "+UserController.user.data!.isLevel.toString(),
                             style: CustomTextStyles.labelMediumSemiBold)))
               ])),
           SizedBox(height: 10.v),
-          Text("lbl_sarah_wegan".tr,
+          Text(UserController.user.data!.profileId!.username.toString(),
               style: CustomTextStyles.titleMediumGray80003)
         ]));
   }
@@ -361,7 +384,7 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildFrame1() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text("lbl_level_10".tr, style: CustomTextStyles.labelLargeGray80003),
+      Text("Level "+UserController.user.data!.isLevel.toString(), style: CustomTextStyles.labelLargeGray80003),
       Text("lbl_1200_1800".tr, style: CustomTextStyles.labelLargeGray80003)
     ]);
   }
@@ -403,6 +426,7 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildClose() {
     return Container(
+
         padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 24.v),
         decoration: AppDecoration.fillLightgreen5002
             .copyWith(borderRadius: BorderRadiusStyle.roundedBorder10),

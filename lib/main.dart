@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_launcher_icons/main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/notification_services.dart';
 
 import 'core/app_export.dart';
@@ -105,8 +106,8 @@ Future signInWithGooglel() async {
     );
 
     credential;
-    // idToken = credential.idToken.toString();
-    // accesstoken = credential.toString();
+    idToken = credential.idToken.toString();
+    accesstoken = credential.toString();
     print(credential.idToken);
     log(credential.accessToken.toString());
     log(credential.idToken.toString());

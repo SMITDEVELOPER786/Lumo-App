@@ -23,7 +23,7 @@
 
 
     <application
-        android:label="Monzo App"
+        android:label="Lumo Live App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

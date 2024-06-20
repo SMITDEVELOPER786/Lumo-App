@@ -58,7 +58,7 @@ class Userprofile1ItemPartyWidget extends StatelessWidget {
                       children: [
                         CustomElevatedButton(
                           height: 20.v,
-                          width: 66.h,
+                          width: 86.h,
                           text: "lbl_new".tr,
                           margin: EdgeInsets.only(bottom: 4.v),
                           leftIcon: Container(

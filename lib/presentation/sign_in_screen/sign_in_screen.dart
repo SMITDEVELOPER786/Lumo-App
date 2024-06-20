@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+import 'package:muhammad_zubair_s_application4/main.dart';
 import 'package:muhammad_zubair_s_application4/presentation/forgot_password_screen/forgot_password_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/homepage_tab_container_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
@@ -120,6 +124,25 @@ class SignInScreen extends GetWidget<SignInController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CustomIconButton(
+                                      onTap: () async {
+                                         final userCredential = await signInWithGooglel();
+              if (userCredential != null) {
+                // print(userCredential.toString());
+                // print("access101 $accesstoken");
+
+                var data = {
+                
+                  "accessToken": idToken,
+                 
+                  "socialType": "google",
+                };
+                log("BODY: " + data.toString());
+                await controller.signUpGoogle( data,context);
+                // ApiService.socialLogin(context, data);
+              }
+            
+                
+                                      },
                                         height: 50.adaptSize,
                                         width: 50.adaptSize,
                                         padding: EdgeInsets.all(13.h),

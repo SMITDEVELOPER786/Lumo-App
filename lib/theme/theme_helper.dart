@@ -222,6 +222,13 @@ class PrimaryColors {
   Color get amberA400 => Color(0XFFFFBF00);
   Color get amberA40001 => Color(0XFFFFC300);
   Color get amberA700 => Color(0XFFF7A80F);
+  Color get bluenew => Color.fromARGB(255, 66, 71, 83);
+  Color get yellownew =>  Color(0XFF485707);
+  Color get darkbluewnew =>  Color(0XFF4e4b86);
+  Color get darkcyanwnew =>  Color(0XFF106d6e);
+
+
+
 
   // Black
   Color get black900 => Color(0XFF000000);

@@ -92,153 +92,155 @@ class _StreamScreenState extends State<StreamScreen> {
             extendBodyBehindAppBar: true,
             backgroundColor: appTheme.black900.withOpacity(0.3),
             appBar: _buildAppBar(),
-            body: Container(
-              width: SizeUtils.width,
-              height: SizeUtils.height,
-              padding: EdgeInsets.only(
-                top: 36.v,
-                bottom: 68.v,
-              ),
-              decoration: BoxDecoration(
-                color: appTheme.black900.withOpacity(0.3),
-                image: DecorationImage(
-                  image: AssetImage(
-                    currentIndex == 2
-                        ? ImageConstant.imgRectangle89
-                        : ImageConstant.imgGroup751,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: Column(
-                  children: [
-                    TabBar(
-                      controller: Streamcontroller.tabviewController,
-                      indicatorColor: Colors.green, // Remove indicator
-                      tabs: [
-                        _buildTab("Live", 0,
-                            currentIndex), // Customize your tab labels here
-                        _buildTab("Audio Live", 1, currentIndex),
-                        _buildTab("Multi Live", 2, currentIndex),
-                      ],
+                width: SizeUtils.width,
+                height: SizeUtils.height,
+                padding: EdgeInsets.only(
+                  top: 36.v,
+                  bottom: 68.v,
+                ),
+                decoration: BoxDecoration(
+                  color: appTheme.black900.withOpacity(0.3),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      currentIndex == 2
+                          ? ImageConstant.imgRectangle89
+                          : ImageConstant.imgGroup751,
                     ),
-
-                    Expanded(
-                      child: TabBarView(
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.h),
+                  child: Column(
+                    children: [
+                      TabBar(
                         controller: Streamcontroller.tabviewController,
-                        children: [
-                          // Contents of the first tab
-                          Column(
-                            children: [
-                              Spacer(),
-                              Container(
-                                  margin: EdgeInsets.only(top: 30),
-                                  child: _buildStreamLevel()),
-                            ],
-                          ),
-
-                          Container(child: AudioLiveScreen()),
-                          // Contents of the second tab
-
-                          // Contents of the third tab
-                          MultiLiveScreen()
+                        indicatorColor: Colors.green, // Remove indicator
+                        tabs: [
+                          _buildTab("Live", 0,
+                              currentIndex), // Customize your tab labels here
+                          _buildTab("Audio Live", 1, currentIndex),
+                          _buildTab("Multi Live", 2, currentIndex),
                         ],
                       ),
-                    ),
-                    // Spacer(),
-
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(horizontal: 67.h),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Column(
-                    //         children: [
-                    //           Text(
-                    //             "lbl_live".tr,
-                    //             style: CustomTextStyles.labelLargeGreen70002,
-                    //           ),
-                    //           SizedBox(height: 2.v),
-                    //           Container(
-                    //             height: 2.v,
-                    //             width: 20.h,
-                    //             decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(
-                    //                 1.h,
-                    //               ),
-                    //               gradient: LinearGradient(
-                    //                 begin: Alignment(1.03, 1.11),
-                    //                 end: Alignment(0.07, -0.41),
-                    //                 colors: [
-                    //                   appTheme.green70002,
-                    //                   theme.colorScheme.primary,
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //       Spacer(
-                    //         flex: 50,
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.only(bottom: 4.v),
-                    //         child: Text(
-                    //           "lbl_audio_live".tr,
-                    //           style: CustomTextStyles.labelLarge13,
-                    //         ),
-                    //       ),
-                    //       Spacer(
-                    //         flex: 50,
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.only(bottom: 4.v),
-                    //         child: Text(
-                    //           "lbl_multi_live2".tr,
-                    //           style: CustomTextStyles.labelLarge13,
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // Spacer(),
-                    // _buildStreamLevel(),
-                    SizedBox(height: 21.v),
-                    CustomElevatedButton(
-                      onPressed: (() {
-                        var streamingdata = {
-                          "title": Streamcontroller.titlecontroller.value.text
-                              .toLowerCase(),
-                          "streamLevel":
-                              Streamcontroller.streamType.value.toLowerCase(),
-                          "tags": Streamcontroller.selectedTagNames,
-                          "scheduleTime": DateTime.now().toString(),
-                          "country": currentAddress.toString().toLowerCase(),
-                          "streamPass": Streamcontroller.passwordController.value.text.toString(),
-                        };
-                        print(streamingdata);
-                        Streamcontroller.LiveStreamingAPI(
-                            context, streamingdata);
-                        // Get.to(LiveStreamingPage(liveID: "123"));
-                      }),
-                      text: "lbl_start_streaming".tr,
-                      margin: EdgeInsets.symmetric(horizontal: 28.h),
-                      rightIcon: Container(
-                        margin: EdgeInsets.only(left: 5.h),
-                        child: CustomImageView(
-                          imagePath: ImageConstant.imgUploadGray5001,
-                          height: 16.adaptSize,
-                          width: 16.adaptSize,
+              
+                      Expanded(
+                        child: TabBarView(
+                          controller: Streamcontroller.tabviewController,
+                          children: [
+                            // Contents of the first tab
+                            Column(
+                              children: [
+                                Spacer(),
+                                Container(
+                                    margin: EdgeInsets.only(top: 30),
+                                    child: _buildStreamLevel()),
+                              ],
+                            ),
+              
+                            Container(child: AudioLiveScreen()),
+                            // Contents of the second tab
+              
+                            // Contents of the third tab
+                            MultiLiveScreen()
+                          ],
                         ),
                       ),
-                      buttonStyle: CustomButtonStyles.none,
-                      decoration: CustomButtonStyles
-                          .gradientGreenToPrimaryTL241Decoration,
-                    ),
-                    SizedBox(height: 40.v),
-                  ],
+                      // Spacer(),
+              
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 67.h),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           Text(
+                      //             "lbl_live".tr,
+                      //             style: CustomTextStyles.labelLargeGreen70002,
+                      //           ),
+                      //           SizedBox(height: 2.v),
+                      //           Container(
+                      //             height: 2.v,
+                      //             width: 20.h,
+                      //             decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(
+                      //                 1.h,
+                      //               ),
+                      //               gradient: LinearGradient(
+                      //                 begin: Alignment(1.03, 1.11),
+                      //                 end: Alignment(0.07, -0.41),
+                      //                 colors: [
+                      //                   appTheme.green70002,
+                      //                   theme.colorScheme.primary,
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       Spacer(
+                      //         flex: 50,
+                      //       ),
+                      //       Padding(
+                      //         padding: EdgeInsets.only(bottom: 4.v),
+                      //         child: Text(
+                      //           "lbl_audio_live".tr,
+                      //           style: CustomTextStyles.labelLarge13,
+                      //         ),
+                      //       ),
+                      //       Spacer(
+                      //         flex: 50,
+                      //       ),
+                      //       Padding(
+                      //         padding: EdgeInsets.only(bottom: 4.v),
+                      //         child: Text(
+                      //           "lbl_multi_live2".tr,
+                      //           style: CustomTextStyles.labelLarge13,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Spacer(),
+                      // _buildStreamLevel(),
+                      SizedBox(height: 21.v),
+                      CustomElevatedButton(
+                        onPressed: (() {
+                          var streamingdata = {
+                            "title": Streamcontroller.titlecontroller.value.text
+                                .toLowerCase(),
+                            "streamLevel":
+                                Streamcontroller.streamType.value.toLowerCase(),
+                            "tags": Streamcontroller.selectedTagNames,
+                            "scheduleTime": DateTime.now().toString(),
+                            "country": currentAddress.toString().toLowerCase(),
+                            "streamPass": Streamcontroller.passwordController.value.text.toString(),
+                          };
+                          print(streamingdata);
+                          Streamcontroller.LiveStreamingAPI(
+                              context, streamingdata);
+                          // Get.to(LiveStreamingPage(liveID: "123"));
+                        }),
+                        text: "lbl_start_streaming".tr,
+                        margin: EdgeInsets.symmetric(horizontal: 28.h),
+                        rightIcon: Container(
+                          margin: EdgeInsets.only(left: 5.h),
+                          child: CustomImageView(
+                            imagePath: ImageConstant.imgUploadGray5001,
+                            height: 16.adaptSize,
+                            width: 16.adaptSize,
+                          ),
+                        ),
+                        buttonStyle: CustomButtonStyles.none,
+                        decoration: CustomButtonStyles
+                            .gradientGreenToPrimaryTL241Decoration,
+                      ),
+                      SizedBox(height: 40.v),
+                    ],
+                  ),
                 ),
               ),
             ),

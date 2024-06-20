@@ -5,6 +5,7 @@ import 'package:muhammad_zubair_s_application4/presentation/leaderboard_three_ta
 import 'package:muhammad_zubair_s_application4/presentation/search_screen/search_screen.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_bottom_bar.dart';
 import '../../widgets/custom_floating_button.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../homepage_page/home_page_multi.dart';
 import '../homepage_page/home_page_party.dart';
 import '../homepage_tab_container_page/widgets/jointhestreaming_item_widget.dart';
@@ -27,24 +28,33 @@ class HomepageTabContainerPage extends StatefulWidget {
         );
 
   @override
-  State<HomepageTabContainerPage> createState() => _HomepageTabContainerPageState();
+  State<HomepageTabContainerPage> createState() =>
+      _HomepageTabContainerPageState();
 }
 
 class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
   HomepageTabContainerController controller =
       Get.put(HomepageTabContainerController(HomepageTabContainerModel().obs));
 
+  var controller1 = Get.find<HomepageTabContainerController>();
+
+  var bannerData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    controller1.fetchBannerData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-           bottomNavigationBar: Padding(
+        bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: _buildBottomBar(),
         ),
-        
-      
         body: SizedBox(
           width: SizeUtils.width,
           child: SingleChildScrollView(
@@ -103,8 +113,6 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     );
   }
 
-
-
   /// Section Widget
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
@@ -120,9 +128,9 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
               child: Row(
                 children: [
                   AppbarSubtitleTwo(
-                    onTap: (){
+                    onTap: () {
                       Get.lazyPut(() => HomepageThreePage());
-                      Get.to(()=>HomepageThreePage());
+                      Get.to(() => HomepageThreePage());
                     },
                     text: "lbl_universe".tr,
                     margin: EdgeInsets.only(bottom: 1.v),
@@ -135,9 +143,9 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
                     ),
                   ),
                   AppbarSubtitleTwo(
-                    onTap: (){
-                       Get.lazyPut(() => HomepageOnePage());
-                      Get.to(()=>HomepageOnePage());
+                    onTap: () {
+                      Get.lazyPut(() => HomepageOnePage());
+                      Get.to(() => HomepageOnePage());
                     },
                     text: "lbl_events".tr,
                     margin: EdgeInsets.only(
@@ -163,7 +171,7 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
         ),
       ),
       actions: [
-          Container(
+        Container(
           height: 16.adaptSize,
           width: 16.adaptSize,
           margin: EdgeInsets.fromLTRB(20.h, 21.v, 20.h, 18.v),
@@ -197,7 +205,6 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             ],
           ),
         ),
-
       ],
     );
   }
@@ -205,39 +212,33 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
   /// Section Widget
   Widget _buildJoinTheStreaming() {
     return Align(
-      alignment: Alignment.centerRight,
-      child: SizedBox(
-        height: 100.v,
-        child: Obx(
-          () => ListView.separated(
-            padding: EdgeInsets.only(left: 20.h),
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (
-              context,
-              index,
-            ) {
-              return SizedBox(
-                width: 12.h,
-              );
-            },
-            itemCount: controller.homepageTabContainerModelObj.value
-                .jointhestreamingItemList.value.length,
-            itemBuilder: (context, index) {
-              JointhestreamingItemModel model = controller
-                  .homepageTabContainerModelObj
-                  .value
-                  .jointhestreamingItemList
-                  .value[index];
-              return JointhestreamingItemWidget(
-                model,
-              );
-            },
-          ),
+  alignment: Alignment.centerRight,
+  child: SizedBox(
+    height: 150.v,
+    child: Obx(() {
+      if (controller.bannerData.isEmpty) {
+        return Center(child: Text("No banner data available"));
+      }
+      return CarouselSlider.builder(
+        options: CarouselOptions(
+          height: 150.v,
+          viewportFraction: 0.8,
+          enlargeCenterPage: true,
+          autoPlay: true,
         ),
-      ),
-    );
+        itemCount: controller.bannerData.length,
+        itemBuilder: (context, index, realIndex) {
+          var model = controller.bannerData[index];
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6.h),
+            child: JointhestreamingItemWidget(data: model),
+          );
+        },
+      );
+    }),
+  ),
+);
   }
-
   /// Section Widget
   Widget _buildFrame() {
     return Padding(
@@ -249,11 +250,10 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomElevatedButton(
-            onPressed: (){
-        Get.lazyPut(() => SearchScreen());
+            onPressed: () {
+              Get.lazyPut(() => SearchScreen());
 
-        Get.to(() => SearchScreen());
-              
+              Get.to(() => SearchScreen());
             },
             height: 48.v,
             width: 172.h,
@@ -271,11 +271,9 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
             buttonTextStyle: CustomTextStyles.bodySmallInterWhiteA70012,
           ),
           GestureDetector(
-            onTap: (){
-                Get.lazyPut(() => LeaderboardThreeTabContainerScreen());
-                Get.to(() => LeaderboardThreeTabContainerScreen());
-
-      
+            onTap: () {
+              Get.lazyPut(() => LeaderboardThreeTabContainerScreen());
+              Get.to(() => LeaderboardThreeTabContainerScreen());
             },
             child: Container(
               width: 172.h,
@@ -350,26 +348,28 @@ class _HomepageTabContainerPageState extends State<HomepageTabContainerPage> {
     );
   }
 
-    Widget _buildBottomBar() {
+  Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type),);
+        Get.toNamed(
+          getCurrentRoute(type),
+        );
       },
     );
   }
 
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-        case BottomBarEnum.Home:
+      case BottomBarEnum.Home:
         return AppRoutes.homepageTabContainerPage;
-case BottomBarEnum.Explore:
+      case BottomBarEnum.Explore:
         return AppRoutes.exploreOnePage;
-          case BottomBarEnum.Stream:
+      case BottomBarEnum.Stream:
         return AppRoutes.streamScreen;
       case BottomBarEnum.Chat:
-      return AppRoutes.messagesTabContainerScreen;
-        case BottomBarEnum.Connect:
-      return AppRoutes.profilePage;
+        return AppRoutes.messagesTabContainerScreen;
+      case BottomBarEnum.Connect:
+        return AppRoutes.profilePage;
       default:
         return "/";
     }
@@ -400,11 +400,12 @@ case BottomBarEnum.Explore:
             10.h,
           ),
           gradient: LinearGradient(
-           begin: Alignment(1.03, 1),
-          end: Alignment(0.07, 0),
+            begin: Alignment(1.03, 1),
+            end: Alignment(0.07, 0),
             colors: [
-        Color.fromARGB(255, 163, 226, 15).withOpacity(0.8),  // Start with yellow at the top
-      Color.fromARGB(255, 43, 112, 45),
+              Color.fromARGB(255, 163, 226, 15)
+                  .withOpacity(0.8), // Start with yellow at the top
+              Color.fromARGB(255, 43, 112, 45),
             ],
           ),
         ),

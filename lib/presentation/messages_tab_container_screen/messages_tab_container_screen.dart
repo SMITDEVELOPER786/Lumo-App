@@ -23,60 +23,62 @@ class MessagesTabContainerScreen
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: SizedBox(
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 14.v),
-              Container(
-                height: 25.v,
-                width: 320.h,
-                margin: EdgeInsets.only(left: 20.h),
-                child: TabBar(
-                  controller: controller.tabviewController,
-                  labelPadding: EdgeInsets.zero,
-                  labelColor: appTheme.green70002,
-                  labelStyle: TextStyle(
-                    fontSize: 17.fSize,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w700,
-                  ),
-                  unselectedLabelColor: appTheme.gray60008,
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 17.fSize,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                  ),
-                  indicatorColor: appTheme.green70002,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        "lbl_special_message".tr+"  ",
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "msg_official_message".tr+"   ",
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: 635.v,
-                  child: TabBarView(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 14.v),
+                Container(
+                  height: 25.v,
+                  width: 320.h,
+                  margin: EdgeInsets.only(left: 20.h),
+                  child: TabBar(
                     controller: controller.tabviewController,
-                    children: [
-                      MessagesPage(),
-                      MessagesTwoPage(),
+                    labelPadding: EdgeInsets.zero,
+                    labelColor: appTheme.green70002,
+                    labelStyle: TextStyle(
+                      fontSize: 17.fSize,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                    unselectedLabelColor: appTheme.gray60008,
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 17.fSize,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                    indicatorColor: appTheme.green70002,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "lbl_special_message".tr+"  ",
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "msg_official_message".tr+"   ",
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ],
+                SingleChildScrollView(
+                  child: SizedBox(
+                    height: 635.v,
+                    child: TabBarView(
+                      controller: controller.tabviewController,
+                      children: [
+                        MessagesPage(),
+                        MessagesTwoPage(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(

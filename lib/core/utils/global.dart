@@ -3,3 +3,5 @@ String authToken = "";
 String username ="";
 String userImage= "";
  var UserID;
+ var idToken ="";
+ var accesstoken="";

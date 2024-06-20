@@ -37,9 +37,9 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
       child: ZegoUIKitPrebuiltLiveStreaming(
 
         appID:
-            1275706078, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+            1905348293, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign:
-            "d67548e2be533db0e3b12f25fe22405010c79f3d7c8a55d294629e62b819ed88", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+            "cba6e4fa668481d632a47632fc41ea48e5f1940cf83590d3d3b7ccec93664864", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
         userID: UserID,
         userName: 'Tester',
         liveID: widget.liveID,
