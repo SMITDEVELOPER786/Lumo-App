@@ -1,3 +1,7 @@
+import 'package:flutter/services.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/account_creation_one_screen/account_creation_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/account_creation_screen/account_creation_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
@@ -25,91 +29,131 @@ class _SignUpScreenState extends State<SignUpScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var controller = Get.put(SignUpController());
+    Position? _currentPosition;
+  late double latitude;
+  late double longitude;
+  String? currentAddress;
+  Future<void> _getCurrentPosition() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      setState(() {
+        _currentPosition = position;
+        latitude = _currentPosition!.latitude;
+        longitude = _currentPosition!.longitude;
+      });
+      _getAddressFromLatLng(_currentPosition!);
+    } catch (e) {
+      debugPrint("Error getting current position: $e");
+    }
+  }
+
+    Future<void> _getAddressFromLatLng(Position position) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        currentAddress = '${place.country}';
+      });
+    } catch (e) {
+      debugPrint("Error getting address from coordinates: $e");
+      if (e.runtimeType == PlatformException) {
+        PlatformException platformException = e as PlatformException;
+        debugPrint(
+            "PlatformException: ${platformException.code} - ${platformException.message}");
+      }
+      setState(() {
+        currentAddress = "Address not available";
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentPosition();
+  }
 
   // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: 
-      
-         Scaffold(
-             
-          appBar: _buildAppBar(),
-          body: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(vertical: 28.v),
-                child: Column(
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgGroup116x173,
-                      height: 81.v,
-                      width: 121.h,
-                    ),
-                    SizedBox(height: 78.v),
-                    _buildEmail(),
-                    SizedBox(height: 35.v),
-                    _buildFrameFour(),
-                    SizedBox(height: 31.v),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(vertical: 28.v),
+              child: Column(
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgGroup116x173,
+                    height: 81.v,
+                    width: 121.h,
+                  ),
+                  SizedBox(height: 78.v),
+                  _buildEmail(),
+                  SizedBox(height: 35.v),
+                  _buildFrameFour(),
+                  SizedBox(height: 31.v),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomIconButton(
+                        height: 50.adaptSize,
+                        width: 50.adaptSize,
+                        padding: EdgeInsets.all(13.h),
+                        decoration: IconButtonStyleHelper.outlineGray,
+                        child: CustomImageView(
+                          imagePath: ImageConstant.imgGoogleLogo,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.h),
+                        child: CustomIconButton(
                           height: 50.adaptSize,
                           width: 50.adaptSize,
-                          padding: EdgeInsets.all(13.h),
+                          padding: EdgeInsets.all(10.h),
                           decoration: IconButtonStyleHelper.outlineGray,
                           child: CustomImageView(
-                            imagePath: ImageConstant.imgGoogleLogo,
+                            imagePath: ImageConstant.imgAppleLogo,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 16.h),
-                          child: CustomIconButton(
-                            height: 50.adaptSize,
-                            width: 50.adaptSize,
-                            padding: EdgeInsets.all(10.h),
-                            decoration: IconButtonStyleHelper.outlineGray,
-                            child: CustomImageView(
-                              imagePath: ImageConstant.imgAppleLogo,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 35.v),
-                    GestureDetector(
-                      onTap: (){
-                          Get.lazyPut(()=>SignInScreen());
-                    Get.toNamed(AppRoutes.signInScreen);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "msg_already_have_an2".tr,
-                              style: CustomTextStyles.labelMediumff4c4c4c11,
-                            ),
-                            TextSpan(
-                              text: "lbl_sign_in".tr,
-                              style: CustomTextStyles.labelMediumff119645,
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.left,
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 35.v),
+                  GestureDetector(
+                    onTap: () {
+                      Get.lazyPut(() => SignInScreen());
+                      Get.toNamed(AppRoutes.signInScreen);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "msg_already_have_an2".tr,
+                            style: CustomTextStyles.labelMediumff4c4c4c11,
+                          ),
+                          TextSpan(
+                            text: "lbl_sign_in".tr,
+                            style: CustomTextStyles.labelMediumff119645,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(height: 5.v),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 5.v),
+                ],
               ),
             ),
           ),
         ),
- 
+      ),
     );
   }
 
@@ -142,21 +186,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 34.v),
             CustomTextFormField(
-                  controller: controller.emailController,
-                  hintText: "lbl_email_address".tr,
-                  hintStyle: CustomTextStyles.titleSmallGray700,
-                  textInputType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null ||
-                        (!isValidEmail(value, isRequired: true))) {
-                      return "err_msg_please_enter_valid_email".tr;
-                    }
-                    return null;
-                  },
-                  borderDecoration:
-                      TextFormFieldStyleHelper.fillLightGreen,
-                  fillColor: appTheme.lightGreen50),
-
+                controller: controller.emailController,
+                hintText: "lbl_email_address".tr,
+                hintStyle: CustomTextStyles.titleSmallGray700,
+                textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null ||
+                      (!isValidEmail(value, isRequired: true))) {
+                    return "err_msg_please_enter_valid_email".tr;
+                  }
+                  return null;
+                },
+                borderDecoration: TextFormFieldStyleHelper.fillLightGreen,
+                fillColor: appTheme.lightGreen50),
             SizedBox(height: 19.v),
             CustomTextFormField(
               controller: controller.passwordController,
@@ -199,40 +241,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Obx(
-                () => 
-                CustomCheckboxButton(
-                alignment: Alignment.centerLeft,
-                text: "msg_accept_hi_live_terms".tr,
-                value: controller.checkSquare.value,
-                padding: EdgeInsets.symmetric(vertical: 4.v),
-                onChange: (value) {
-                  controller.checkSquare.value = value;
-                },
-              ),
+                () => CustomCheckboxButton(
+                  alignment: Alignment.centerLeft,
+                  text: "msg_accept_hi_live_terms".tr,
+                  value: controller.checkSquare.value,
+                  padding: EdgeInsets.symmetric(vertical: 4.v),
+                  onChange: (value) {
+                    controller.checkSquare.value = value;
+                  },
+                ),
               ),
             ),
             SizedBox(height: 47.v),
             CustomElevatedButton(
-              onPressed: (){
-                 if (_formKey.currentState!.validate() ) {
-                  if( controller.checkSquare.value == true){
-                     String email = controller.emailController.text;
-                  String password = controller.passwordController.text;
-                  controller.signUp(email, password, context);
-
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if (controller.checkSquare.value == true) {
+                    String email = controller.emailController.text;
+                    String password = controller.passwordController.text;
+                    String country = currentAddress.toString().toLowerCase();
+                    controller.signUp(email, password, country, context);
+                  } else {
+                    Get.snackbar(
+                        "Error", "Please agree with the terms and services");
                   }
-                  else{
-                    Get.snackbar("Error", "Please agree with the terms and services");
-                  }
-                 
                 }
-                
-           
-                  
               },
               text: "lbl_sign_up".tr,
               buttonStyle: CustomButtonStyles.none,
-              decoration: CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,
+              decoration:
+                  CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,
             ),
           ],
         ),

@@ -178,7 +178,7 @@ class _VerificationSixScreenState extends State<VerificationSixScreen> {
                   var completeProfile = {
                     "username": NameorImageController.userNameController.value.text,
                    "profileImage" : NameorImageController.imageFile.value,
-                    "gender" :  createProfileController.gender.value,
+                    "gender" :  createProfileController.gender.value.toLowerCase(),
                     "dateOfBirth" :  createProfileController.selectedDate.value,
                     "favBroadcaster" : broadcastController.selectedBroadcasterId,
 

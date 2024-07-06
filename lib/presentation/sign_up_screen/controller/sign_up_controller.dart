@@ -37,7 +37,7 @@ class SignUpController extends GetxController {
 
   Rx<bool> checkSquare = false.obs;
 
- Future<void> signUpGoogle(data, context) async {
+  Future<void> signUp(String email, String password,  String country ,context) async {
     Get.dialog(
       Center(
         child:
@@ -46,65 +46,7 @@ class SignUpController extends GetxController {
       barrierDismissible: false,
     );
     var headers = {'Content-Type': 'application/json'};
-    var body = json.encode(data);
-    final usercontroller = Get.put(UserController());
-
-
-    try {
-      http.Response response = await http.post(
-        Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/social-auth'),
-        headers: headers,
-        body: body,
-      );
-      var res_data = json.decode(response.body.toString());
-
-      if (response.statusCode == 200 && res_data["message"]=="User registered successfully") {
-        signupToken = res_data["token"];
-
-        Get.back();
-         Get.snackbar("Success", "success");
-        // Get.snackbar("Message", "OTP has been sent on your email");
-
-         Get.lazyPut(()=>VerificationFourScreen());
-              Get.toNamed(AppRoutes.verificationFourScreen);
-      }
-      else if(response.statusCode == 200 && res_data["message"]!="User registered successfully"){
-        authToken = res_data["token"];
-        UserID = res_data["data"]["_id"];
-        usercontroller.User(UserModel.fromJson(res_data));
-
-        Get.back();
-        Get.snackbar("Success", res_data["message"].toString());
-        Get.lazyPut(() => HomepageThreePage());
-        Get.to(() => HomepageThreePage());
-      }
-       else {
-        Get.showSnackbar(GetSnackBar(
-          title: "${res_data["message"]}",
-        ));
-        print(response.reasonPhrase);
-        // Handle other status codes, if needed
-      }
-    } catch (e) {
-      print('Error occurred: $e');
-      // Handle error, such as network issue
-    } finally {
-      isLoading(false); // Set loading state to false when API request finishes
-    }
-  }
-
-
-  Future<void> signUp(String email, String password, context) async {
-    Get.dialog(
-      Center(
-        child:
-            CircularProgressIndicator(), // Replace this with your custom loader widget
-      ),
-      barrierDismissible: false,
-    );
-    var headers = {'Content-Type': 'application/json'};
-    var body = json.encode({"email": email, "password": password});
+    var body = json.encode({"email": email, "password": password, "country" : country});
 
     try {
       http.Response response = await http.post(
@@ -116,10 +58,9 @@ class SignUpController extends GetxController {
       var res_data = json.decode(response.body.toString());
 
       if (response.statusCode == 201) {
-        signupToken = res_data["token"];
-
         Get.back();
-         Get.snackbar("Success", res_data["message"].toString());
+        Get.snackbar("Success", res_data["message"].toString());
+        signupToken = res_data["token"];
         // Get.snackbar("Message", "OTP has been sent on your email");
 
         Get.lazyPut(() => AccountCreationOneScreen());

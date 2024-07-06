@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
@@ -14,12 +15,15 @@ class HomepageThreeController extends GetxController {
   HomepageThreeController(this.homepageThreeModelObj);
 
   Rx<HomepageThreeModel> homepageThreeModelObj;
+  TextEditingController joinStreamPassword = TextEditingController();
+
 
   var isLoading = true.obs;
   String selectedCountry = 'All';
   List<dynamic> uniqueCountries = [];
   Map<String, List<dynamic>> countryStreams = {};
   List<dynamic> streamData = [].obs;
+
 
   List<dynamic> getDisplayedStreams() {
     return selectedCountry == 'All'

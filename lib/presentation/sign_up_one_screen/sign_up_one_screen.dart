@@ -38,56 +38,45 @@ class _MyWidgetState extends State<SignUpOneScreen> {
                 width: 121.h,
               ),
               SizedBox(height: 16.v),
-              
               _buildContinueWithGoogle(),
-               SizedBox(height: 16.v),
-               CustomOutlinedButton(
-                onPressed: ()async {
-                  print("object");
-          final userCredential = await signInWithGooglel();
-              if (userCredential != null) {
-                // print(userCredential.toString());
-                // print("access101 $accesstoken");
-
-                var data = {
-                
-                  "accessToken": idToken,
-                 
-                  "socialType": "google",
-                };
-                log("BODY: " + data.toString());
-                await controller.signUpGoogle( data,context);
-                // ApiService.socialLogin(context, data);
-              }
-            
-                },
-                   
-                    text: "msg_continue_with_google".tr,
-                    leftIcon: Container(
-                      margin: EdgeInsets.only(right: 30.h),
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgGoogleLogo,
-                        height: 24.adaptSize,
-                        width: 24.adaptSize,
-                      ),
+              SizedBox(height: 16.v),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 20),
+                child: CustomOutlinedButton(
+                  onPressed: () async {
+                    print("object");
+                    await signInWithGooglel();
+                  },
+                  text: "msg_continue_with_google".tr,
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 30.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgGoogleLogo,
+                      height: 24.adaptSize,
+                      width: 24.adaptSize,
                     ),
-                    buttonStyle: CustomButtonStyles.outlineGray,
-                    buttonTextStyle: CustomTextStyles.titleSmallGray70010,
                   ),
-                   SizedBox(height: 16.v),
-                   CustomOutlinedButton(
-                    text: "msg_continue_with_apple".tr,
-                    leftIcon: Container(
-                      margin: EdgeInsets.only(right: 30.h),
-                      child: CustomImageView(
-                        imagePath: ImageConstant.imgAppleLogo,
-                        height: 29.v,
-                        width: 24.h,
-                      ),
+                  buttonStyle: CustomButtonStyles.outlineGray,
+                  buttonTextStyle: CustomTextStyles.titleSmallGray70010,
+                ),
+              ),
+              SizedBox(height: 16.v),
+              Padding(
+               padding:  EdgeInsets.symmetric(horizontal: 20),
+                child: CustomOutlinedButton(
+                  text: "msg_continue_with_apple".tr,
+                  leftIcon: Container(
+                    margin: EdgeInsets.only(right: 30.h),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgAppleLogo,
+                      height: 29.v,
+                      width: 24.h,
                     ),
-                    buttonStyle: CustomButtonStyles.outlineGray,
-                    buttonTextStyle: CustomTextStyles.titleSmallGray70010,
                   ),
+                  buttonStyle: CustomButtonStyles.outlineGray,
+                  buttonTextStyle: CustomTextStyles.titleSmallGray70010,
+                ),
+              ),
               SizedBox(height: 32.v),
               CustomElevatedButton(
                 onPressed: () {
@@ -129,7 +118,8 @@ class _MyWidgetState extends State<SignUpOneScreen> {
       ),
     );
   }
-    Widget _buildContinueWithGoogle() {
+
+  Widget _buildContinueWithGoogle() {
     return SizedBox(
       height: 294.v,
       width: double.maxFinite,
@@ -149,8 +139,6 @@ class _MyWidgetState extends State<SignUpOneScreen> {
                   "msg_access_your_world".tr,
                   style: theme.textTheme.headlineMedium,
                 ),
-            
-               
               ],
             ),
           ),

@@ -195,7 +195,9 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () async {
-                                          if (controller.streamData[index]["streamLevel"] =="public") {
+                                          if (controller.streamData[index]
+                                                  ["streamLevel"] ==
+                                              "public") {
                                             var connectstreamData = {
                                               "_id": controller
                                                   .streamData[index]["_id"],
@@ -209,47 +211,63 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                       .streamData[index]
                                                   ["streamLevel"] ==
                                               "private") {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title:
-                                                        Text('Enter Password'),
-                                                    content: TextField(
-                                                      // controller: _passwordController,
-                                                      obscureText: true,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Password',
-                                                      ),
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('Enter Password'),
+                                                  content: TextField(
+                                                    controller: controller
+                                                        .joinStreamPassword,
+                                                    obscureText: true,
+                                                    decoration: InputDecoration(
+                                                      hintText: 'Password',
                                                     ),
-                                                    actions: <Widget>[
-                                                      MaterialButton(
-                                                        // Use MaterialButton instead of FlatButton
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(); // Close the dialog
-                                                        },
-                                                        child: Text('Cancel'),
-                                                      ),
-                                                      MaterialButton(
-                                                        // Use MaterialButton instead of FlatButton
-                                                        onPressed: () {
-                                                          // String password = _passwordController.text;
-                                                          // You can use the password entered by the user here
-                                                          print(
-                                                              'Password entered: ');
-                                                          Navigator.of(context)
-                                                              .pop(); // Close the dialog
-                                                        },
-                                                        child: Text('Submit'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                         
+                                                  ),
+                                                  actions: <Widget>[
+                                                    MaterialButton(
+                                                      // Use MaterialButton instead of FlatButton
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(); // Close the dialog
+                                                      },
+                                                      child: Text('Cancel'),
+                                                    ),
+                                                    MaterialButton(
+                                                      // Use MaterialButton instead of FlatButton
+                                                      onPressed: () async {
+                                                        if (controller.joinStreamPassword.text == controller.streamData[index]["streamPass"]) {
+                                                          var connectstreamData =
+                                                              {
+                                                            "_id": controller
+                                                                    .streamData[
+                                                                index]["_id"],
+                                                            "HostID": controller
+                                                                    .streamData[
+                                                                index]["_id"],
+                                                            "isHost": false,
+                                                          };
+                                                          await controller
+                                                              .ConnectStream(
+                                                                  connectstreamData);
+                                                        }else{
+                                                          Get.back();
+                                                          Get.snackbar("Error", "Wrong Password");
+                                                        }
+
+                                                        // String password = _passwordController.text;
+                                                        // You can use the password entered by the user here
+                                                        print(
+                                                            'Password entered: ');
+                                                        Navigator.of(context)
+                                                            .pop(); // Close the dialog
+                                                      },
+                                                      child: Text('Submit'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
                                           // Get.lazyPut(() => LiveStreamingPage(
                                           //       liveID: controller.streamData[index]["hostId"],
@@ -261,8 +279,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                           //       isHost: false,
                                           //     ));
                                         },
-                                        child:SizedBox(
-                                          height: 450.v,
+                                        child: SizedBox(
+                                          height: 200.v,
                                           width: 170.h,
                                           child: Stack(
                                             alignment: Alignment.center,

@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
 
 import '../../homepage_three_page/USerModel.dart';
-import '../../verification_four_screen/verification_four_screen.dart';
+
 
 /// A controller class for the SignInScreen.
 ///
@@ -110,6 +110,7 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+        userprofile = res_data["data"]["ProfileId"]["profileImage"];
         usercontroller.User(UserModel.fromJson(res_data));
 
         Get.back();
@@ -127,7 +128,9 @@ class SignInController extends GetxController {
         // Handle other status codes, if needed
       }
     } catch (e) {
+
       print('Error occurred: $e');
+       isLoading(false); 
       // Handle error, such as network issue
     } finally {
       isLoading(false); // Set loading state to false when API request finishes

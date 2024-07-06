@@ -35,7 +35,14 @@ dependencies:
   flutter_local_notifications: ^16.3.2
   google_sign_in: 
   firebase_auth: ^4.17.4
+
   carousel_slider: ^4.2.1
+
+  csc_picker: ^0.2.7
+ 
+  country_picker: ^2.0.26
+  country_code_picker: ^3.0.0
+
  
 dev_dependencies: 
   flutter_test: 
