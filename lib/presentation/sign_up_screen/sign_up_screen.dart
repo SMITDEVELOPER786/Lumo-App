@@ -46,8 +46,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     CustomImageView(
                       imagePath: ImageConstant.imgGroup116x173,
-                      height: 81.v,
-                      width: 121.h,
+                      height: 201.v,
+                width: 221.h,
                     ),
                     SizedBox(height: 78.v),
                     _buildEmail(),

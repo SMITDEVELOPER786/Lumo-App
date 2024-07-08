@@ -36,8 +36,8 @@ class SignUpActiveScreen extends GetWidget<SignUpActiveController> {
                             child: Column(children: [
                               CustomImageView(
                                   imagePath: ImageConstant.imgGroup116x173,
-                                  height: 81.v,
-                                  width: 121.h),
+                                   height: 201.v,
+                width: 221.h,),
                               SizedBox(height: 78.v),
                               Text("msg_create_an_account".tr,
                                   style: theme.textTheme.headlineMedium),

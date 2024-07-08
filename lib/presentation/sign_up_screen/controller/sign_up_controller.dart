@@ -72,6 +72,10 @@ class SignUpController extends GetxController {
       else if(response.statusCode == 200 && res_data["message"]!="User registered successfully"){
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+          authToken = res_data["token"];
+        UserID = res_data["data"]["_id"];
+        userlevelImage = await getLevel(res_data["data"]["isLevel"]);
+
         usercontroller.User(UserModel.fromJson(res_data));
 
         Get.back();
@@ -93,6 +97,28 @@ class SignUpController extends GetxController {
       isLoading(false); // Set loading state to false when API request finishes
     }
   }
+
+   getLevel(serialNo) async {
+    var headers = {'Content-Type': 'application/json'};
+    var body = json.encode({"serialNo": serialNo});
+
+    try {
+      http.Response response = await http.post(
+        Uri.parse('${BaseUrl}get-level-icon'),
+        headers: headers,
+        body: body,
+      );
+      var res_data = json.decode(response.body.toString());
+      if (response.statusCode == 200) {
+        // Get.snackbar("Error", "Get ");
+        return res_data["data"]["levelIcon"];
+      }
+    } catch (e) {
+       return "";
+      Get.snackbar("Error", e.toString());
+    }
+  }
+
 
 
   Future<void> signUp(String email, String password, context) async {

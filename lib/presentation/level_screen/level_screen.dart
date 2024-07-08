@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+
 import '../../widgets/custom_elevated_button.dart';
 import '../sign_in_screen/controller/usercontroller.dart';
 import 'controller/level_controller.dart';
@@ -326,14 +328,14 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildSixtyNine() {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 124.h, vertical: 10.v),
+        padding: EdgeInsets.symmetric(horizontal: 104.h, vertical: 10.v),
         decoration: AppDecoration.fillLightGreen
             .copyWith(borderRadius: BorderRadiusStyle.roundedBorder10),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           SizedBox(height: 5.v),
           SizedBox(
               height: 95.v,
-              width: 91.h,
+              width: 190.h,
               child: Stack(alignment: Alignment.bottomCenter, children: [
                 CircleAvatar(
                               radius:32.h,
@@ -353,27 +355,20 @@ class LevelScreen extends GetWidget<LevelController> {
                 //     width: 91.adaptSize,
                 //     radius: BorderRadius.circular(45.h),
                 //     alignment: Alignment.topCenter),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                        width: 37.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 6.h, vertical: 1.v),
-                        decoration:   UserController.user.data!.isLevel!>=0 && UserController.user.data!.isLevel!<=11 ?
-      CustomButtonStyles.Level1to11:
-
-      UserController.user.data!.isLevel!>=12 && UserController.user.data!.isLevel!<=19 ? 
-       CustomButtonStyles.Level12to20:
-          UserController.user.data!.isLevel!>=21 && UserController.user.data!.isLevel!<=33 ? 
-       CustomButtonStyles.Level20to33:
-         UserController.user.data!.isLevel!>=34 && UserController.user.data!.isLevel!<=44 ? 
-       CustomButtonStyles.Level34to44:
-
-      CustomButtonStyles.gradientAmberAToAmberADecoration
-                            .copyWith(
-                                borderRadius: BorderRadiusStyle.roundedBorder5),
-                        child: Text("Lv. "+UserController.user.data!.isLevel.toString(),
-                            style: CustomTextStyles.labelMediumSemiBold)))
+                Padding(
+                  padding: const EdgeInsets.only(top:70.0),
+                  child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                         height: 50.v,
+                    width: 119.h,
+                     decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage("https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),)),
+                )
               ])),
           SizedBox(height: 10.v),
           Text(UserController.user.data!.profileId!.username.toString(),

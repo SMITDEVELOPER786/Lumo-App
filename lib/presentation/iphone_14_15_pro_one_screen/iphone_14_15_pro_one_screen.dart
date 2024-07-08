@@ -9,27 +9,20 @@ class Iphone1415ProOneScreen extends GetWidget<Iphone1415ProOneController> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(vertical: 301.v),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomImageView(
-                      imagePath: ImageConstant.imgLayerBlur,
-                      height: 235.v,
-                      width: 110.h,
-                      margin: EdgeInsets.only(top: 15.v)),
-                  CustomImageView(
-                      imagePath: ImageConstant.imgGroup116x173,
-                      height: 116.v,
-                      width: 173.h,
-                      margin: EdgeInsets.only(top: 67.v, bottom: 66.v)),
-                  CustomImageView(
-                      imagePath: ImageConstant.imgLayerBlur235x93,
-                      height: 235.v,
-                      width: 93.h,
-                      margin:
-                          EdgeInsets.only(left: 17.h, top: 9.v, bottom: 6.v))
-                ]))));
+            body: Center(
+              child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(vertical: 101.v),
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    
+                    CustomImageView(
+                        imagePath: ImageConstant.imgGroup116x173,
+                        height: 301.v,
+                  width: 321.h,
+                        margin: EdgeInsets.only(top: 67.v, bottom: 66.v)),
+                
+                  ])),
+            )));
   }
 }

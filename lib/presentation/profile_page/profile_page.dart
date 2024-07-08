@@ -1,3 +1,4 @@
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/level_screen/level_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/my_wallet_screen/my_wallet_screen.dart';
@@ -358,28 +359,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   /// Section Widget
   Widget _buildLv10() {
-    return CustomElevatedButton(
-      height: 20.v,
-      width: 59.h,
-      text: "LV."+UserController.user.data!.isLevel.toString(),
-      margin: EdgeInsets.only(left: 0.h),
-      buttonStyle: CustomButtonStyles.none,
-      decoration: 
-      UserController.user.data!.isLevel!>=0 && UserController.user.data!.isLevel!<=11 ?
-      CustomButtonStyles.Level1to11:
-
-      UserController.user.data!.isLevel!>=12 && UserController.user.data!.isLevel!<=19 ? 
-       CustomButtonStyles.Level12to20:
-          UserController.user.data!.isLevel!>=21 && UserController.user.data!.isLevel!<=33 ? 
-       CustomButtonStyles.Level20to33:
-         UserController.user.data!.isLevel!>=34 && UserController.user.data!.isLevel!<=44 ? 
-       CustomButtonStyles.Level34to44:
-
-      CustomButtonStyles.gradientAmberAToAmberADecoration
-      
-      ,
-      buttonTextStyle: CustomTextStyles.labelMediumSemiBold,
+    return Container(
+       height: 40.v,
+  width: 119.h,
+   decoration: BoxDecoration(
+    image: DecorationImage(
+      image: NetworkImage("https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
+      fit: BoxFit.cover,
+    ),
+  ),
     );
+    
   }
 
   /// Section Widget
