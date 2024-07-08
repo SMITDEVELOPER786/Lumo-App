@@ -90,7 +90,7 @@ class VerificationSixController extends GetxController {
     var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/completeprofile'));
     request.fields.addAll({
       'username':
           NameorImageController.userNameController.value.text.toString(),

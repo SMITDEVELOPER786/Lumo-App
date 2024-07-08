@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 
@@ -23,12 +24,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var controller = Get.put(EditProfileController());
   // final UserDetails = Get.put(UserController());
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    @override
+  @override
   void initState() {
     super.initState();
-   controller.setinTemp();
+    controller.setinTemp();
+    // UserController.user.data!.profileId!.username = controller.getTextController("Name").text;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,31 +46,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding: EdgeInsets.symmetric(horizontal: 19.h),
               child: Column(
                 children: [
-                 controller.isImageUrl(controller.tempProfileImage.value) ? Container(
-                    height: 178.v,
-                    width: 353.h,
-                    decoration: BoxDecoration(
-                      image: controller.tempProfileImage.isNotEmpty
-                          ? DecorationImage(
-                              image: NetworkImage(
-                                  "https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.tempProfileImage}"),
-                              fit: BoxFit.fill)
-                          : DecorationImage(
-                              image: AssetImage("assets/img_user_41x91.png")),
-                      borderRadius: BorderRadius.circular(10),
+                  controller.isImageUrl(controller.tempProfileImage.value)
+                      ? Container(
+                          height: 178.v,
+                          width: 353.h,
+                          decoration: BoxDecoration(
+                            image: controller.tempProfileImage.isNotEmpty
+                                ? DecorationImage(
+                                    image: NetworkImage(
+                                        "https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.tempProfileImage}"),
+                                    fit: BoxFit.fill)
+                                : DecorationImage(
+                                    image: AssetImage(
+                                        "assets/img_user_41x91.png")),
+                            borderRadius: BorderRadius.circular(10),
 
-                      // color: Colors.amber
-                    ),
-                  ) : Container(
-                    height: 178.v,
-                    width: 353.h,
-                    decoration: BoxDecoration(
-                    image: DecorationImage(image: FileImage(controller.imageFile.value!)),
-                      borderRadius: BorderRadius.circular(10),
+                            // color: Colors.amber
+                          ),
+                        )
+                      : Container(
+                          height: 178.v,
+                          width: 353.h,
+                          decoration: BoxDecoration(
+                            image: controller.imageFile.value != null
+                                ? DecorationImage(
+                                    image:
+                                        FileImage(controller.imageFile.value!))
+                                : DecorationImage(
+                                    image: NetworkImage(
+                                        "https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.tempProfileImage}"),
+                                    fit: BoxFit.fill),
+                            borderRadius: BorderRadius.circular(10),
 
-                      // color: Colors.amber
-                    ),
-                  ) ,
+                            // color: Colors.amber
+                          ),
+                        ),
                   SizedBox(height: 14.v),
                   GestureDetector(
                     onTap: () {
@@ -93,7 +104,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         decoration: AppDecoration.outlineGray50010.copyWith(
                             borderRadius: BorderRadiusStyle.roundedBorder5),
                         child: Icon(
-                    controller.tempProfileImage.isEmpty
+                          controller.tempProfileImage.isEmpty
                               ? Icons.upload
                               : Icons.cancel_sharp,
                           color: Colors.black,
@@ -158,32 +169,105 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             //                 .underLineGray,
                             //         filled: false)),
                             // SizedBox(height: 13.v),
-                            _buildFrameName(),
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("username"),
+                              decoration: InputDecoration(
+                                labelText: 'Name',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
 
-                            Divider(indent: 4.h),
                             SizedBox(height: 11.v),
-                            _buildFrame(),
-                            // SizedBox(height: 14.v),
-                            Divider(indent: 4.h),
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("gender"),
+                              decoration: InputDecoration(
+                                labelText: 'Gender',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+
                             SizedBox(height: 11.v),
-                            _buildFrame1(),
-                            // SizedBox(height: 14.v),
-                            Divider(indent: 4.h),
-                            SizedBox(height: 12.v),
-                            _buildFrame2(),
-                            // SizedBox(height: 12.v),
-                            Divider(indent: 4.h),
-                            SizedBox(height: 12.v),
-                            _buildFrame3(),
-                            // SizedBox(height: 13.v),
-                            Divider(indent: 4.h),
-                            SizedBox(height: 12.v),
-                            _buildFrame4(),
-                            // SizedBox(height: 13.v),
-                            Divider(indent: 4.h),
-                            SizedBox(height: 12.v),
-                            _buildFrame5(),
-                            SizedBox(height: 7.v)
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("dateOfBirth"),
+                              decoration: InputDecoration(
+                                labelText: 'Date Of Birth',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("language"),
+                              decoration: InputDecoration(
+                                labelText: 'Language',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("describe"),
+                              decoration: InputDecoration(
+                                labelText: 'Emojis to describe yourself',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+                            TextFormField(
+                              controller:
+                                  controller.getTextController("hometown"),
+                              decoration: InputDecoration(
+                                labelText: 'Hometown',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: controller.getTextController("bio"),
+                              decoration: InputDecoration(
+                                labelText: 'Bio',
+                                labelStyle:
+                                    CustomTextStyles.labelLargeGray8000113,
+                              ),
+                            ),
+
+                            SizedBox(height: 13.v),
+                            GestureDetector(
+                              onTap: () {
+                                var data = {
+                                  'username':
+                                      controller.getTextController("username"),
+                                  'dateOfBirth': controller
+                                      .getTextController("dateOfBirth"),
+                                  'gender':
+                                      controller.getTextController("gender"),
+                                  'bio': controller.getTextController("bio"),
+                                };
+                                controller.updateProfile(file: controller.imageFile.value,);
+                              },
+                              child: Container(
+                                width: 350,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.black,
+                                    )),
+                                child: Center(
+                                    child: Text(
+                                  "Update",
+                                  style: CustomTextStyles.bodyMediumBluegray600,
+                                )),
+                              ),
+                            )
                           ]))
                 ],
               ),
@@ -240,7 +324,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           SizedBox(
-              height: 56.v,
+              // height: 5.v,
               width: 39.h,
               child: Stack(alignment: Alignment.bottomRight, children: [
                 Align(
@@ -251,25 +335,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.bottomRight,
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(top: 8.v),
+                        // padding: EdgeInsets.only(top: 8.v),
                         child: IntrinsicWidth(
                             child: Column(children: [
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                    padding: EdgeInsets.only(top: 16.v),
-                                    child: Text("lbl_name".tr,
-                                        style: CustomTextStyles
-                                            .labelMediumGray50008)),
-                                CustomImageView(
-                                    imagePath: ImageConstant.imgArrowRight,
-                                    height: 24.adaptSize,
-                                    width: 24.adaptSize,
-                                    margin: EdgeInsets.only(bottom: 6.v))
+                                Text("lbl_name".tr,
+                                    style:
+                                        CustomTextStyles.labelMediumGray50008),
+                                // CustomImageView(
+                                //     imagePath: ImageConstant.imgArrowRight,
+                                //     height: 24.adaptSize,
+                                //     width: 24.adaptSize,
+                                //     margin: EdgeInsets.only(bottom: 6.v))
                               ]),
-                          SizedBox(height: 14.v),
+                          // SizedBox(height: 14.v),
                           Divider()
                         ]))))
               ])),
