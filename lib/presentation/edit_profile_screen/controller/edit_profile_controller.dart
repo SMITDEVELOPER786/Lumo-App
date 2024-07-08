@@ -145,7 +145,7 @@ class EditProfileController extends GetxController {
     );
     var headers = {'Authorization': 'Bearer ${authToken}'};
     var request = http.MultipartRequest(
-        'POST',
+        'PUT',
         Uri.parse(
             'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/edit-profile'));
     request.fields.addAll({
@@ -170,7 +170,18 @@ class EditProfileController extends GetxController {
 
       // Get.back();
       if (response.statusCode == 200) {
+          Get.back();
         Get.snackbar("Message", "Profile Updated successfully");
+      
+        // profileData["data"]["username"] = UserController.user.data!.profileId!.username;
+        //   profileData["data"]["dateOfBirth"] = UserController.user.data!.profileId!.dateOfBirth;
+        //    profileData["data"]["gender"] =  UserController.user.data!.profileId!.gender;
+        //    profileData["data"]["bio"] = textControllers["bio"]!.text;
+
+
+
+
+
         // NameorImageController.userNameController.clear();
         // // NameorImageController.imageFile = null;
         // Get.lazyPut(() => VerificationFiveScreen());
