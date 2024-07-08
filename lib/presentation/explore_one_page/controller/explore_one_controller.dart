@@ -39,7 +39,7 @@ class ExploreOneController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/reel/dislike'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/reel/dislike'));
     request.body =
         json.encode({"reelId": data["reelId"], "likeId": data["userId"]});
     request.headers.addAll(headers);
@@ -59,7 +59,7 @@ class ExploreOneController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/reel/like'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/reel/like'));
     request.body =
         json.encode({"reelId": data["reelId"], "userId": data["userId"]});
     request.headers.addAll(headers);
@@ -83,7 +83,7 @@ class ExploreOneController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/reel/get-reels'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/reel/get-reels'));
 
     http.StreamedResponse response = await request.send();
 
