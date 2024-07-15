@@ -60,12 +60,7 @@ Future<Position> _determinePosition() async {
       return Future.error('Location permissions are denied');
     }
   }
-  return await Geolocator.getCurrentPosition(
-   
-
-    
-  );
-  
+  return await Geolocator.getCurrentPosition();
 }
 
 class MyApp extends StatelessWidget {
@@ -79,7 +74,6 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'Poppins',
                 ),
             useMaterial3: false),
-            
         debugShowCheckedModeBanner: false,
 
         translations: AppLocalization(),

@@ -57,7 +57,7 @@ class VerificationSixController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-broadcaster'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/get-broadcaster'));
 
     http.StreamedResponse response = await request.send();
 
@@ -77,8 +77,8 @@ class VerificationSixController extends GetxController {
   createProfile({
     file,
   }) async {
-    final createProfileController = Get.put(VerificationSevenController());
-    final broadcastController = Get.put(VerificationSixController());
+   final createProfileController = Get.put(VerificationSevenController());
+     final broadcastController = Get.put(VerificationSixController());
     Get.dialog(
       Center(
         child:
@@ -92,10 +92,9 @@ class VerificationSixController extends GetxController {
         Uri.parse(
             'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/completeprofile'));
     request.fields.addAll({
-      'username':
-          NameorImageController.userNameController.value.text.toString(),
-      'dateOfBirth': createProfileController.selectedDate.value.toString(),
-      'gender': createProfileController.gender.value.toLowerCase(),
+      'username': NameorImageController.userNameController.value.text.toString(),
+      'dateOfBirth': createProfileController.selectedDate.value.toString(),  
+      'gender':  createProfileController.gender.value.toLowerCase(),
       'favBroadcaster': broadcastController.selectedBroadcasterId.toString()
     });
     var MyFilename = path.basename(file.path);

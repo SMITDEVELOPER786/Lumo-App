@@ -23,7 +23,7 @@
 
 
     <application
-        android:label="Lumo Live App"
+        android:label="Lumo Live"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

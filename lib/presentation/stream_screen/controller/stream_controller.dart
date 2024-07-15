@@ -115,37 +115,29 @@ class StreamController extends GetxController
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/create'));
-    if (streamType.value.toLowerCase() == "private") {
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/create'));
+   if (streamType.value.toLowerCase() == "private") {
       Map<String, dynamic> requestBody = {
-        // "streamType": streamingdata["streamType"],
-        // "title": streamingdata["title"],
-        // "streamLevel": streamingdata["streamLevel"],
-        // "tags": streamingdata["tags"],
-        // "country": streamingdata["country"],
-        // "streamPass": streamingdata["streamPass"]
         "streamType": "live",
-     "title": "mote", 
-     "streamLevel": "private", 
-     "tags": ["#public", "#video"], 
-     "country": "pakistan",
-      "streamPass":" 12345"
+        "title": streamingdata["title"],
+        "streamLevel": streamingdata["streamLevel"],
+        "tags": streamingdata["tags"],
+        "country": streamingdata["country"],
+        "streamPass": streamingdata["streamPass"]
       };
-      print(requestBody);
     } else {
       Map<String, dynamic> requestBody = {
-        "streamType": streamingdata["streamType"],
+        "streamType": "live",
         "title": streamingdata["title"],
         "streamLevel": streamingdata["streamLevel"],
         "tags": streamingdata["tags"],
         "country": streamingdata["country"],
       };
-      request.headers.addAll(headers);
-
-      request.body = json.encode(requestBody);
-      print(requestBody);
+       request.headers.addAll(headers);
+    
+    request.body = json.encode(requestBody);
     }
-
+   
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

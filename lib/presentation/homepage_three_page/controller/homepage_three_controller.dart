@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
@@ -15,15 +14,12 @@ class HomepageThreeController extends GetxController {
   HomepageThreeController(this.homepageThreeModelObj);
 
   Rx<HomepageThreeModel> homepageThreeModelObj;
-  TextEditingController joinStreamPassword = TextEditingController();
-
 
   var isLoading = true.obs;
   String selectedCountry = 'All';
   List<dynamic> uniqueCountries = [];
   Map<String, List<dynamic>> countryStreams = {};
   List<dynamic> streamData = [].obs;
-
 
   List<dynamic> getDisplayedStreams() {
     return selectedCountry == 'All'
@@ -47,7 +43,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/get'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/get'));
 
     request.headers.addAll(headers);
 
@@ -91,7 +87,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/end'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/end'));
     request.body = json.encode({"streamId": liveID});
     request.headers.addAll(headers);
 
@@ -113,7 +109,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/join'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/join'));
     request.body = json.encode({"streamId": connectstreamData["HostID"]});
     request.headers.addAll(headers);
 

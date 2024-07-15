@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
 
 import '../../homepage_three_page/USerModel.dart';
-
+import '../../verification_four_screen/verification_four_screen.dart';
 
 /// A controller class for the SignInScreen.
 ///
@@ -26,7 +26,7 @@ class SignInController extends GetxController {
   Rx<bool> isShowPassword = true.obs;
 
   Rx<bool> rememberMe = false.obs;
-  
+
   var isLoading = false.obs;
 
   Future<void> signUpGoogle(data, context) async {
@@ -41,36 +41,37 @@ class SignInController extends GetxController {
     var body = json.encode(data);
     final usercontroller = Get.put(UserController());
 
-
     try {
       http.Response response = await http.post(
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/social-auth'),
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/social-auth'),
         headers: headers,
         body: body,
       );
       var res_data = json.decode(response.body.toString());
 
-      if (response.statusCode == 200 && res_data["message"]=="User registered successfully") {
+      if (response.statusCode == 200 &&
+          res_data["message"] == "User registered successfully") {
         signupToken = res_data["token"];
 
         Get.back();
-         Get.snackbar("Success", "success");
+        Get.snackbar("Success", "success");
         // Get.snackbar("Message", "OTP has been sent on your email");
 
-              Get.toNamed(AppRoutes.verificationFourScreen);
-      }
-      else if(response.statusCode == 200 && res_data["message"]!="User registered successfully"){
+        Get.toNamed(AppRoutes.verificationFourScreen);
+      } else if (response.statusCode == 200 &&
+          res_data["message"] != "User registered successfully") {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+        userlevelImage = await getLevel(res_data["data"]["isLevel"]);
+
         usercontroller.User(UserModel.fromJson(res_data));
 
         Get.back();
         Get.snackbar("Success", res_data["message"].toString());
         Get.lazyPut(() => HomepageThreePage());
         Get.to(() => HomepageThreePage());
-      }
-       else {
+      } else {
         Get.showSnackbar(GetSnackBar(
           title: "${res_data["message"]}",
         ));
@@ -84,8 +85,6 @@ class SignInController extends GetxController {
       isLoading(false); // Set loading state to false when API request finishes
     }
   }
-
-
 
   Future<void> signIn(String email, String password, context) async {
     final usercontroller = Get.put(UserController());
@@ -110,7 +109,9 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
-        userprofile = res_data["data"]["ProfileId"]["profileImage"];
+
+        userlevelImage = await getLevel(res_data["data"]["isLevel"]);
+
         usercontroller.User(UserModel.fromJson(res_data));
 
         Get.back();
@@ -122,18 +123,37 @@ class SignInController extends GetxController {
         Get.snackbar(
             "Error",
             res_data["message"] == "user not fount"
-                ?  res_data["message"]
+                ? res_data["message"]
                 : res_data["message"].toString());
         print(res_data);
         // Handle other status codes, if needed
       }
     } catch (e) {
-
       print('Error occurred: $e');
-       isLoading(false); 
       // Handle error, such as network issue
     } finally {
       isLoading(false); // Set loading state to false when API request finishes
+    }
+  }
+
+  getLevel(serialNo) async {
+    var headers = {'Content-Type': 'application/json'};
+    var body = json.encode({"serialNo": serialNo});
+
+    try {
+      http.Response response = await http.post(
+        Uri.parse('${BaseUrl}get-level-icon'),
+        headers: headers,
+        body: body,
+      );
+      var res_data = json.decode(response.body.toString());
+      if (res_data["status"] == 200) {
+        // Get.snackbar("Error", "Get ");
+        return res_data["data"]["levelIcon"];
+      }
+    } catch (e) {
+       return "";
+      Get.snackbar("Error", e.toString());
     }
   }
 

@@ -763,7 +763,7 @@ class ImageConstant {
       '$imagePath/img_checkmark_white_a700.svg';
 
   // Common images
-  static String imgGroup116x173 = '$imagePath/img_group_116x173.svg';
+  static String imgGroup116x173 = '$imagePath/lumo.png';
 
   static String imgGoogleLogo = '$imagePath/img_google_logo.svg';
 

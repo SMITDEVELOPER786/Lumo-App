@@ -24,7 +24,7 @@ class HomepageTabContainerController extends GetxController
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-banner'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/get-banner'));
     // request.headers.addAll();
 
     http.StreamedResponse response = await request.send();
