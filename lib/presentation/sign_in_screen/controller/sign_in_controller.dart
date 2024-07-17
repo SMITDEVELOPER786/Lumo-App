@@ -44,7 +44,7 @@ class SignInController extends GetxController {
     try {
       http.Response response = await http.post(
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/social-auth'),
+            '${BaseUrl}social-auth'),
         headers: headers,
         body: body,
       );
@@ -110,7 +110,7 @@ class SignInController extends GetxController {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
 
-        userlevelImage = await getLevel(res_data["data"]["isLevel"]);
+        // userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 
         usercontroller.User(UserModel.fromJson(res_data));
 

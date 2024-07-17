@@ -48,6 +48,11 @@ class ProfileModel {
         vIPCenter1: "Withdrawal".obs),
     ProfileItemModel(
        Page: MallScreen(),
-        vIPCenter: ImageConstant.imgThumbsUp24x24.obs, vIPCenter1: "Admin".obs)
+        vIPCenter: ImageConstant.imgThumbsUp24x24.obs, vIPCenter1: "Admin".obs),
+        ProfileItemModel(
+       Page: MallScreen(),
+        vIPCenter: ImageConstant.imgThumbsUp24x24.obs, vIPCenter1: "Coins Trading".obs),
+        
+      
   ]);
 }

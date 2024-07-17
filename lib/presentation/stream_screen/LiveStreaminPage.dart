@@ -13,7 +13,7 @@ class LiveStreamingPage extends StatefulWidget {
   final String liveID;
   final bool isHost;
 
-  LiveStreamingPage({Key? key, required this.liveID,  required this.isHost})
+  LiveStreamingPage({Key? key, required this.liveID, required this.isHost})
       : super(key: key);
 
   @override
@@ -21,25 +21,25 @@ class LiveStreamingPage extends StatefulWidget {
 }
 
 class _LiveStreamingPageState extends State<LiveStreamingPage> {
-
-   final StreamController Streamcontroller = Get.put(StreamController());
-    HomepageThreeController controller = Get.put(HomepageThreeController(HomepageThreeModel().obs));
-     @override
+  final StreamController Streamcontroller = Get.put(StreamController());
+  HomepageThreeController controller =
+      Get.put(HomepageThreeController(HomepageThreeModel().obs));
+  @override
   void dispose() {
     if (!widget.isHost) {
-    controller.leftStream(widget.liveID);
+      controller.leftStream(widget.liveID);
     }
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: ZegoUIKitPrebuiltLiveStreaming(
-
         appID:
-            1905348293, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+            61496105, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign:
-            "cba6e4fa668481d632a47632fc41ea48e5f1940cf83590d3d3b7ccec93664864", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+            "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
         userID: UserID,
         userName: 'Tester',
         liveID: widget.liveID,

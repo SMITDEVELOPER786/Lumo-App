@@ -4,6 +4,7 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
     Key? key,
+    this.onChanged,
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -29,7 +30,7 @@ class CustomTextFormField extends StatelessWidget {
   }) : super(
           key: key,
         );
-
+  final Function(String)? onChanged;
   final Alignment? alignment;
 
   final double? width;
@@ -87,6 +88,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
+             onChanged: onChanged,
           scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(Get.context!).viewInsets.bottom),
           controller: controller,

@@ -115,7 +115,7 @@ class StreamController extends GetxController
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/create'));
+            '${BaseUrl}live-stream/create'));
    if (streamType.value.toLowerCase() == "private") {
       Map<String, dynamic> requestBody = {
         "streamType": "live",

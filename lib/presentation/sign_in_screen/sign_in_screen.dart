@@ -102,17 +102,19 @@ class SignInScreen extends GetWidget<SignInController> {
                               _buildFrameNine(),
                               SizedBox(height: 47.v),
                               CustomElevatedButton(
-                                onPressed: (){
-                                    if (_formKey.currentState!.validate() ) {
-                                        String email = controller.emailController.text;
-                                         String password = controller.passwordController.text;
-                                         print(email.toString());
-                                         print(password.toString());
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      String email =
+                                          controller.emailController.text;
+                                      String password =
+                                          controller.passwordController.text;
+                                      print(email.toString());
+                                      print(password.toString());
 
-                                      controller.signIn(email, password, context);
+                                      controller.signIn(
+                                          email, password, context);
                                     }
-                                   
-                                },
+                                  },
                                   text: "lbl_sign_in".tr,
                                   buttonStyle: CustomButtonStyles.none,
                                   decoration: CustomButtonStyles
@@ -124,25 +126,23 @@ class SignInScreen extends GetWidget<SignInController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CustomIconButton(
-                                      onTap: () async {
-                                         final userCredential = await signInWithGooglel();
-              if (userCredential != null) {
-                // print(userCredential.toString());
-                // print("access101 $accesstoken");
+                                        onTap: () async {
+                                          final userCredential =
+                                              await signInWithGooglel();
+                                          if (userCredential != null) {
+                                            // print(userCredential.toString());
+                                            // print("access101 $accesstoken");
 
-                var data = {
-                
-                  "accessToken": idToken,
-                 
-                  "socialType": "google",
-                };
-                log("BODY: " + data.toString());
-                await controller.signUpGoogle( data,context);
-                // ApiService.socialLogin(context, data);
-              }
-            
-                
-                                      },
+                                            var data = {
+                                              "accessToken": idToken,
+                                              "socialType": "google",
+                                            };
+                                            log("BODY: " + data.toString());
+                                            await controller.signUpGoogle(
+                                                data, context);
+                                            // ApiService.socialLogin(context, data);
+                                          }
+                                        },
                                         height: 50.adaptSize,
                                         width: 50.adaptSize,
                                         padding: EdgeInsets.all(13.h),
@@ -165,9 +165,9 @@ class SignInScreen extends GetWidget<SignInController> {
                                   ]),
                               SizedBox(height: 35.v),
                               GestureDetector(
-                                onTap: (){
-                                    Get.lazyPut(()=>SignUpOneScreen());
-                Get.toNamed(AppRoutes.signUpOneScreen);
+                                onTap: () {
+                                  Get.lazyPut(() => SignUpOneScreen());
+                                  Get.toNamed(AppRoutes.signUpOneScreen);
                                 },
                                 child: RichText(
                                     text: TextSpan(children: [
@@ -214,9 +214,9 @@ class SignInScreen extends GetWidget<SignInController> {
                 controller.rememberMe.value = value;
               })),
           GestureDetector(
-            onTap: (){
-               Get.lazyPut(()=>ForgotPasswordScreen());
-                Get.toNamed(AppRoutes.forgotPasswordScreen);
+            onTap: () {
+              Get.lazyPut(() => ForgotPasswordScreen());
+              Get.toNamed(AppRoutes.forgotPasswordScreen);
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.v),

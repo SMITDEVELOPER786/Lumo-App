@@ -147,7 +147,7 @@ class EditProfileController extends GetxController {
     var request = http.MultipartRequest(
         'PUT',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/edit-profile'));
+            '${BaseUrl}edit-profile'));
     request.fields.addAll({
       'username': textControllers["username"]!.text,
       'dateOfBirth': textControllers["dateOfBirth"]!.text,

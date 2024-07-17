@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_four_screen/verification_four_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_three_screen/models/verification_three_model.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
@@ -45,7 +46,7 @@ class VerificationThreeController extends GetxController with CodeAutoFill {
     };
 
     var url = Uri.parse(
-        'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/verify-otp');
+        '${BaseUrl}verify-otp');
     var body = json.encode({"otp": enteredPin});
 
     try {

@@ -37,7 +37,8 @@ class _MallOneScreenState extends State<MallOneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return 
+    SafeArea(
         child: Scaffold(
             appBar: _buildAppBar(),
             body: SizedBox(
@@ -122,6 +123,8 @@ class _MallOneScreenState extends State<MallOneScreen> {
                                   ]))),
                            MallScreen(),
                         ]))))));
+  
+  
   }
 
   Column MallTab() {

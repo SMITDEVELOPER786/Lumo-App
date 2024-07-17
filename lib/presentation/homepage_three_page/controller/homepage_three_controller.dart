@@ -43,7 +43,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/get'));
+            '${BaseUrl}live-stream/get'));
 
     request.headers.addAll(headers);
 
@@ -87,7 +87,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/end'));
+            '${BaseUrl}live-stream/end'));
     request.body = json.encode({"streamId": liveID});
     request.headers.addAll(headers);
 
@@ -109,7 +109,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/join'));
+            '${BaseUrl}live-stream/join'));
     request.body = json.encode({"streamId": connectstreamData["HostID"]});
     request.headers.addAll(headers);
 
