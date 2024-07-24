@@ -203,3 +203,26 @@ class ProfileId {
     return data;
   }
 }
+
+class Coins {
+  String id;
+  String resellerId;
+  int coins;
+  String userId;
+
+  Coins({
+    required this.id,
+    required this.resellerId,
+    required this.coins,
+    required this.userId,
+  });
+
+  factory Coins.fromJson(Map<String, dynamic> json) {
+    return Coins(
+      id: json['_id'],
+      resellerId: json['resellerId'],
+      coins: json['coins'],
+      userId: json['userId'],
+    );
+  }
+}

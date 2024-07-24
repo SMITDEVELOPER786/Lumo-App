@@ -5,6 +5,7 @@ import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 /// A controller class for the HomepageThreePage.
 ///
@@ -116,14 +117,19 @@ class HomepageThreeController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      ;
+      final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+         
+      
       Get.snackbar("Message", "Join Stream Successfully");
       Get.lazyPut(() => LiveStreamingPage(
             liveID: connectstreamData["HostID"],
+            creatorid: data["hostId"],
             isHost: false,
           ));
       Get.to(() => LiveStreamingPage(
             liveID: connectstreamData["HostID"],
+            creatorid: data["data"]["hostId"],
             isHost: false,
           ));
 
@@ -132,5 +138,35 @@ class HomepageThreeController extends GetxController {
       print(response.reasonPhrase);
       isLoading(false);
     }
+  }
+
+  Future<void> sendGift(sendgift) async {
+    try {
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${authToken}' // replace with your API key
+      };
+      var request = http.Request('POST', Uri.parse('${BaseUrl}/coin/send'));
+      request.body = json.encode({
+        "senderId": sendgift["senderId"],
+        "recieverId": sendgift["senderId"],
+        "giftId": sendgift["giftId"]
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Gift sent successfully');
+        // Send a custom message to other users in the stream
+       ZegoUIKit().sendInRoomMessage("message", );
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print('Error sending gift: $e');
+    }
+
+    
   }
 }

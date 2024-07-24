@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 
 class CustomTextFormField extends StatelessWidget {
+ 
+
   CustomTextFormField({
     Key? key,
     this.onChanged,
+   this.onFieldSubmitted,
+   
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -31,7 +35,8 @@ class CustomTextFormField extends StatelessWidget {
           key: key,
         );
   final Function(String)? onChanged;
-  final Alignment? alignment;
+   final Function(String)?  onFieldSubmitted;
+    final Alignment? alignment;
 
   final double? width;
 
@@ -88,6 +93,9 @@ class CustomTextFormField extends StatelessWidget {
   Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
+          
+          onFieldSubmitted: onFieldSubmitted  ,
+          // onEditingComplete: onEditingComplete,
              onChanged: onChanged,
           scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(Get.context!).viewInsets.bottom),

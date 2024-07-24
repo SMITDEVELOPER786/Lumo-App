@@ -26,7 +26,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^25.1.35
   chewie: ^1.7.0
   flutter_screenutil: ^5.9.0
-  zego_uikit_prebuilt_live_streaming: ^3.3.1
+  zego_uikit_prebuilt_live_streaming: ^3.8.2
   devicelocale: ^0.7.1
   geocoding: ^3.0.0
   geolocator: ^11.0.0
@@ -36,6 +36,7 @@ dependencies:
   google_sign_in: 
   firebase_auth: ^4.17.4
   carousel_slider: ^4.2.1
+  zego_uikit_signaling_plugin: ^2.8.1
  
 dev_dependencies: 
   flutter_test: 

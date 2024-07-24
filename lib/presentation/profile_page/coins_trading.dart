@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/mall_screen/controller/mall_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/mall_screen/models/chatbubbles_item_model.dart';
 import 'package:muhammad_zubair_s_application4/presentation/mall_screen/models/viewhierarchy1_item_model.dart';
@@ -108,7 +109,7 @@ class _CoinsTradingState extends State<CoinsTrading> {
                               width: 10,
                             ),
                             Text(
-                             UserController.user.data!.profileId!.diamonds.toString(),
+                          coins.toString(),
                               style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.white,
@@ -190,16 +191,11 @@ class _CoinsTradingState extends State<CoinsTrading> {
                     textInputAction: TextInputAction.done,
                     textInputType: TextInputType.visiblePassword,
                     suffixConstraints: BoxConstraints(maxHeight: 52.v),
-                    onChanged: (value) {
+                    
+                    onFieldSubmitted: (value) {
                       coincontroller.fetchUserName(value);
                     },
-                    // validator: (value) {
-                    //   if (value == null ||
-                    //       (!isValidPassword(value, isRequired: true))) {
-                    //     return "err_msg_please_enter_valid_password".tr;
-                    //   }
-                    //   return null;
-                    // },
+              
 
                     contentPadding:
                         EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v)),

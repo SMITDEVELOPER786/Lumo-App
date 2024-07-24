@@ -109,6 +109,7 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+        coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
 
         // userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 

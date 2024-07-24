@@ -13,6 +13,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/notification_services.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 import 'core/app_export.dart';
 
@@ -33,6 +34,7 @@ Future <void> main() async {
     DeviceOrientation.portraitUp,
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
+    ZegoUIKit().init(appID: 61496105, appSign: "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5");
     runApp(MyApp());
     _determinePosition();
   });

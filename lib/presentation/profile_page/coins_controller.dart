@@ -16,13 +16,7 @@ class CoinsController extends GetxController {
   var receiverId = "".obs;
   var loading = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    userIdController.addListener(() {
-      fetchUserName(userIdController.text);
-    });
-  }
+
 
   void fetchUserName(String userId) async {
     if (userId.isEmpty) {
@@ -43,7 +37,9 @@ class CoinsController extends GetxController {
         final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
         List<dynamic> userList = data['data'];
+
         bool userFound = false;
+      
 
         for (var user in userList) {
           if (user['Id'] == userId) {
@@ -58,9 +54,11 @@ class CoinsController extends GetxController {
 
         if (!userFound) {
           userName.value = 'User not found';
+           userimage.value = "";
         }
       } else {
         userName.value = 'User not found';
+         userimage.value = "";
       }
     } catch (e) {
       userName.value = 'Error fetching user';
@@ -78,8 +76,9 @@ class CoinsController extends GetxController {
       };
       var request = http.Request('POST', Uri.parse('${BaseUrl}/coin/send'));
       request.body = json.encode({
-        "senderId": UserController.user.data!.sId ,
-        "recieverId": receiverId.value,
+        "senderId": UserController.user.data!.sId , 
+       
+        "recieverId":   receiverId.value,
         "coins": transferAmountController.value.text,
       });
       request.headers.addAll(headers);
