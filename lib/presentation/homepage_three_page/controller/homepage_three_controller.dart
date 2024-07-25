@@ -156,7 +156,7 @@ class HomepageThreeController extends GetxController {
 
       http.StreamedResponse response = await request.send();
 
-      if (response.statusCode != 200) {
+      if (response.statusCode == 200) {
         print('Gift sent successfully');
         // Send a custom message to other users in the stream
        ZegoUIKit().sendInRoomMessage("message", );
