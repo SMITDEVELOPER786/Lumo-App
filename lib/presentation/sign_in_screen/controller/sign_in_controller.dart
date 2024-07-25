@@ -43,8 +43,7 @@ class SignInController extends GetxController {
 
     try {
       http.Response response = await http.post(
-        Uri.parse(
-            '${BaseUrl}social-auth'),
+        Uri.parse('${BaseUrl}social-auth'),
         headers: headers,
         body: body,
       );
@@ -109,7 +108,9 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
-        coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
+        if (res_data["isReseller"] == true) {
+          coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
+        }
 
         // userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 
@@ -153,7 +154,7 @@ class SignInController extends GetxController {
         return res_data["data"]["levelIcon"];
       }
     } catch (e) {
-       return "";
+      return "";
       Get.snackbar("Error", e.toString());
     }
   }
