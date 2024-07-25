@@ -85,7 +85,7 @@ class _CoinsTradingState extends State<CoinsTrading> {
                             Spacer(),
                             GestureDetector(
                               onTap: () {
-                                Get.to(()=> CoinHistoryScreen());
+                                Get.to(() => CoinHistoryScreen());
                               },
                               child: Text(
                                 "Details",
@@ -109,7 +109,7 @@ class _CoinsTradingState extends State<CoinsTrading> {
                               width: 10,
                             ),
                             Text(
-                          coins.toString(),
+                              coins.toString(),
                               style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.white,
@@ -191,12 +191,9 @@ class _CoinsTradingState extends State<CoinsTrading> {
                     textInputAction: TextInputAction.done,
                     textInputType: TextInputType.visiblePassword,
                     suffixConstraints: BoxConstraints(maxHeight: 52.v),
-                    
                     onFieldSubmitted: (value) {
                       coincontroller.fetchUserName(value);
                     },
-              
-
                     contentPadding:
                         EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v)),
                 SizedBox(height: 20),
@@ -213,7 +210,6 @@ class _CoinsTradingState extends State<CoinsTrading> {
                 ),
                 SizedBox(height: 8),
                 CustomTextFormField(
-
                     controller: coincontroller.transferAmountController,
                     hintText: "Please enter coins amount".tr,
                     hintStyle: CustomTextStyles.titleSmallGray700,
@@ -237,7 +233,14 @@ class _CoinsTradingState extends State<CoinsTrading> {
                       ? CircularProgressIndicator()
                       : CustomElevatedButton(
                           onPressed: () {
-                            coincontroller.sendCoins();
+                            var coinsData = {
+                              "recieverId":
+                                  coincontroller.receiverId.value.toString(),
+                              "coins": int.parse(coincontroller
+                                  .transferAmountController.value.text),
+                            };
+                            print(coinsData);
+                            coincontroller.sendCoins(coinsData);
                           },
                           text: "Transfer".tr,
                           buttonStyle: CustomButtonStyles.none,

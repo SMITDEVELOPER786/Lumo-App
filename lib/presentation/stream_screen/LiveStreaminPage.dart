@@ -130,6 +130,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
                     };
                    await controller.sendGift(sendgift);
                     Navigator.pop(context);
+                      ZegoUIKit().sendInRoomMessage("message", );
 
                     // Handle gift sending logic
                     print('Send gift: ${sendgift}');

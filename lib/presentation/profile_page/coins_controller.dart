@@ -16,6 +16,9 @@ class CoinsController extends GetxController {
   var receiverId = "".obs;
   var loading = false.obs;
 
+  
+
+
 
 
   void fetchUserName(String userId) async {
@@ -67,7 +70,7 @@ class CoinsController extends GetxController {
     }
   }
 
-  sendCoins() async {
+  sendCoins(coinsData) async {
     loading.value = true;
     try {
       var headers = {
@@ -76,10 +79,10 @@ class CoinsController extends GetxController {
       };
       var request = http.Request('POST', Uri.parse('${BaseUrl}/coin/send'));
       request.body = json.encode({
-        "senderId": UserController.user.data!.sId , 
+        // "senderId": UserController.user.data!.sId , 
        
-        "recieverId":   receiverId.value,
-        "coins": transferAmountController.value.text,
+        "recieverId": coinsData["recieverId"].toString(),
+        "coins": coinsData["coins"]
       });
       request.headers.addAll(headers);
 

@@ -140,13 +140,13 @@ class HomepageThreeController extends GetxController {
     }
   }
 
-  Future<void> sendGift(sendgift) async {
+ sendGift(sendgift) async {
     try {
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${authToken}' // replace with your API key
       };
-      var request = http.Request('POST', Uri.parse('${BaseUrl}/coin/send'));
+      var request = http.Request('POST', Uri.parse('${BaseUrl}gift/send'));
       request.body = json.encode({
         "senderId": sendgift["senderId"],
         "recieverId": sendgift["senderId"],
@@ -155,11 +155,12 @@ class HomepageThreeController extends GetxController {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+  ZegoUIKit().sendInRoomMessage("Sends you a gift", );
 
       if (response.statusCode == 200) {
         print('Gift sent successfully');
         // Send a custom message to other users in the stream
-       ZegoUIKit().sendInRoomMessage("message", );
+      //  ZegoUIKit().sendInRoomMessage("message", );
       } else {
         print(response.reasonPhrase);
       }

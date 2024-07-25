@@ -108,7 +108,7 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
-        if (res_data["isReseller"] == true) {
+        if (res_data["data"]["isReseller"] == true) {
           coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
         }
 
