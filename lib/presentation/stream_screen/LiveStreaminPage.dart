@@ -12,7 +12,6 @@ import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/contr
 import 'package:muhammad_zubair_s_application4/presentation/stream_screen/controller/fetchgifts_controller.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
-
 class LiveStreamingPage extends StatefulWidget {
   final String liveID;
   final bool isHost;
@@ -35,16 +34,16 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
   @override
   void initState() {
     super.initState();
+     controller.initializeColors(giftsController.gifts.length);
 
-    giftsController
-        .refreshGifts();
-        ZegoUIKit().getInRoomMessageStream().listen(_handleCustomMessage);
-  //     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
- 
-  //       ZegoUIKit().getInRoomCommandReceivedStream().listen(
-  //           onInRoomCommandReceived);
-  // });
-              // Refresh gifts when the page is initialized
+    giftsController.refreshGifts();
+    ZegoUIKit().getInRoomMessageStream().listen(_handleCustomMessage);
+    //     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+    //       ZegoUIKit().getInRoomCommandReceivedStream().listen(
+    //           onInRoomCommandReceived);
+    // });
+    // Refresh gifts when the page is initialized
   }
 
   @override
@@ -57,7 +56,6 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
   @override
   Widget build(BuildContext context) {
-     
     return SafeArea(
         child: Stack(children: [
       ZegoUIKitPrebuiltLiveStreaming(
@@ -85,6 +83,11 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
   void _showGiftModalSheet(BuildContext context) {
     showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topRight: Radius.circular(25),
+        topLeft: Radius.circular(25),
+      )),
       context: context,
       builder: (BuildContext context) {
         return Obx(() {
@@ -98,16 +101,18 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
           return Container(
             padding: EdgeInsets.all(16.0),
-            height: 300,
+            height: 250,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                 topRight: Radius.circular(25),
+                topLeft: Radius.circular(25),
+              ),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color.fromARGB(255, 163, 226, 15)
-                      .withOpacity(0.8), // Start with yellow at the top
-                  Color.fromARGB(
-                      255, 43, 112, 45), // Transition to green at the bottom
+                  Color(0xffF8FFEE), // Start with yellow at the top
+                  Color(0xffF8FFEE), // Transition to green at the bottom
                 ],
               ),
             ),
@@ -115,34 +120,60 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
               shrinkWrap: true,
               itemCount: giftsController.gifts.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 4,
                 crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
+                mainAxisSpacing: 5.0,
               ),
               itemBuilder: (context, index) {
                 var gift = giftsController.gifts[index];
                 return GestureDetector(
-                  onTap: () async{
+                  onTap: () async {
+                    controller.changeColor(index);
+
                     var sendgift = {
                       "senderId": UserController.user.data!.sId.toString(),
                       "recieverId": widget.creatorid,
                       "giftId": giftsController.gifts[index]["_id"]
                     };
-                   await controller.sendGift(sendgift);
+                    await controller.sendGift(sendgift);
                     Navigator.pop(context);
-                      ZegoUIKit().sendInRoomMessage("message", );
 
                     // Handle gift sending logic
                     print('Send gift: ${sendgift}');
                   },
                   child: Container(
+                    height: 117,
+                    width: 97,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.black),
-                        borderRadius: BorderRadius.circular(25),
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "https://res.cloudinary.com/dk3hy0n39/image/upload/${giftsController.gifts[index]["giftImg"]}"),
-                            fit: BoxFit.fill)),
+                       
+                        borderRadius: BorderRadius.circular(5),
+                        color: controller.colors[index],
+                        // image: DecorationImage(
+                        //     image: NetworkImage(
+                        //         "https://res.cloudinary.com/dk3hy0n39/image/upload/${giftsController.gifts[index]["giftImg"]}"),
+                        //     fit: BoxFit.fill),
+                            ),
+                            child: Column(
+                              children: [
+                              Container(
+                                width: 45,
+                                height: 50,
+                                child: Image.network("https://res.cloudinary.com/dk3hy0n39/image/upload/${giftsController.gifts[index]["giftImg"]}",
+                                height: 60,
+                                ),
+                              ),
+                              Text(giftsController.gifts[index]["giftName"],
+                              style: TextStyle(
+                                fontSize: 8,
+
+                              ),),
+                              Text(giftsController.gifts[index]["giftValue"],
+                              style: TextStyle(
+                                fontSize: 8,
+
+                              ),)
+                              ],
+                            ),
                   ),
                 );
               },
@@ -152,6 +183,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
       },
     );
   }
+
   void _handleCustomMessage(ZegoInRoomMessage message) {
     final data = jsonDecode(message.message);
     if (data['type'] == 'gift') {

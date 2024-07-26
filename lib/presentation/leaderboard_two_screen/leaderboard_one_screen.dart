@@ -15,7 +15,7 @@ class LeaderboardOneScreen extends GetWidget<LeaderboardTwoController> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: SizedBox(
-            height: 820.v,
+            // height: 820.v,
             width: double.maxFinite,
             child: Stack(alignment: Alignment.bottomCenter, children: [
               Align(
@@ -76,9 +76,9 @@ class LeaderboardOneScreen extends GetWidget<LeaderboardTwoController> {
         actions: [
           Container(
             child: Column(children: [
-              Icon(Icons.calendar_month,color: Colors.white,size: 14,),
+              Icon(Icons.calendar_month,color: Colors.white,size: 10,),
             
-              SizedBox(height: 1.v),
+              // SizedBox(height: 1.v),
               Text("lbl_last_month".tr,style: TextStyle(color: Colors.white),)
             ]),
           )
@@ -92,7 +92,7 @@ class LeaderboardOneScreen extends GetWidget<LeaderboardTwoController> {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Container(
-                 height: 34.v,
+                //  height: 40.v,
               width: 100.h,
               decoration: BoxDecoration(
               color: Color.fromARGB(255, 239, 250, 239).withOpacity(0.2),

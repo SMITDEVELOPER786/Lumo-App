@@ -16,11 +16,6 @@ class CoinsController extends GetxController {
   var receiverId = "".obs;
   var loading = false.obs;
 
-  
-
-
-
-
   void fetchUserName(String userId) async {
     if (userId.isEmpty) {
       userName.value = '';
@@ -42,7 +37,6 @@ class CoinsController extends GetxController {
         List<dynamic> userList = data['data'];
 
         bool userFound = false;
-      
 
         for (var user in userList) {
           if (user['Id'] == userId) {
@@ -57,11 +51,11 @@ class CoinsController extends GetxController {
 
         if (!userFound) {
           userName.value = 'User not found';
-           userimage.value = "";
+          userimage.value = "";
         }
       } else {
         userName.value = 'User not found';
-         userimage.value = "";
+        userimage.value = "";
       }
     } catch (e) {
       userName.value = 'Error fetching user';
@@ -75,12 +69,12 @@ class CoinsController extends GetxController {
     try {
       var headers = {
         'Content-Type': 'application/json',
-       'Authorization': 'Bearer ${authToken}'
+        'Authorization': 'Bearer ${authToken}'
       };
       var request = http.Request('POST', Uri.parse('${BaseUrl}/coin/send'));
       request.body = json.encode({
-        // "senderId": UserController.user.data!.sId , 
-       
+        // "senderId": UserController.user.data!.sId ,
+
         "recieverId": coinsData["recieverId"].toString(),
         "coins": coinsData["coins"]
       });
@@ -89,15 +83,15 @@ class CoinsController extends GetxController {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-      final responseBody = await response.stream.bytesToString();
+          Get.back();
+        final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
         Get.snackbar("Success", data["message"]);
-        Get.back();
-       
+      
       } else {
-         final responseBody = await response.stream.bytesToString();
+        final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
-       Get.snackbar("Error", data["message"]);
+        Get.snackbar("Error", data["message"]);
       }
     } catch (e) {
       Get.snackbar("Error", e.toString());

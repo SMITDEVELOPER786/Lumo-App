@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/models/homepage_three_model.dart';
@@ -15,6 +16,14 @@ class HomepageThreeController extends GetxController {
   HomepageThreeController(this.homepageThreeModelObj);
 
   Rx<HomepageThreeModel> homepageThreeModelObj;
+
+  var colors = <Color>[].obs;
+     initializeColors(int count) {
+    colors.value = List.generate(count, (index) => Colors.white);
+  }
+   changeColor(int index) {
+    colors[index] = colors[index] == Colors.white ? Color(0xffE8FFB7) : Colors.white;
+  }
 
   var isLoading = true.obs;
   String selectedCountry = 'All';

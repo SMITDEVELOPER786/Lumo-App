@@ -96,11 +96,11 @@ class _LeaderboardThreeTabContainerScreenState
               ]),
           SizedBox(height: 21.v),
           Container(
-              height: 34.v,
+              height: 40.v,
               width: 328.h,
               child: TabBar(
                   controller: controller.tabviewController,
-                  labelPadding: EdgeInsets.zero,
+                  // labelPadding: EdgeInsets.zero,
                   labelColor: appTheme.blueGray5002,
                   labelStyle: TextStyle(
                       fontSize: 14.fSize,

@@ -1,11 +1,11 @@
-class UserModel {
+class UserCoinsModel {
   String? message;
   Data? data;
   String? token;
 
-  UserModel({this.message, this.data, this.token});
+  UserCoinsModel({this.message, this.data, this.token});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserCoinsModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     token = json['token'];
@@ -23,7 +23,6 @@ class UserModel {
 }
 
 class Data {
-  bool? isReseller;
   String? sId;
   String? email;
   String? password;
@@ -34,12 +33,13 @@ class Data {
   bool? isCompleteProfile;
   String? id;
   String? country;
+  bool? isReseller;
   int? iV;
   ProfileId? profileId;
+  Coins? coins;
 
   Data(
-      {this.isReseller,
-      this.sId,
+      {this.sId,
       this.email,
       this.password,
       this.otp,
@@ -49,11 +49,12 @@ class Data {
       this.isCompleteProfile,
       this.id,
       this.country,
+      this.isReseller,
       this.iV,
-      this.profileId});
+      this.profileId,
+      this.coins});
 
   Data.fromJson(Map<String, dynamic> json) {
-    isReseller = json['isReseller'];
     sId = json['_id'];
     email = json['email'];
     password = json['password'];
@@ -64,15 +65,16 @@ class Data {
     isCompleteProfile = json['isCompleteProfile'];
     id = json['Id'];
     country = json['country'];
+    isReseller = json['isReseller'];
     iV = json['__v'];
     profileId = json['ProfileId'] != null
         ? new ProfileId.fromJson(json['ProfileId'])
         : null;
+    coins = json['coins'] != null ? new Coins.fromJson(json['coins']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isReseller'] = this.isReseller;
     data['_id'] = this.sId;
     data['email'] = this.email;
     data['password'] = this.password;
@@ -83,19 +85,19 @@ class Data {
     data['isCompleteProfile'] = this.isCompleteProfile;
     data['Id'] = this.id;
     data['country'] = this.country;
+    data['isReseller'] = this.isReseller;
     data['__v'] = this.iV;
     if (this.profileId != null) {
       data['ProfileId'] = this.profileId!.toJson();
+    }
+    if (this.coins != null) {
+      data['coins'] = this.coins!.toJson();
     }
     return data;
   }
 }
 
 class ProfileId {
-  List<Null>? followers;
-  List<Null>? following;
-  List<Null>? friends;
-  List<Null>? visitors;
   String? sId;
   String? username;
   String? dateOfBirth;
@@ -104,19 +106,21 @@ class ProfileId {
   String? favBroadcaster;
   int? diamonds;
   String? authId;
+  List<Null>? followers;
+  List<Null>? following;
+  List<Null>? friends;
+  List<Null>? visitors;
   bool? isBlocked;
   bool? isBan;
   String? createdAt;
   String? updatedAt;
   int? iV;
-  Null? banDuration;
+  String? bio;
+  String? descSelf;
+  String? language;
 
   ProfileId(
-      {this.followers,
-      this.following,
-      this.friends,
-      this.visitors,
-      this.sId,
+      {this.sId,
       this.username,
       this.dateOfBirth,
       this.gender,
@@ -124,14 +128,28 @@ class ProfileId {
       this.favBroadcaster,
       this.diamonds,
       this.authId,
+      this.followers,
+      this.following,
+      this.friends,
+      this.visitors,
       this.isBlocked,
       this.isBan,
       this.createdAt,
       this.updatedAt,
       this.iV,
-      this.banDuration});
+      this.bio,
+      this.descSelf,
+      this.language});
 
   ProfileId.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    username = json['username'];
+    dateOfBirth = json['dateOfBirth'];
+    gender = json['gender'];
+    profileImage = json['profileImage'];
+    favBroadcaster = json['favBroadcaster'];
+    diamonds = json['diamonds'];
+    authId = json['authId'];
     if (json['followers'] != null) {
       followers = <Null>[];
       json['followers'].forEach((v) {
@@ -156,24 +174,26 @@ class ProfileId {
         // visitors!.add(new Null.fromJson(v));
       });
     }
-    sId = json['_id'];
-    username = json['username'];
-    dateOfBirth = json['dateOfBirth'];
-    gender = json['gender'];
-    profileImage = json['profileImage'];
-    favBroadcaster = json['favBroadcaster'];
-    diamonds = json['diamonds'];
-    authId = json['authId'];
     isBlocked = json['isBlocked'];
     isBan = json['isBan'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-    banDuration = json['banDuration'];
+    bio = json['bio'];
+    descSelf = json['descSelf'];
+    language = json['language'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['username'] = this.username;
+    data['dateOfBirth'] = this.dateOfBirth;
+    data['gender'] = this.gender;
+    data['profileImage'] = this.profileImage;
+    data['favBroadcaster'] = this.favBroadcaster;
+    data['diamonds'] = this.diamonds;
+    data['authId'] = this.authId;
     if (this.followers != null) {
       // data['followers'] = this.followers!.map((v) => v.toJson()).toList();
     }
@@ -186,43 +206,42 @@ class ProfileId {
     if (this.visitors != null) {
       // data['visitors'] = this.visitors!.map((v) => v.toJson()).toList();
     }
-    data['_id'] = this.sId;
-    data['username'] = this.username;
-    data['dateOfBirth'] = this.dateOfBirth;
-    data['gender'] = this.gender;
-    data['profileImage'] = this.profileImage;
-    data['favBroadcaster'] = this.favBroadcaster;
-    data['diamonds'] = this.diamonds;
-    data['authId'] = this.authId;
     data['isBlocked'] = this.isBlocked;
     data['isBan'] = this.isBan;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
-    data['banDuration'] = this.banDuration;
+    data['bio'] = this.bio;
+    data['descSelf'] = this.descSelf;
+    data['language'] = this.language;
     return data;
   }
 }
 
 class Coins {
-  String id;
-  String resellerId;
-  int coins;
-  String userId;
+  String? sId;
+  String? resellerId;
+  int? coins;
+  String? userId;
+  int? iV;
 
-  Coins({
-    required this.id,
-    required this.resellerId,
-    required this.coins,
-    required this.userId,
-  });
+  Coins({this.sId, this.resellerId, this.coins, this.userId, this.iV});
 
-  factory Coins.fromJson(Map<String, dynamic> json) {
-    return Coins(
-      id: json['_id'],
-      resellerId: json['resellerId'],
-      coins: json['coins'],
-      userId: json['userId'],
-    );
+  Coins.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    resellerId = json['resellerId'];
+    coins = json['coins'];
+    userId = json['userId'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['resellerId'] = this.resellerId;
+    data['coins'] = this.coins;
+    data['userId'] = this.userId;
+    data['__v'] = this.iV;
+    return data;
   }
 }
