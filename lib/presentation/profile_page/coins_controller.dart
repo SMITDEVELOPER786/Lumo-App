@@ -86,6 +86,7 @@ class CoinsController extends GetxController {
           Get.back();
         final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
+        coins = data["data"]["remainingCoins"].toString();
         Get.snackbar("Success", data["message"]);
       
       } else {

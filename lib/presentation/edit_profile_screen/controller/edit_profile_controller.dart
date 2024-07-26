@@ -49,8 +49,16 @@ class EditProfileController extends GetxController {
         case 'bio':
           textControllers[fieldName]!.text =
               UserController.user.data!.country ??
-                  ''; // Initial value for password, typically empty
+                  ''; 
+                  // Initial value for password, typically empty
           break;
+           case 'language':
+          textControllers[fieldName]!.text =
+              UserController.user.data!.country ??
+                  ''; 
+                  // Initial value for password, typically empty
+          break;
+
         // Add more cases for other fields as needed
       }
     }

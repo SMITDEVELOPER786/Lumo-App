@@ -70,14 +70,14 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
             ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
             : ZegoUIKitPrebuiltLiveStreamingConfig.audience(),
       ),
-      Positioned(
+     widget.isHost == false? Positioned(
         bottom: 20,
         right: 20,
         child: FloatingActionButton(
           onPressed: () => _showGiftModalSheet(context),
           child: Icon(Icons.card_giftcard),
         ),
-      ),
+      ):SizedBox(),
     ]));
   }
 

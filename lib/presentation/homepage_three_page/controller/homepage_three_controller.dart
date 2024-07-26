@@ -157,9 +157,9 @@ class HomepageThreeController extends GetxController {
       };
       var request = http.Request('POST', Uri.parse('${BaseUrl}gift/send'));
       request.body = json.encode({
-        "senderId": sendgift["senderId"],
-        "recieverId": sendgift["senderId"],
-        "giftId": sendgift["giftId"]
+        "senderId": sendgift["senderId"].toString(),
+        "recieverId": sendgift["senderId"].toString(),
+        "giftId": sendgift["giftId"].toString()
       });
       request.headers.addAll(headers);
 
