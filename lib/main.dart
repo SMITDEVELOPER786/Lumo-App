@@ -17,7 +17,7 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 
 import 'core/app_export.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   gettoken();
@@ -34,7 +34,10 @@ Future <void> main() async {
     DeviceOrientation.portraitUp,
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
-    ZegoUIKit().init(appID: 61496105, appSign: "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5");
+    ZegoUIKit().init(
+        appID: 61496105,
+        appSign:
+            "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5");
     runApp(MyApp());
     _determinePosition();
   });
@@ -89,6 +92,42 @@ class MyApp extends StatelessWidget {
     });
   }
 }
+
+Future _signInWithGooglel() async {
+  // Trigger the authentication flow
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      return null;
+    }
+    googleUser.authentication;
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    credential;
+    idToken = credential.idToken.toString();
+    accesstoken = credential.toString();
+    print(credential.idToken);
+    log(credential.accessToken.toString());
+    log(credential.idToken.toString());
+    // Once signed in, return the UserCredential
+
+ 
+        await FirebaseAuth.instance.signInWithCredential(credential);
+   
+  } catch (e) {
+    print(e);
+  }
+}
+
 Future signInWithGooglel() async {
   // Trigger the authentication flow
   try {
@@ -119,7 +158,4 @@ Future signInWithGooglel() async {
   } catch (e) {
     print(e);
   }
-
-
 }
-

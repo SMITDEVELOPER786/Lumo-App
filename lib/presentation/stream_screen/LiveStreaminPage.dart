@@ -128,12 +128,13 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
                 var gift = giftsController.gifts[index];
                 return GestureDetector(
                   onTap: () async {
-                    controller.changeColor(index);
+                    // controller.changeColor(index);
 
                     var sendgift = {
                       "senderId": UserController.user.data!.sId.toString(),
                       "recieverId": widget.creatorid,
-                      "giftId": giftsController.gifts[index]["_id"]
+                      "giftId": giftsController.gifts[index]["_id"],
+                      "giftname": giftsController.gifts[index]["giftName"],
                     };
                     await controller.sendGift(sendgift);
                     Navigator.pop(context);

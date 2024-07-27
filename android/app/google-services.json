@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "669158799463",
-    "project_id": "monzo-de7a8",
-    "storage_bucket": "monzo-de7a8.appspot.com"
+    "project_number": "217625880670",
+    "project_id": "compact-env-405509",
+    "storage_bucket": "compact-env-405509.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:669158799463:android:77972a2f29e3ee3774bcc2",
+        "mobilesdk_app_id": "1:217625880670:android:10dadda5f401f754dcaccf",
         "android_client_info": {
           "package_name": "com.monzo.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "669158799463-1n4sjqqoja1n0l5ubmo0q0n1mslfd5u1.apps.googleusercontent.com",
+          "client_id": "217625880670-6r4cks3gl8jg5d4ogekcg8oe3u2m8qso.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.monzo.app",
@@ -22,20 +22,28 @@
           }
         },
         {
-          "client_id": "669158799463-6ajng636d649cp59efcgqqp2lcpu4tjc.apps.googleusercontent.com",
+          "client_id": "217625880670-aj86uhlhn352cpttla13d1op0se31nub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monzo.app",
+            "certificate_hash": "f4eedfcef35c129dcfddd6fce44f4b336ffe775b"
+          }
+        },
+        {
+          "client_id": "217625880670-nrnjb6pt7remfnecm9hft4mvubh46v4i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApfEvx_qDoiXEqo0eqCjOITJKTBz-Ymaw"
+          "current_key": "AIzaSyBmb1Hqhk8bmZgx3c2TMXjOYbnv-xTjtpY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669158799463-6ajng636d649cp59efcgqqp2lcpu4tjc.apps.googleusercontent.com",
+              "client_id": "217625880670-nrnjb6pt7remfnecm9hft4mvubh46v4i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

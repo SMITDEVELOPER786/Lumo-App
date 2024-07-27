@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
-import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/models/edit_profile_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
-import 'package:path/path.dart' as path;
+
 import 'package:http/http.dart' as http;
-import 'package:http_parser/src/media_type.dart';
+
 
 /// A controller class for the EditProfileScreen.
 ///
@@ -48,11 +48,17 @@ class EditProfileController extends GetxController {
           break;
         case 'bio':
           textControllers[fieldName]!.text =
-              UserController.user.data!.country ??
+              UserController.user.data!.profileId!.bio ??
                   ''; 
                   // Initial value for password, typically empty
           break;
            case 'language':
+          textControllers[fieldName]!.text =
+              UserController.user.data!.country ??
+                  ''; 
+                  // Initial value for password, typically empty
+          break;
+           case 'emoji':
           textControllers[fieldName]!.text =
               UserController.user.data!.country ??
                   ''; 

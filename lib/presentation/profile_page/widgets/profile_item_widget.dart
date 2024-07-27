@@ -3,6 +3,7 @@ import 'package:muhammad_zubair_s_application4/presentation/apply_for_hosting_sc
 import 'package:muhammad_zubair_s_application4/presentation/blocked_list_screen/blocked_list_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/live_data_screen/live_data_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/mall_one_screen/mall_one_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/profile_page/apply_agency.dart';
 import 'package:muhammad_zubair_s_application4/presentation/profile_page/coins_trading.dart';
 import 'package:muhammad_zubair_s_application4/presentation/settings_screen/settings_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_one_screen/vip_one_screen.dart';
@@ -33,65 +34,74 @@ class ProfileItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: profileItemModelObj.vIPCenter1!.value == "Coins Trading"
+      onTap: profileItemModelObj.vIPCenter1!.value == "Apply agency"
           ? () {
-              Get.lazyPut(() => CoinsTrading());
-              Get.to(() => CoinsTrading());
+              Get.lazyPut(() => ApplyAgencyScreen());
+              Get.to(() => ApplyAgencyScreen());
             }
-          : profileItemModelObj.vIPCenter1!.value == "Mall"
+          : profileItemModelObj.vIPCenter1!.value == "Coins Trading"
               ? () {
-                  Get.lazyPut(() => MallOneScreen());
-                  Get.to(() => MallOneScreen());
+                  Get.lazyPut(() => CoinsTrading());
+                  Get.to(() => CoinsTrading());
                 }
-              : profileItemModelObj.vIPCenter1!.value == "Guardian"
+              : profileItemModelObj.vIPCenter1!.value == "Mall"
                   ? () {
-                      Get.lazyPut(() => GuardianOneTabContainerScreen());
-                      Get.to(() => GuardianOneTabContainerScreen());
+                      Get.lazyPut(() => MallOneScreen());
+                      Get.to(() => MallOneScreen());
                     }
-                  : profileItemModelObj.vIPCenter1!.value == "Block List"
+                  : profileItemModelObj.vIPCenter1!.value == "Guardian"
                       ? () {
-                          Get.lazyPut(() => BlockedListScreen());
-                          Get.to(() => BlockedListScreen());
+                          Get.lazyPut(() => GuardianOneTabContainerScreen());
+                          Get.to(() => GuardianOneTabContainerScreen());
                         }
-                      : profileItemModelObj.vIPCenter1!.value == "Settings"
+                      : profileItemModelObj.vIPCenter1!.value == "Block List"
                           ? () {
-                              Get.lazyPut(() => SettingsScreen());
-                              Get.to(() => SettingsScreen());
+                              Get.lazyPut(() => BlockedListScreen());
+                              Get.to(() => BlockedListScreen());
                             }
-                          : profileItemModelObj.vIPCenter1!.value ==
-                                  "Apply hosting"
+                          : profileItemModelObj.vIPCenter1!.value == "Settings"
                               ? () {
-                                  Get.lazyPut(() => ApplyForHostingScreen());
-                                  Get.to(() => ApplyForHostingScreen());
+                                  Get.lazyPut(() => SettingsScreen());
+                                  Get.to(() => SettingsScreen());
                                 }
                               : profileItemModelObj.vIPCenter1!.value ==
-                                      "Withdrawal"
+                                      "Apply hosting"
                                   ? () {
-                                      Get.lazyPut(() => WithdrawalScreen());
-                                      Get.to(() => WithdrawalScreen());
+                                      Get.lazyPut(
+                                          () => ApplyForHostingScreen());
+                                      Get.to(() => ApplyForHostingScreen());
                                     }
                                   : profileItemModelObj.vIPCenter1!.value ==
-                                          "Live data"
+                                          "Withdrawal"
                                       ? () {
-                                          Get.lazyPut(() => LiveDataScreen());
-                                          Get.to(() => LiveDataScreen());
+                                          Get.lazyPut(() => WithdrawalScreen());
+                                          Get.to(() => WithdrawalScreen());
                                         }
                                       : profileItemModelObj.vIPCenter1!.value ==
-                                              "VIP Center"
+                                              "Live data"
                                           ? () {
                                               Get.lazyPut(
-                                                  () => VipTabbarView());
-                                              Get.to(() => VipTabbarView());
+                                                  () => LiveDataScreen());
+                                              Get.to(() => LiveDataScreen());
                                             }
                                           : profileItemModelObj
                                                       .vIPCenter1!.value ==
-                                                  "Admin"
+                                                  "VIP Center"
                                               ? () {
                                                   Get.lazyPut(
-                                                      () => AdminScreen());
-                                                  Get.to(() => AdminScreen());
+                                                      () => VipTabbarView());
+                                                  Get.to(() => VipTabbarView());
                                                 }
-                                              : () {},
+                                              : profileItemModelObj
+                                                          .vIPCenter1!.value ==
+                                                      "Admin"
+                                                  ? () {
+                                                      Get.lazyPut(
+                                                          () => AdminScreen());
+                                                      Get.to(
+                                                          () => AdminScreen());
+                                                    }
+                                                  : () {},
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 25.h,

@@ -217,13 +217,7 @@ class _CoinsTradingState extends State<CoinsTrading> {
                     textInputType: TextInputType.visiblePassword,
                     suffixConstraints: BoxConstraints(maxHeight: 52.v),
 
-                    // validator: (value) {
-                    //   if (value == null ||
-                    //       (!isValidPassword(value, isRequired: true))) {
-                    //     return "err_msg_please_enter_valid_password".tr;
-                    //   }
-                    //   return null;
-                    // },
+                   
 
                     contentPadding:
                         EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v)),

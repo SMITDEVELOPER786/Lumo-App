@@ -18,11 +18,13 @@ class HomepageThreeController extends GetxController {
   Rx<HomepageThreeModel> homepageThreeModelObj;
 
   var colors = <Color>[].obs;
-     initializeColors(int count) {
+  initializeColors(int count) {
     colors.value = List.generate(count, (index) => Colors.white);
   }
-   changeColor(int index) {
-    colors[index] = colors[index] == Colors.white ? Color(0xffE8FFB7) : Colors.white;
+
+  changeColor(int index) {
+    colors[index] =
+        colors[index] == Colors.white ? Color(0xffE8FFB7) : Colors.white;
   }
 
   var isLoading = true.obs;
@@ -50,10 +52,7 @@ class HomepageThreeController extends GetxController {
   FetchStreams() async {
     isLoading(true);
     var headers = {'Authorization': 'Bearer ${authToken} '};
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            '${BaseUrl}live-stream/get'));
+    var request = http.Request('GET', Uri.parse('${BaseUrl}live-stream/get'));
 
     request.headers.addAll(headers);
 
@@ -81,7 +80,6 @@ class HomepageThreeController extends GetxController {
 
           countryStreams[countryName]?.add(streams);
         });
-      
       }
     } else {
       print(response.reasonPhrase);
@@ -94,10 +92,7 @@ class HomepageThreeController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${authToken}'
     };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            '${BaseUrl}live-stream/end'));
+    var request = http.Request('POST', Uri.parse('${BaseUrl}live-stream/end'));
     request.body = json.encode({"streamId": liveID});
     request.headers.addAll(headers);
 
@@ -116,10 +111,7 @@ class HomepageThreeController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${authToken}'
     };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            '${BaseUrl}live-stream/join'));
+    var request = http.Request('POST', Uri.parse('${BaseUrl}live-stream/join'));
     request.body = json.encode({"streamId": connectstreamData["HostID"]});
     request.headers.addAll(headers);
 
@@ -127,9 +119,8 @@ class HomepageThreeController extends GetxController {
 
     if (response.statusCode == 200) {
       final responseBody = await response.stream.bytesToString();
-        final data = json.decode(responseBody);
-         
-      
+      final data = json.decode(responseBody);
+
       Get.snackbar("Message", "Join Stream Successfully");
       Get.lazyPut(() => LiveStreamingPage(
             liveID: connectstreamData["HostID"],
@@ -149,34 +140,38 @@ class HomepageThreeController extends GetxController {
     }
   }
 
- sendGift(sendgift) async {
+  sendGift(sendgift) async {
     try {
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${authToken}' // replace with your API key
+        'Authorization': 'Bearer ${authToken}'
       };
-      var request = http.Request('POST', Uri.parse('${BaseUrl}gift/send'));
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/gift/send'));
       request.body = json.encode({
-        "senderId": sendgift["senderId"].toString(),
-        "recieverId": sendgift["senderId"].toString(),
-        "giftId": sendgift["giftId"].toString()
+        "senderId": sendgift["senderId"],
+        "recieverId": sendgift["recieverId"].toString(),
+        "giftId": sendgift["giftId"].toString(),
       });
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-  ZegoUIKit().sendInRoomMessage("Sends you a gift", );
 
       if (response.statusCode == 200) {
-        print('Gift sent successfully');
-        // Send a custom message to other users in the stream
-      //  ZegoUIKit().sendInRoomMessage("message", );
+           final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+
+        ZegoUIKit().sendInRoomMessage("Sends you a gift ${sendgift["giftname"]}",
+        );
+        print(await response.stream.bytesToString());
       } else {
         print(response.reasonPhrase);
       }
+      
     } catch (e) {
       print('Error sending gift: $e');
     }
-
-    
   }
 }
