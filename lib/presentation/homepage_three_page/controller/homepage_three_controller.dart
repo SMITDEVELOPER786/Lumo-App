@@ -43,7 +43,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/get'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/get'));
 
     request.headers.addAll(headers);
 
@@ -87,7 +87,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/end'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/end'));
     request.body = json.encode({"streamId": liveID});
     request.headers.addAll(headers);
 
@@ -109,7 +109,7 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/join'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/join'));
     request.body = json.encode({"streamId": connectstreamData["HostID"]});
     request.headers.addAll(headers);
 

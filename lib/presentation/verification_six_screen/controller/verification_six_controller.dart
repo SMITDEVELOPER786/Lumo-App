@@ -57,7 +57,7 @@ class VerificationSixController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/get-broadcaster'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-broadcaster'));
 
     http.StreamedResponse response = await request.send();
 
@@ -90,7 +90,7 @@ class VerificationSixController extends GetxController {
     var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/completeprofile'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
     request.fields.addAll({
       'username': NameorImageController.userNameController.value.text.toString(),
       'dateOfBirth': createProfileController.selectedDate.value.toString(),  

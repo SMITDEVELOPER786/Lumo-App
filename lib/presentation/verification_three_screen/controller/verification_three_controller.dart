@@ -45,7 +45,7 @@ class VerificationThreeController extends GetxController with CodeAutoFill {
     };
 
     var url = Uri.parse(
-        'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/verify-otp');
+        'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/verify-otp');
     var body = json.encode({"otp": enteredPin});
 
     try {
