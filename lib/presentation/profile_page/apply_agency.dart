@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/presentation/profile_page/apply_agency_controller.dart';
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
@@ -24,11 +25,11 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
         appBar: _buildAppBar(),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
+          child: ListView(
             children: [
               CustomTextFormField(
                 fillColor: Colors.white,
-                // controller: coincontroller.transferAmountController,
+                controller: _agencycontroller.agencyName,
                 hintText: "Agency Name".tr,
                 hintStyle: CustomTextStyles.titleSmallGray700,
                 textInputAction: TextInputAction.done,
@@ -39,24 +40,11 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
               ),
               SizedBox(
                 height: 15,
-              ), 
+              ),
               CustomTextFormField(
                 fillColor: Colors.white,
-                // controller: coincontroller.transferAmountController,
+                controller: _agencycontroller.emailController,
                 hintText: "Add email".tr,
-                hintStyle: CustomTextStyles.titleSmallGray700,
-                textInputAction: TextInputAction.done,
-                textInputType: TextInputType.visiblePassword,
-                suffixConstraints: BoxConstraints(maxHeight: 52.v),
-                contentPadding:
-                    EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v),
-              ),
-                SizedBox(
-                height: 15,
-              ),CustomTextFormField(
-                fillColor: Colors.white,
-                // controller: coincontroller.transferAmountController,
-                hintText: "Add Whtsapp num".tr,
                 hintStyle: CustomTextStyles.titleSmallGray700,
                 textInputAction: TextInputAction.done,
                 textInputType: TextInputType.visiblePassword,
@@ -66,8 +54,21 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
               ),
               SizedBox(
                 height: 15,
-              ), 
-
+              ),
+              CustomTextFormField(
+                fillColor: Colors.white,
+                controller: _agencycontroller.phoneController,
+                hintText: "Add Whtsapp number".tr,
+                hintStyle: CustomTextStyles.titleSmallGray700,
+                textInputAction: TextInputAction.done,
+                textInputType: TextInputType.visiblePassword,
+                suffixConstraints: BoxConstraints(maxHeight: 52.v),
+                contentPadding:
+                    EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v),
+              ),
+              SizedBox(
+                height: 15,
+              ),
               CustomElevatedButton(
                   width: 150,
                   onPressed: () {
@@ -92,7 +93,8 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: FileImage(
-                                  File(_agencycontroller.imageFile1.value!.path),
+                                  File(
+                                      _agencycontroller.imageFile1.value!.path),
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -141,7 +143,8 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: FileImage(
-                                  File(_agencycontroller.imageFile2.value!.path),
+                                  File(
+                                      _agencycontroller.imageFile2.value!.path),
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -190,7 +193,8 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: FileImage(
-                                  File(_agencycontroller.imageFile3.value!.path),
+                                  File(
+                                      _agencycontroller.imageFile3.value!.path),
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -212,19 +216,36 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
                   return Text('No picture selected');
                 }
               }),
-              
-              
-              
-              Spacer(),
-              CustomElevatedButton(
-                  // width: 150,
-                  onPressed: () {},
-                  text: "Submit".tr,
-                  buttonStyle: CustomButtonStyles.none,
-                  decoration:
-                      CustomButtonStyles.gradientGreenToPrimaryTL25Decoration),
-              SizedBox(
+             SizedBox(
                 height: 25,
+              ),
+              Obx(() {
+                return _agencycontroller.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : CustomElevatedButton(
+                        // width: 150,
+                        onPressed: () async {
+                          var agencyData = {
+                            "name" : _agencycontroller.agencyName.value.text,
+                            "email":
+                                _agencycontroller.emailController.value.text,
+                            "phone":
+                                _agencycontroller.phoneController.value.text,
+                            "agencyImg":
+                                _agencycontroller.imageFile1.value!.path,
+                            "passport":
+                                _agencycontroller.imageFile3.value!.path,
+                            "photoId": _agencycontroller.imageFile2.value!.path,
+                          };
+                          await _agencycontroller.createAgency(agencyData);
+                        },
+                        text: "Submit".tr,
+                        buttonStyle: CustomButtonStyles.none,
+                        decoration: CustomButtonStyles
+                            .gradientGreenToPrimaryTL25Decoration);
+              }),
+              SizedBox(
+                height: 50,
               ),
             ],
           ),
