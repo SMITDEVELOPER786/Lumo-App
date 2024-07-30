@@ -262,8 +262,8 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                           //     ));
                                         },
                                         child:SizedBox(
-                                          height: 450.v,
-                                          width: 170.h,
+                                          height: 300.v,
+                                          width: 130.h,
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
@@ -273,7 +273,7 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                              ,
                                                fit: BoxFit.cover,
                                               ):
-                                             Image.network('https://res.cloudinary.com/dk3hy0n39/image/upload/+${controller.streamData[index]["hostImage"]}' ,
+                                             Image.network("https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.streamData[index]["hostImage"]}" ,
                                                  fit: BoxFit.cover,
                                               ),
                                             

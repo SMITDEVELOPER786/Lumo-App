@@ -6,3 +6,4 @@ String userImage= "";
  var idToken ="";
  var accesstoken="";
  var userlevelImage = "";
+ var coins = "";

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_five_screen/verification_five_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_four_screen/controller/verification_four_controller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_seven_screen/controller/verification_seven_controller.dart';
@@ -57,7 +58,7 @@ class VerificationSixController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-broadcaster'));
+            '${BaseUrl}get-broadcaster'));
 
     http.StreamedResponse response = await request.send();
 
@@ -90,7 +91,7 @@ class VerificationSixController extends GetxController {
     var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/completeprofile'));
     request.fields.addAll({
       'username': NameorImageController.userNameController.value.text.toString(),
       'dateOfBirth': createProfileController.selectedDate.value.toString(),  

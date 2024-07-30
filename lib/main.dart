@@ -13,10 +13,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/notification_services.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 import 'core/app_export.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   gettoken();
@@ -33,6 +34,10 @@ Future <void> main() async {
     DeviceOrientation.portraitUp,
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
+    ZegoUIKit().init(
+        appID: 61496105,
+        appSign:
+            "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5");
     runApp(MyApp());
     _determinePosition();
   });
@@ -87,7 +92,8 @@ class MyApp extends StatelessWidget {
     });
   }
 }
-Future signInWithGooglel() async {
+
+Future _signInWithGooglel() async {
   // Trigger the authentication flow
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -97,7 +103,8 @@ Future signInWithGooglel() async {
     }
     googleUser.authentication;
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -113,7 +120,41 @@ Future signInWithGooglel() async {
     log(credential.idToken.toString());
     // Once signed in, return the UserCredential
 
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+ 
+        await FirebaseAuth.instance.signInWithCredential(credential);
+   
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future signInWithGooglel() async {
+  // Trigger the authentication flow
+  try {
+
+     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  // Obtain the auth details from the request.
+  final GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
+
+
+  final  credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+  );
+  // Sign in to Firebase with the Google [UserCredential].
+    // Create a new credential
+
+    credential;
+    idToken = credential.idToken.toString();
+    accesstoken = credential.toString();
+    print(credential.idToken);
+    log(credential.accessToken.toString());
+    log(credential.idToken.toString());
+    return credential;
+    // Once signed in, return the UserCredential
+
+    // var res =  await(await FirebaseAuth.instance.signInWithCredential(credential)).user;
+    // print(res.toString());
   } catch (e) {
     print(e);
   }

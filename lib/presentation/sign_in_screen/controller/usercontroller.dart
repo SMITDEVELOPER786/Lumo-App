@@ -1,5 +1,6 @@
 
 import 'package:get/get.dart';
+import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/usermodel.dart';
 
 import '../../homepage_three_page/USerModel.dart';
 

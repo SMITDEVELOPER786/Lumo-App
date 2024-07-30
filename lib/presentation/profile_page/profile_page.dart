@@ -74,7 +74,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   bottom: 1.v,
                                 ),
                                 child: Text(
-                                 UserController.user.data!.profileId!.diamonds.toString(),
+                                  UserController.user.data!.profileId!.diamonds
+                                      .toString(),
                                   style:
                                       CustomTextStyles.labelMediumGray80001_1,
                                 ),
@@ -128,7 +129,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   bottom: 1.v,
                                 ),
                                 child: Text(
-                                 UserController.user.data!.profileId!.diamonds.toString(),
+                                  UserController.user.data!.profileId!.diamonds
+                                      .toString(),
                                   style:
                                       CustomTextStyles.labelMediumGray80001_1,
                                 ),
@@ -166,7 +168,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildFrame1(
-                        dynamicText1: UserController.user.data!.profileId!.friends!.length.toString(),
+                        dynamicText1: UserController
+                            .user.data!.profileId!.friends!.length
+                            .toString(),
                         dynamicText2: "lbl_friends".tr,
                       ),
                       Padding(
@@ -183,7 +187,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 13.h),
                         child: _buildFrame(
-                          dynamicText:UserController.user.data!.profileId!.followers!.length.toString(),
+                          dynamicText: UserController
+                              .user.data!.profileId!.followers!.length
+                              .toString(),
                           dynamicText1: "lbl_followers".tr,
                         ),
                       ),
@@ -201,7 +207,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.h),
                         child: _buildFrame(
-                          dynamicText:UserController.user.data!.profileId!.following!.length.toString(),
+                          dynamicText: UserController
+                              .user.data!.profileId!.following!.length
+                              .toString(),
                           dynamicText1: "lbl_following".tr,
                         ),
                       ),
@@ -219,7 +227,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.h),
                         child: _buildFrame1(
-                          dynamicText1: UserController.user.data!.profileId!.visitors!.length.toString(),
+                          dynamicText1: UserController
+                              .user.data!.profileId!.visitors!.length
+                              .toString(),
                           dynamicText2: "lbl_visitors".tr,
                         ),
                       ),
@@ -281,35 +291,36 @@ class _ProfilePageState extends State<ProfilePage> {
                             padding: EdgeInsets.all(1.h),
                             decoration: AppDecoration.outlineLime.copyWith(
                               borderRadius: BorderRadiusStyle.roundedBorder34,
-                              
                             ),
-                            child:CircleAvatar(
-                              radius:32.h,
-                              backgroundImage:  UserController.user.data!.profileId!.profileImage!.toString().contains("googleusercontent") ?NetworkImage("${UserController.user.data!.profileId!.profileImage}"):
-                              NetworkImage( 'https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}')
-                             
-                            ),
-                          //    CustomImageView(
-                          //     imagePath: ImageConstant.imgEllipse33,
-                          //     height: 64.adaptSize,
-                          //     width: 64.adaptSize,
-                          //     radius: BorderRadius.circular(
-                          //       32.h,
-                          //     ),
-                          //     alignment: Alignment.center,
-                          //   ),
+                            child: CircleAvatar(
+                                radius: 32.h,
+                                backgroundImage: UserController
+                                        .user.data!.profileId!.profileImage!
+                                        .toString()
+                                        .contains("googleusercontent")
+                                    ? NetworkImage(
+                                        "${UserController.user.data!.profileId!.profileImage}")
+                                    : NetworkImage(
+                                        'https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}')),
+                            //    CustomImageView(
+                            //     imagePath: ImageConstant.imgEllipse33,
+                            //     height: 64.adaptSize,
+                            //     width: 64.adaptSize,
+                            //     radius: BorderRadius.circular(
+                            //       32.h,
+                            //     ),
+                            //     alignment: Alignment.center,
+                            //   ),
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Get.lazyPut(() => EditProfileScreen());
                             Get.to(() => EditProfileScreen());
-
                           },
                           child: Padding(
                             padding: EdgeInsets.only(right: 2.h),
-                            child: 
-                            CustomIconButton(
+                            child: CustomIconButton(
                               height: 20.adaptSize,
                               width: 20.adaptSize,
                               padding: EdgeInsets.all(4.h),
@@ -319,7 +330,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 imagePath: ImageConstant.imgEdit,
                               ),
                             ),
-                          
                           ),
                         ),
                       ],
@@ -360,25 +370,24 @@ class _ProfilePageState extends State<ProfilePage> {
   /// Section Widget
   Widget _buildLv10() {
     return Container(
-       height: 40.v,
-  width: 119.h,
-   decoration: BoxDecoration(
-    image: DecorationImage(
-      image: NetworkImage("https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
-      fit: BoxFit.cover,
-    ),
-  ),
+      height: 40.v,
+      width: 119.h,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+              "https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
-    
   }
 
   /// Section Widget
   Widget _buildMyLevel() {
     return CustomElevatedButton(
-      onPressed: (){
+      onPressed: () {
         Get.lazyPut(() => LevelScreen());
         Get.to(() => LevelScreen());
-
       },
       height: 48.v,
       width: 172.h,
@@ -422,7 +431,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: Alignment.topLeft,
                 children: [
                   CustomImageView(
-                    imagePath: ImageConstant.imgMaskGroup,
+                    // imagePath: ImageConstant.imgMaskGroup,
                     height: 48.v,
                     width: 172.h,
                     alignment: Alignment.center,
@@ -430,17 +439,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Get.lazyPut(() => MyWalletScreen());
-        Get.to(() => MyWalletScreen());
+                        Get.to(() => MyWalletScreen());
                       },
                       child: Container(
                         width: 116.h,
                         margin: EdgeInsets.fromLTRB(12.h, 7.v, 44.h, 16.v),
                         child: GestureDetector(
-                          onTap: (){
-                                 Get.lazyPut(() => MyWalletScreen());
-        Get.to(() => MyWalletScreen());
+                          onTap: () {
+                            Get.lazyPut(() => MyWalletScreen());
+                            Get.to(() => MyWalletScreen());
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -450,7 +459,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: EdgeInsets.only(top: 9.v),
                                 child: Text(
                                   "lbl_my_wallet".tr,
-                                  style: CustomTextStyles.bodySmallInterWhiteA70012,
+                                  style: CustomTextStyles
+                                      .bodySmallInterWhiteA70012,
                                 ),
                               ),
                               CustomImageView(
@@ -505,7 +515,7 @@ class _ProfilePageState extends State<ProfilePage> {
   /// Section Widget
   Widget _buildLogout() {
     return CustomElevatedButton(
-      onPressed: (){
+      onPressed: () {
         Get.to(SignInScreen());
       },
       text: "lbl_logout".tr,
@@ -533,7 +543,6 @@ class _ProfilePageState extends State<ProfilePage> {
           dynamicText,
           style: CustomTextStyles.labelMediumGray80001SemiBold_1.copyWith(
             color: appTheme.gray80001,
-            
           ),
         ),
         SizedBox(height: 5.v),

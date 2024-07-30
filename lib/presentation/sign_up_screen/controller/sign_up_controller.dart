@@ -53,7 +53,7 @@ class SignUpController extends GetxController {
     try {
       http.Response response = await http.post(
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/social-auth'),
+            '${BaseUrl}social-auth'),
         headers: headers,
         body: body,
       );
@@ -135,7 +135,7 @@ class SignUpController extends GetxController {
     try {
       http.Response response = await http.post(
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/signup'),
+            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/signup'),
         headers: headers,
         body: body,
       );
@@ -145,7 +145,7 @@ class SignUpController extends GetxController {
         signupToken = res_data["token"];
 
         Get.back();
-         Get.snackbar("Success", res_data["message"].toString());
+         Get.snackbar("Success", res_data["message"]);
         // Get.snackbar("Message", "OTP has been sent on your email");
 
         Get.lazyPut(() => AccountCreationOneScreen());

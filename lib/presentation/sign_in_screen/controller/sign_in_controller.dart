@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/usermodel.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/homepage_three_page.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercoincontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/models/sign_in_model.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +46,7 @@ class SignInController extends GetxController {
 
     try {
       http.Response response = await http.post(
-        Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/social-auth'),
+        Uri.parse('${BaseUrl}social-auth'),
         headers: headers,
         body: body,
       );
@@ -88,6 +90,7 @@ class SignInController extends GetxController {
 
   Future<void> signIn(String email, String password, context) async {
     final usercontroller = Get.put(UserController());
+    final UserCoinController coinController = Get.put(UserCoinController());
     Get.dialog(
       Center(
         child:
@@ -109,8 +112,15 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
+        if (res_data["data"]["isReseller"] == true) {
+          coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
+          // final userCoinsModel = UserCoinsModel.fromJson(res_data);
+          // coinController
+          //     .updateUserCoin(userCoinsModel); // Use the correct method here
+          // coinController.setLoading(false);
+        }
 
-        userlevelImage = await getLevel(res_data["data"]["isLevel"]);
+        // userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 
         usercontroller.User(UserModel.fromJson(res_data));
 
@@ -152,7 +162,7 @@ class SignInController extends GetxController {
         return res_data["data"]["levelIcon"];
       }
     } catch (e) {
-       return "";
+      return "";
       Get.snackbar("Error", e.toString());
     }
   }

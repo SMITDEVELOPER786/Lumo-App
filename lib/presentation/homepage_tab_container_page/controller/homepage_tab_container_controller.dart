@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_tab_container_page/models/homepage_tab_container_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +25,7 @@ class HomepageTabContainerController extends GetxController
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-banner'));
+            '${BaseUrl}get-banner'));
     // request.headers.addAll();
 
     http.StreamedResponse response = await request.send();

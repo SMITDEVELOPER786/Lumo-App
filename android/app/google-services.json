@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "217625880670-6r4cks3gl8jg5d4ogekcg8oe3u2m8qso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monzo.app",
+            "certificate_hash": "85441bc916f4bb684b5ea0e19d55a3e353370921"
+          }
+        },
+        {
           "client_id": "217625880670-aj86uhlhn352cpttla13d1op0se31nub.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/homepage_one_page/models/homepage_one_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +22,7 @@ class HomepageOneController extends GetxController {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/get-banner'));
+            '${BaseUrl}get-banner'));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

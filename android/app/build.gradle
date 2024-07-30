@@ -48,6 +48,21 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+   signingConfigs {
+        debug {
+                keyAlias 'monzo_key'
+                keyPassword '123456'
+                storeFile file('cert/monzo_app.keystore')
+                storePassword '123456'
+            }
+            release {
+                keyAlias 'monzo_key'
+                keyPassword '123456'
+                storeFile file('cert/monzo_app.keystore')
+                storePassword '123456'
+            }
+        }
+
 
     buildTypes {
         release {
@@ -68,6 +83,7 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-analytics'
+    
    
     
 }
