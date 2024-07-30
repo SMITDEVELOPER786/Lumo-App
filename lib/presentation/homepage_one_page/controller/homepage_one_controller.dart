@@ -17,7 +17,7 @@ class HomepageOneController extends GetxController {
   void fetchBannerData() async {
     var headers = {
       'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMyNmFmZjc3ZGUzMjFiMTQ1ODE3YmQiLCJpYXQiOjE3MTU2MjI4ODksImV4cCI6MTcxNTcwOTI4OX0.P5n_5zpMrL5Imh6rGFFw1ccBKWna_zHZV2RjW15awo8'
+          'Bearer ${authToken}'
     };
     var request = http.Request(
         'GET',

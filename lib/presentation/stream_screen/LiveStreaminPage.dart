@@ -59,6 +59,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
     return SafeArea(
         child: Stack(children: [
       ZegoUIKitPrebuiltLiveStreaming(
+        
         appID:
             61496105, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign:
