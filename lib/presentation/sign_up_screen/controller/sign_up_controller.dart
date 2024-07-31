@@ -1,3 +1,5 @@
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/account_creation_one_screen/account_creation_one_screen.dart';
@@ -11,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:muhammad_zubair_s_application4/presentation/verification_four_screen/verification_four_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_five_screen/global.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../homepage_three_page/USerModel.dart';
 import '../../homepage_three_page/homepage_three_page.dart';
@@ -36,8 +39,36 @@ class SignUpController extends GetxController {
   Rx<bool> isShowPassword = true.obs;
 
   Rx<bool> checkSquare = false.obs;
+  RxString userCountry = ''.obs;
 
- Future<void> signUpGoogle(data, context) async {
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserCountry();
+  }
+
+  Future<void> fetchUserCountry() async {
+    if (await Permission.location.request().isGranted) {
+      try {
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+            position.latitude, position.longitude);
+
+        if (placemarks.isNotEmpty) {
+          userCountry.value = placemarks[0].country ?? 'Unknown';
+        }
+      } catch (e) {
+        print("Error getting location: $e");
+        userCountry.value = 'Unknown';
+      }
+    } else {
+      print("Location permission denied");
+      userCountry.value = 'Unknown';
+    }
+  }
+
+  Future<void> signUpGoogle(data, context) async {
     Get.dialog(
       Center(
         child:
@@ -49,30 +80,29 @@ class SignUpController extends GetxController {
     var body = json.encode(data);
     final usercontroller = Get.put(UserController());
 
-
     try {
       http.Response response = await http.post(
-        Uri.parse(
-            '${BaseUrl}social-auth'),
+        Uri.parse('${BaseUrl}social-auth'),
         headers: headers,
         body: body,
       );
       var res_data = json.decode(response.body.toString());
 
-      if (response.statusCode == 200 && res_data["message"]=="User registered successfully") {
+      if (response.statusCode == 200 &&
+          res_data["message"] == "User registered successfully") {
         signupToken = res_data["token"];
 
         Get.back();
-         Get.snackbar("Success", "success");
+        Get.snackbar("Success", "success");
         // Get.snackbar("Message", "OTP has been sent on your email");
 
-         Get.lazyPut(()=>VerificationFourScreen());
-              Get.toNamed(AppRoutes.verificationFourScreen);
-      }
-      else if(response.statusCode == 200 && res_data["message"]!="User registered successfully"){
+        Get.lazyPut(() => VerificationFourScreen());
+        Get.toNamed(AppRoutes.verificationFourScreen);
+      } else if (response.statusCode == 200 &&
+          res_data["message"] != "User registered successfully") {
         authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
-          authToken = res_data["token"];
+        authToken = res_data["token"];
         UserID = res_data["data"]["_id"];
         userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 
@@ -82,8 +112,7 @@ class SignUpController extends GetxController {
         Get.snackbar("Success", res_data["message"].toString());
         Get.lazyPut(() => HomepageThreePage());
         Get.to(() => HomepageThreePage());
-      }
-       else {
+      } else {
         Get.showSnackbar(GetSnackBar(
           title: "${res_data["message"]}",
         ));
@@ -98,7 +127,7 @@ class SignUpController extends GetxController {
     }
   }
 
-   getLevel(serialNo) async {
+  getLevel(serialNo) async {
     var headers = {'Content-Type': 'application/json'};
     var body = json.encode({"serialNo": serialNo});
 
@@ -114,14 +143,13 @@ class SignUpController extends GetxController {
         return res_data["data"]["levelIcon"];
       }
     } catch (e) {
-       return "";
+      return "";
       Get.snackbar("Error", e.toString());
     }
   }
 
-
-
-  Future<void> signUp(String email, String password, context) async {
+  Future<void> signUp(
+      String email, String password, String country, context) async {
     Get.dialog(
       Center(
         child:
@@ -129,33 +157,34 @@ class SignUpController extends GetxController {
       ),
       barrierDismissible: false,
     );
+
     var headers = {'Content-Type': 'application/json'};
-    var body = json.encode({"email": email, "password": password});
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzoo/signup'));
+    request.body =
+        json.encode({"email": email, "password": password, "country": country});
+    request.headers.addAll(headers);
 
     try {
-      http.Response response = await http.post(
-        Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/signup'),
-        headers: headers,
-        body: body,
-      );
-      var res_data = json.decode(response.body.toString());
+      http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 201) {
+        var res_data = json.decode(await response.stream.bytesToString());
         signupToken = res_data["token"];
 
         Get.back();
-         Get.snackbar("Success", res_data["message"]);
-        // Get.snackbar("Message", "OTP has been sent on your email");
+        Get.snackbar("Success", res_data["message"]);
 
         Get.lazyPut(() => AccountCreationOneScreen());
         Get.toNamed(AppRoutes.accountCreationOneScreen);
       } else {
+        var res_data = json.decode(await response.stream.bytesToString());
         Get.showSnackbar(GetSnackBar(
           title: "${res_data["message"]}",
         ));
         print(response.reasonPhrase);
-        // Handle other status codes, if needed
       }
     } catch (e) {
       print('Error occurred: $e');

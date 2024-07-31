@@ -1,3 +1,6 @@
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
+import 'package:muhammad_zubair_s_application4/widgets/custom_text_form_field.dart';
+
 import 'controller/apply_for_hosting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
@@ -61,17 +64,18 @@ class ApplyForHostingScreen extends GetWidget<ApplyForHostingController> {
                     Text("msg_host_identity_authentication".tr,
                         style: CustomTextStyles.titleSmallGray80001SemiBold),
                     SizedBox(height: 25.v),
-                    CustomElevatedButton(
-                      decoration: BoxDecoration(
-                        color:appTheme.lightGreen10003,
-                        borderRadius: BorderRadius.circular(30)
-                      ),
-                        height: 52.v,
-                        text: "lbl_invitation_code".tr,
-                        buttonStyle: CustomButtonStyles.fillLightGreen,
-                        buttonTextStyle:
-                           TextStyle(   color: appTheme.green70002,
-        fontSize: 14.fSize,)),
+                     CustomTextFormField(
+                fillColor: Colors.white,
+                // controller: _agencycontroller.phoneController,
+                hintText: "lbl_invitation_code".tr,
+                hintStyle: CustomTextStyles.titleSmallGray700,
+                textInputAction: TextInputAction.done,
+                textInputType: TextInputType.visiblePassword,
+                suffixConstraints: BoxConstraints(maxHeight: 52.v),
+                contentPadding:
+                    EdgeInsets.only(left: 20.h, top: 17.v, bottom: 17.v),
+              ),
+     
                     SizedBox(height: 24.v),
                     CustomElevatedButton(
                         text: "lbl_proceed".tr,
@@ -80,7 +84,7 @@ class ApplyForHostingScreen extends GetWidget<ApplyForHostingController> {
                             .gradientGreenToPrimaryTL25Decoration)
                   ]))),
           CustomImageView(
-              imagePath: ImageConstant.imgEllipse479,
+              imagePath: UserController.user.data!.profileId!.profileImage,
               height: 56.adaptSize,
               width: 56.adaptSize,
               radius: BorderRadius.circular(28.h),

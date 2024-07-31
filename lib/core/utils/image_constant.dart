@@ -291,18 +291,32 @@ class ImageConstant {
 
   static String imgFile = '$imagePath/img_file.svg';
 
+  static String livedata = '$imagePath/live data.jpg';
+
   static String imgSettingsGreenA700 = '$imagePath/img_settings_green_a700.svg';
 
   static String imgSettingsGreenA70024x24 =
       '$imagePath/img_settings_green_a700_24x24.svg';
+        static String applyagency =
+      '$imagePath/apply agency.jpg';
+         static String applyhosting =
+      '$imagePath/apply hosting.jpg';
+        static String game =
+      '$imagePath/game.jpg';
 
   static String imgGamecontroller = '$imagePath/img_gamecontroller.svg';
 
   static String imgMusicGreenA700 = '$imagePath/img_music_green_a700.svg';
+  static String block = '$imagePath/block.jpg';
 
   static String imgSearchGreenA700 = '$imagePath/img_search_green_a700.svg';
+  static String settings = '$imagePath/settings.jpg';
 
   static String imgThumbsUp24x24 = '$imagePath/img_thumbs_up_24x24.svg';
+  static String fierly = '$imagePath/Firefly A much more realistic glossy same as my upload photo 57821.jpg';
+  static String withdraw = '$imagePath/withdraw.jpg';
+
+   static String coins = '$imagePath/coin shop.jpg';
 
   static String imgVuesaxLinearProfile =
       '$imagePath/img_vuesax_linear_profile.png';
@@ -989,11 +1003,18 @@ class ImageConstant {
   static String imgThumbsUpGreenA700 =
       '$imagePath/img_thumbs_up_green_a700.svg';
 
+      static String VIP =
+      '$imagePath/vip.jpg';
+
   static String imgThumbsUpGreenA70024x24 =
       '$imagePath/img_thumbs_up_green_a700_24x24.svg';
+      static String mall =
+      '$imagePath/mall.png';
 
   static String imgCheckmarkGreenA700 =
       '$imagePath/img_checkmark_green_a700.svg';
+        static String guardian =
+      '$imagePath/gurdian.jpg';
 
   static String imgArrowdownWhiteA70016x16 =
       '$imagePath/img_arrowdown_white_a700_16x16.svg';

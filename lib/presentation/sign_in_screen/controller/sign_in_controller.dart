@@ -68,6 +68,10 @@ class SignInController extends GetxController {
         userlevelImage = await getLevel(res_data["data"]["isLevel"]);
 
         usercontroller.User(UserModel.fromJson(res_data));
+        if (res_data["data"]["isReseller"] == true) {
+          coins = res_data["data"]["coins"]["coins"].toString() ?? "0";
+         
+        }
 
         Get.back();
         Get.snackbar("Success", res_data["message"].toString());

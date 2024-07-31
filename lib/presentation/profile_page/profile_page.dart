@@ -1,9 +1,11 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 import 'package:muhammad_zubair_s_application4/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/level_screen/level_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/my_wallet_screen/my_wallet_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/sign_in_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_up_one_screen/sign_up_one_screen.dart';
 
 import '../profile_page/widgets/profile_item_widget.dart';
 import 'controller/profile_controller.dart';
@@ -514,21 +516,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
   /// Section Widget
   Widget _buildLogout() {
-    return CustomElevatedButton(
-      onPressed: () {
-        Get.to(SignInScreen());
-      },
-      text: "lbl_logout".tr,
-      margin: EdgeInsets.symmetric(horizontal: 31.h),
-      rightIcon: Container(
-        margin: EdgeInsets.only(left: 30.h),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgArrowdownWhiteA70016x16,
-          height: 16.adaptSize,
-          width: 16.adaptSize,
+    return Container(
+      
+      child: CustomElevatedButton(
+        
+        onPressed: () {
+          googleLogout();
+          Get.to(SignUpOneScreen());
+        },
+        text: "lbl_logout".tr,
+        margin: EdgeInsets.symmetric(horizontal: 31.h),
+        rightIcon: Container(
+          
+          margin: EdgeInsets.only(left: 30.h),
+          child: CustomImageView(
+            imagePath: ImageConstant.imgArrowdownWhiteA70016x16,
+            height: 16.adaptSize,
+            width: 16.adaptSize,
+          ),
         ),
+        buttonStyle: CustomButtonStyles.fillGreen,
       ),
-      buttonStyle: CustomButtonStyles.fillRed,
     );
   }
 
@@ -579,4 +587,15 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     );
   }
+}
+googleLogout() async {
+  print("googleLogin method Called");
+  final _googleSignIn = GoogleSignIn(
+    clientId:
+        "217625880670-6r4cks3gl8jg5d4ogekcg8oe3u2m8qso.apps.googleusercontent.com",
+    // serverClientId:
+    //     "979323911248-7da5inc79hfg6j00a2cq7lumnptu3c5t.apps.googleusercontent.com"
+  );
+  var result = await _googleSignIn.signOut();
+  print("Result: $result");
 }

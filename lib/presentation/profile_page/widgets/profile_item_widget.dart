@@ -104,33 +104,36 @@ class ProfileItemWidget extends StatelessWidget {
                                                   : () {},
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 25.h,
-          vertical: 7.v,
+          // horizontal: 25.h,
+          // vertical: 7.v,
         ),
         decoration: AppDecoration.fillLightGreen.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder5,
+          image: DecorationImage(image: AssetImage(profileItemModelObj.vIPCenter!.value),
+          fit: BoxFit.fill)
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Obx(
-              () => CustomImageView(
-                imagePath: profileItemModelObj.vIPCenter!.value,
-                height: 24.adaptSize,
-                width: 24.adaptSize,
-              ),
-            ),
-            SizedBox(height: 8.v),
+            // Obx(
+            //   () => CustomImageView(
+              
+            //     imagePath: profileItemModelObj.vIPCenter!.value,
+            //     height: 34.adaptSize,
+            //     width: 100.adaptSize,
+            //   ),
+            // ),
+            SizedBox(height: 5.v),
             Obx(
               () => Center(
                 child: Text(
                   profileItemModelObj.vIPCenter1!.value,
-                  style: CustomTextStyles.labelMediumGray8000311,
+                  style: CustomTextStyles.labelMediumffffffff,
                 ),
               ),
             ),
-            SizedBox(height: 3.v),
+            // SizedBox(height: 3.v),
           ],
         ),
       ),

@@ -26,90 +26,92 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   var controller = Get.put(SignUpController());
 
+  @override
+  void onInit() {
+    controller.fetchUserCountry();
+   
+  }
+
   // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: 
-      
-         Scaffold(
-             
-          appBar: _buildAppBar(),
-          body: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(vertical: 28.v),
-                child: Column(
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgGroup116x173,
-                      height: 201.v,
-                width: 221.h,
-                    ),
-                    SizedBox(height: 78.v),
-                    _buildEmail(),
-                    SizedBox(height: 35.v),
-                    _buildFrameFour(),
-                    SizedBox(height: 31.v),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(vertical: 28.v),
+              child: Column(
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgGroup116x173,
+                    height: 201.v,
+                    width: 221.h,
+                  ),
+                  SizedBox(height: 78.v),
+                  _buildEmail(),
+                  SizedBox(height: 35.v),
+                  _buildFrameFour(),
+                  SizedBox(height: 31.v),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomIconButton(
+                        height: 50.adaptSize,
+                        width: 50.adaptSize,
+                        padding: EdgeInsets.all(13.h),
+                        decoration: IconButtonStyleHelper.outlineGray,
+                        child: CustomImageView(
+                          imagePath: ImageConstant.imgGoogleLogo,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.h),
+                        child: CustomIconButton(
                           height: 50.adaptSize,
                           width: 50.adaptSize,
-                          padding: EdgeInsets.all(13.h),
+                          padding: EdgeInsets.all(10.h),
                           decoration: IconButtonStyleHelper.outlineGray,
                           child: CustomImageView(
-                            imagePath: ImageConstant.imgGoogleLogo,
+                            imagePath: ImageConstant.imgAppleLogo,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 16.h),
-                          child: CustomIconButton(
-                            height: 50.adaptSize,
-                            width: 50.adaptSize,
-                            padding: EdgeInsets.all(10.h),
-                            decoration: IconButtonStyleHelper.outlineGray,
-                            child: CustomImageView(
-                              imagePath: ImageConstant.imgAppleLogo,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 35.v),
-                    GestureDetector(
-                      onTap: (){
-                          Get.lazyPut(()=>SignInScreen());
-                    Get.toNamed(AppRoutes.signInScreen);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "msg_already_have_an2".tr,
-                              style: CustomTextStyles.labelMediumff4c4c4c11,
-                            ),
-                            TextSpan(
-                              text: "lbl_sign_in".tr,
-                              style: CustomTextStyles.labelMediumff119645,
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.left,
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 35.v),
+                  GestureDetector(
+                    onTap: () {
+                      Get.lazyPut(() => SignInScreen());
+                      Get.toNamed(AppRoutes.signInScreen);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "msg_already_have_an2".tr,
+                            style: CustomTextStyles.labelMediumff4c4c4c11,
+                          ),
+                          TextSpan(
+                            text: "lbl_sign_in".tr,
+                            style: CustomTextStyles.labelMediumff119645,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(height: 5.v),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 5.v),
+                ],
               ),
             ),
           ),
         ),
- 
+      ),
     );
   }
 
@@ -142,21 +144,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 34.v),
             CustomTextFormField(
-                  controller: controller.emailController,
-                  hintText: "lbl_email_address".tr,
-                  hintStyle: CustomTextStyles.titleSmallGray700,
-                  textInputType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null ||
-                        (!isValidEmail(value, isRequired: true))) {
-                      return "err_msg_please_enter_valid_email".tr;
-                    }
-                    return null;
-                  },
-                  borderDecoration:
-                      TextFormFieldStyleHelper.fillLightGreen,
-                  fillColor: appTheme.lightGreen50),
-
+                controller: controller.emailController,
+                hintText: "lbl_email_address".tr,
+                hintStyle: CustomTextStyles.titleSmallGray700,
+                textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null ||
+                      (!isValidEmail(value, isRequired: true))) {
+                    return "err_msg_please_enter_valid_email".tr;
+                  }
+                  return null;
+                },
+                borderDecoration: TextFormFieldStyleHelper.fillLightGreen,
+                fillColor: appTheme.lightGreen50),
             SizedBox(height: 19.v),
             CustomTextFormField(
               controller: controller.passwordController,
@@ -199,40 +199,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Obx(
-                () => 
-                CustomCheckboxButton(
-                alignment: Alignment.centerLeft,
-                text: "msg_accept_hi_live_terms".tr,
-                value: controller.checkSquare.value,
-                padding: EdgeInsets.symmetric(vertical: 4.v),
-                onChange: (value) {
-                  controller.checkSquare.value = value;
-                },
-              ),
+                () => CustomCheckboxButton(
+                  alignment: Alignment.centerLeft,
+                  text: "msg_accept_hi_live_terms".tr,
+                  value: controller.checkSquare.value,
+                  padding: EdgeInsets.symmetric(vertical: 4.v),
+                  onChange: (value) {
+                    controller.checkSquare.value = value;
+                  },
+                ),
               ),
             ),
             SizedBox(height: 47.v),
             CustomElevatedButton(
-              onPressed: (){
-                 if (_formKey.currentState!.validate() ) {
-                  if( controller.checkSquare.value == true){
-                     String email = controller.emailController.text;
-                  String password = controller.passwordController.text;
-                  controller.signUp(email, password, context);
-
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if (controller.checkSquare.value == true) {
+                    String email = controller.emailController.text;
+                    String password = controller.passwordController.text;
+                    String country = controller.userCountry.value;
+                    controller.signUp(email, password, country,  context);
+                  } else {
+                    Get.snackbar(
+                        "Error", "Please agree with the terms and services");
                   }
-                  else{
-                    Get.snackbar("Error", "Please agree with the terms and services");
-                  }
-                 
                 }
-                
-           
-                  
               },
               text: "lbl_sign_up".tr,
               buttonStyle: CustomButtonStyles.none,
-              decoration: CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,
+              decoration:
+                  CustomButtonStyles.gradientGreenToPrimaryTL25Decoration,
             ),
           ],
         ),
