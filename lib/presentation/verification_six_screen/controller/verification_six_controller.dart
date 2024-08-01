@@ -55,10 +55,7 @@ class VerificationSixController extends GetxController {
 
   getBroadcasterAPI() async {
     setLoading(true);
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            '${BaseUrl}get-broadcaster'));
+    var request = http.Request('GET', Uri.parse('${BaseUrl}get-broadcaster'));
 
     http.StreamedResponse response = await request.send();
 
@@ -78,8 +75,8 @@ class VerificationSixController extends GetxController {
   createProfile({
     file,
   }) async {
-   final createProfileController = Get.put(VerificationSevenController());
-     final broadcastController = Get.put(VerificationSixController());
+    final createProfileController = Get.put(VerificationSevenController());
+    final broadcastController = Get.put(VerificationSixController());
     Get.dialog(
       Center(
         child:
@@ -91,11 +88,12 @@ class VerificationSixController extends GetxController {
     var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/completeprofile'));
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/completeprofile'));
     request.fields.addAll({
-      'username': NameorImageController.userNameController.value.text.toString(),
-      'dateOfBirth': createProfileController.selectedDate.value.toString(),  
-      'gender':  createProfileController.gender.value.toLowerCase(),
+      'username':
+          NameorImageController.userNameController.value.text.toString(),
+      'dateOfBirth': createProfileController.selectedDate.value.toString(),
+      'gender': createProfileController.gender.value.toLowerCase(),
       'favBroadcaster': broadcastController.selectedBroadcasterId.toString()
     });
     var MyFilename = path.basename(file.path);
@@ -122,7 +120,10 @@ class VerificationSixController extends GetxController {
       }
     } catch (e) {
       Get.back();
-      Get.snackbar("Error", "An error occurred while creating profile");
+     
+      Get.snackbar("Error", "Failed to sign up: $e");
+      // Get.back();
+      // Get.snackbar("Error", "An error occurred while creating profile");
       print(e.toString());
     }
   }

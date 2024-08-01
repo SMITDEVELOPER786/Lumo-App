@@ -227,6 +227,7 @@ class _ApplyAgencyScreenState extends State<ApplyAgencyScreen> {
                         onPressed: () async {
                           var agencyData = {
                             "name" : _agencycontroller.agencyName.value.text,
+                            "idCard": "123123",
                             "email":
                                 _agencycontroller.emailController.value.text,
                             "phone":

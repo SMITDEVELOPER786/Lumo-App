@@ -1,48 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
-import 'package:muhammad_zubair_s_application4/presentation/stream_screen/LiveStreaminPage.dart';
-import 'package:muhammad_zubair_s_application4/presentation/stream_screen/models/stream_model.dart';
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:muhammad_zubair_s_application4/presentation/audio_live_screen/audio_live_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/audio_stream.dart';
 
-/// A controller class for the StreamScreen.
-///
-/// This class manages the state of the StreamScreen, including the
-/// current streamModelObj
-class StreamController extends GetxController
-    with GetSingleTickerProviderStateMixin {
-  late TabController tabviewController =
-      Get.put(TabController(vsync: this, length: 3));
-  Rx<StreamModel> streamModelObj = StreamModel().obs;
-
-  SelectionPopupModel? selectedDropDownValue;
-
-  SelectionPopupModel? selectedDropDownValue1;
-
-  onSelected(dynamic value) {
-    for (var element in streamModelObj.value.dropdownItemList.value) {
-      element.isSelected = false;
-      if (element.id == value.id) {
-        element.isSelected = true;
-      }
-    }
-    streamModelObj.value.dropdownItemList.refresh();
-  }
-
-  onSelected1(dynamic value) {
-    for (var element in streamModelObj.value.dropdownItemList1.value) {
-      element.isSelected = false;
-      if (element.id == value.id) {
-        element.isSelected = true;
-      }
-    }
-    streamModelObj.value.dropdownItemList1.refresh();
-  }
-
+class AudioStreamController extends GetxController {
+  TextEditingController titlecontroller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   Rx<File?> imageFile = Rx<File?>(null); // Rx variable to hold the image file
 
@@ -94,13 +66,9 @@ class StreamController extends GetxController
       selectedTagNames.remove(tags[index]);
     }
   }
-
-  TextEditingController titlecontroller = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   var hostId;
   var hostName;
-
-  LiveStreamingAPI(context, streamingdata) async {
+    LiveStreamingAPI(context, streamingdata) async {
     Get.dialog(
       Center(
         child:
@@ -149,7 +117,7 @@ class StreamController extends GetxController
         Get.back();
         hostId = resData["data"]["_id"].toString();
         hostName = resData["data"]["hostName"].toString();
-        Get.to(LiveStreamingPage(
+        Get.to(AudioStream(
           liveID: hostId.toString(),
           isHost: true,
         ));

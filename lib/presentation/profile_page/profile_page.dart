@@ -28,7 +28,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   ProfileController controller = Get.put(ProfileController(ProfileModel().obs));
+  
 
   @override
   Widget build(BuildContext context) {

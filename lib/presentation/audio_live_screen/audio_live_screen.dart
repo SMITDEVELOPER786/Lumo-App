@@ -1,3 +1,8 @@
+import 'package:flutter/services.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/audio_stream_controller.dart';
+
 import '../schedule_time_dialog/schedule_time_dialog.dart';
 import '../select_tag_dialog/select_tag_dialog.dart';
 import '../stream_level_dialog/stream_level_dialog.dart';
@@ -20,6 +25,55 @@ class AudioLiveScreen extends StatefulWidget {
 
 class _AudioLiveScreenState extends State<AudioLiveScreen> {
 
+   Position? _currentPosition;
+  late double latitude;
+  late double longitude;
+  String? currentAddress;
+
+  Future<void> _getCurrentPosition() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      setState(() {
+        _currentPosition = position;
+        latitude = _currentPosition!.latitude;
+        longitude = _currentPosition!.longitude;
+      });
+      _getAddressFromLatLng(_currentPosition!);
+    } catch (e) {
+      debugPrint("Error getting current position: $e");
+    }
+  }
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        currentAddress = '${place.country}';
+      });
+    } catch (e) {
+      debugPrint("Error getting address from coordinates: $e");
+      if (e.runtimeType == PlatformException) {
+        PlatformException platformException = e as PlatformException;
+        debugPrint(
+            "PlatformException: ${platformException.code} - ${platformException.message}");
+      }
+      setState(() {
+        currentAddress = "Address not available";
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentPosition();
+  }
+
+  final AudioStreamController AudioStreamcontroller =
+      Get.put(AudioStreamController()); 
+
   var controller = Get.put(AudioLiveController());
   @override
   Widget build(BuildContext context) {
@@ -28,57 +82,59 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
          crossAxisAlignment: CrossAxisAlignment.start,
          children: [
              SizedBox(height: 42.v),
-           _buildFrame(),
+          //  _buildFrame(),
            SizedBox(height: 12.v),
-           Row(
-             children: [
-               CustomIconButton(
-                 height: 36.adaptSize,
-                 width: 36.adaptSize,
-                 padding: EdgeInsets.all(10.h),
-                 decoration: IconButtonStyleHelper.outlineWhiteA,
-                 child: CustomImageView(
-                   imagePath: ImageConstant.imgPlus,
-                 ),
-               ),
-               Padding(
-                 padding: EdgeInsets.only(left: 12.h),
-                 child: CustomIconButton(
-                   height: 36.adaptSize,
-                   width: 36.adaptSize,
-                   padding: EdgeInsets.all(10.h),
-                   decoration: IconButtonStyleHelper.outlineWhiteA,
-                   child: CustomImageView(
-                     imagePath: ImageConstant.imgPlus,
-                   ),
-                 ),
-               ),
-               Padding(
-                 padding: EdgeInsets.only(left: 12.h),
-                 child: CustomIconButton(
-                   height: 36.adaptSize,
-                   width: 36.adaptSize,
-                   padding: EdgeInsets.all(10.h),
-                   decoration: IconButtonStyleHelper.outlineWhiteA,
-                   child: CustomImageView(
-                     imagePath: ImageConstant.imgPlus,
-                   ),
-                 ),
-               ),
-               Padding(
-                 padding: EdgeInsets.only(left: 12.h),
-                 child: CustomIconButton(
-                   height: 36.adaptSize,
-                   width: 36.adaptSize,
-                   padding: EdgeInsets.all(10.h),
-                   decoration: IconButtonStyleHelper.outlineWhiteA,
-                   child: CustomImageView(
-                     imagePath: ImageConstant.imgPlus,
-                   ),
-                 ),
-               ),
-             ],
-           ),
+          //  Row(
+          //    children: [
+          //      CustomIconButton(
+          //        height: 36.adaptSize,
+          //        width: 36.adaptSize,
+          //        padding: EdgeInsets.all(10.h),
+          //        decoration: IconButtonStyleHelper.outlineWhiteA,
+          //        child: CustomImageView(
+          //          imagePath: ImageConstant.imgPlus,
+          //        ),
+          //      ),
+          //      Padding(
+          //        padding: EdgeInsets.only(left: 12.h),
+          //        child: CustomIconButton(
+          //          height: 36.adaptSize,
+          //          width: 36.adaptSize,
+          //          padding: EdgeInsets.all(10.h),
+          //          decoration: IconButtonStyleHelper.outlineWhiteA,
+          //          child: CustomImageView(
+          //            imagePath: ImageConstant.imgPlus,
+          //          ),
+          //        ),
+          //      ),
+          //      Padding(
+          //        padding: EdgeInsets.only(left: 12.h),
+          //        child: CustomIconButton(
+          //          height: 36.adaptSize,
+          //          width: 36.adaptSize,
+          //          padding: EdgeInsets.all(10.h),
+          //          decoration: IconButtonStyleHelper.outlineWhiteA,
+          //          child: CustomImageView(
+          //            imagePath: ImageConstant.imgPlus,
+          //          ),
+          //        ),
+          //      ),
+          //      Padding(
+          //        padding: EdgeInsets.only(left: 12.h),
+          //        child: CustomIconButton(
+          //          height: 36.adaptSize,
+          //          width: 36.adaptSize,
+          //          padding: EdgeInsets.all(10.h),
+          //          decoration: IconButtonStyleHelper.outlineWhiteA,
+          //          child: CustomImageView(
+          //            imagePath: ImageConstant.imgPlus,
+          //          ),
+          //        ),
+          //      ),
+          //    ],
+          //  ),
+          
+          
            Spacer(),
            _buildStreamLevel(),
            SizedBox(height: 21.v),
@@ -265,6 +321,10 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
                       alignment: Alignment.center,
                     ),
                     CustomImageView(
+                      onTap: () {
+                           _getCurrentPosition();
+                        AudioStreamcontroller.pickImageFromGallery();
+                      },
                       imagePath: ImageConstant.imgVuesaxLinearCamera,
                       height: 20.adaptSize,
                       width: 20.adaptSize,

@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void onInit() {
     controller.fetchUserCountry();
-   
   }
 
   // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -215,10 +214,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (controller.checkSquare.value == true) {
-                    String email = controller.emailController.text;
-                    String password = controller.passwordController.text;
-                    String country = controller.userCountry.value;
-                    controller.signUp(email, password, country,  context);
+                    var signupdata = {
+                      "email": controller.emailController.text,
+                      "password": controller.passwordController.text,
+                      "country": controller.userCountry.value,
+                    };
+
+                    controller.signup(signupdata, context);
                   } else {
                     Get.snackbar(
                         "Error", "Please agree with the terms and services");
