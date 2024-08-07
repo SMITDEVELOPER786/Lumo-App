@@ -180,15 +180,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
 
                             SizedBox(height: 11.v),
-                            TextFormField(
-                              controller:
-                                  controller.getTextController("gender"),
-                              decoration: InputDecoration(
-                                labelText: 'Gender',
-                                labelStyle:
-                                    CustomTextStyles.labelLargeGray8000113,
-                              ),
-                            ),
+                            Obx(() {
+                              return DropdownButtonFormField<String>(
+                                value: controller.selectedGender.value,
+                                items: controller.genderOptions
+                                    .map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  controller.selectedGender.value = newValue!;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'Gender',
+                                  labelStyle:
+                                      CustomTextStyles.labelLargeGray8000113,
+                                ),
+                              );
+                            }),
+                            Obx(() {
+                              return DropdownButtonFormField<String>(
+                                value: controller.selectedGender.value ??
+                                    controller.genderOptions[
+                                        0], // Handle null by using default
+                                items: controller.genderOptions
+                                    .map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  controller.selectedGender.value = newValue;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'Gender',
+                                  labelStyle:
+                                      CustomTextStyles.labelLargeGray8000113,
+                                ),
+                              );
+                            }),
 
                             SizedBox(height: 11.v),
                             TextFormField(
@@ -198,7 +231,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 labelText: 'Date Of Birth',
                                 labelStyle:
                                     CustomTextStyles.labelLargeGray8000113,
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.calendar_today),
+                                  onPressed: () {
+                                    _selectDate(context, controller);
+                                  },
+                                ),
                               ),
+                              readOnly: true, // Make the TextField read-only
                             ),
 
                             TextFormField(
@@ -249,7 +289,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       controller.getTextController("gender"),
                                   'bio': controller.getTextController("bio"),
                                 };
-                                controller.updateProfile(file: controller.imageFile.value,);
+                                controller.updateProfile(
+                                  file: controller.imageFile.value,
+                                );
                               },
                               child: Container(
                                 width: 350,
@@ -699,5 +741,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   /// Navigates to the previous screen.
   onTapArrowLeft() {
     Get.back();
+  }
+
+  Future<void> _selectDate(
+      BuildContext context, EditProfileController controller) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      controller.getTextController("dateOfBirth").text =
+          picked.toLocal().toString().split(' ')[0];
+    }
   }
 }

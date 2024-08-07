@@ -86,7 +86,7 @@ class ProfileItemWidget extends StatelessWidget {
                                             }
                                           : profileItemModelObj
                                                       .vIPCenter1!.value ==
-                                                  "VIP Center"
+                                                  "VIP"
                                               ? () {
                                                   Get.lazyPut(
                                                       () => VipTabbarView());
@@ -104,36 +104,30 @@ class ProfileItemWidget extends StatelessWidget {
                                                   : () {},
       child: Container(
         padding: EdgeInsets.symmetric(
-          // horizontal: 25.h,
-          // vertical: 7.v,
-        ),
-        decoration: AppDecoration.fillLightGreen.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder5,
-          image: DecorationImage(image: AssetImage(profileItemModelObj.vIPCenter!.value),
-          fit: BoxFit.fill)
-        ),
+            // horizontal: 25.h,
+            // vertical: 1.v,
+            ),
+        decoration: AppDecoration.white.copyWith(
+            borderRadius: BorderRadiusStyle.roundedBorder5,
+            image: DecorationImage(
+                image: AssetImage(profileItemModelObj.vIPCenter!.value),
+                fit: BoxFit.fitWidth)),
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            // Obx(
-            //   () => CustomImageView(
-              
-            //     imagePath: profileItemModelObj.vIPCenter!.value,
-            //     height: 34.adaptSize,
-            //     width: 100.adaptSize,
-            //   ),
-            // ),
-            SizedBox(height: 5.v),
+            // SizedBox(height: 10.v),
             Obx(
-              () => Center(
-                child: Text(
-                  profileItemModelObj.vIPCenter1!.value,
-                  style: CustomTextStyles.labelMediumffffffff,
+              () => Container(
+                color: Colors.white,
+                child: Center(
+                  child: Text(
+                    profileItemModelObj.vIPCenter1!.value,
+                    style: CustomTextStyles.labelMediumRobotoBlack900,
+                  ),
                 ),
               ),
             ),
-            // SizedBox(height: 3.v),
+            SizedBox(height: 0.v),
           ],
         ),
       ),

@@ -297,12 +297,9 @@ class ImageConstant {
 
   static String imgSettingsGreenA70024x24 =
       '$imagePath/img_settings_green_a700_24x24.svg';
-        static String applyagency =
-      '$imagePath/apply agency.jpg';
-         static String applyhosting =
-      '$imagePath/apply hosting.jpg';
-        static String game =
-      '$imagePath/game.jpg';
+  static String applyagency = '$imagePath/apply agency.jpg';
+  static String applyhosting = '$imagePath/apply hosting.jpg';
+  static String game = '$imagePath/game.jpg';
 
   static String imgGamecontroller = '$imagePath/img_gamecontroller.svg';
 
@@ -313,10 +310,11 @@ class ImageConstant {
   static String settings = '$imagePath/settings.jpg';
 
   static String imgThumbsUp24x24 = '$imagePath/img_thumbs_up_24x24.svg';
-  static String fierly = '$imagePath/Firefly A much more realistic glossy same as my upload photo 57821.jpg';
-  static String withdraw = '$imagePath/withdraw.jpg';
+  static String fierly =
+      '$imagePath/Firefly A much more realistic glossy same as my upload photo 57821.jpg';
+  static String withdrawnew = '$imagePath/withdraw(1) (1).png';
 
-   static String coins = '$imagePath/coin shop.jpg';
+  static String coins = '$imagePath/coin shop.jpg';
 
   static String imgVuesaxLinearProfile =
       '$imagePath/img_vuesax_linear_profile.png';
@@ -875,8 +873,6 @@ class ImageConstant {
   static String SpefcialID = '$imagePath/Group 1000004092.png';
   static String Entrance = '$imagePath/Group 1000004092 (1).png';
 
-
-
   static String imgPlay = '$imagePath/img_play.png';
 
   static String imgEllipse51 = '$imagePath/img_ellipse_51.png';
@@ -1003,18 +999,38 @@ class ImageConstant {
   static String imgThumbsUpGreenA700 =
       '$imagePath/img_thumbs_up_green_a700.svg';
 
-      static String VIP =
-      '$imagePath/vip.jpg';
-
+  static String VIP = '$imagePath/vip.jpg';
+  static String Shop = '$imagePath/shop.png';
+  static String Backpack = '$imagePath/bagpack.png';
+  static String Reward = '$imagePath/reward.png';
+  static String Gamenew = '$imagePath/-game.png';
+  static String medal = '$imagePath/medal.png';
+  static String applyagencynew = '$imagePath/apply agenvy.png';
+  static String applyhostingnew = '$imagePath/apply hosting.png';
+  static String livedatanew = '$imagePath/live data (2).png';
+  static String VIPnew = '$imagePath/vip(1).png';
+  static String myvip = '$imagePath/my vip.png';
+  static String guardiannew = '$imagePath/gurdian.png';
+  static String cointradingnew = '$imagePath/coin trading.png';
+  static String MyAgencyNew = '$imagePath/my agency.png';
+  static String withdrw = '$imagePath/withdraw(1).png';
+  static String giftcollection = '$imagePath/my gift collection.png';
+  static String settingdnew = '$imagePath/settings.png';
+  static String blocklistnew = '$imagePath/block(1).png';
+  static String aboutlumo = '$imagePath/about limo.png';
+  static String ratelumo = '$imagePath/rate lumo.png';
+  static String helpline = '$imagePath/help line.png';
+  static String facebook = '$imagePath/facebook(1).png';
+  static String instagram = '$imagePath/instagram.png';
+  static String tiktok = '$imagePath/tik-tok.png';
+  static String youtube = '$imagePath/youtube.png';
   static String imgThumbsUpGreenA70024x24 =
       '$imagePath/img_thumbs_up_green_a700_24x24.svg';
-      static String mall =
-      '$imagePath/mall.png';
+  static String mall = '$imagePath/mall.png';
 
   static String imgCheckmarkGreenA700 =
       '$imagePath/img_checkmark_green_a700.svg';
-        static String guardian =
-      '$imagePath/gurdian.jpg';
+  static String guardian = '$imagePath/gurdian.jpg';
 
   static String imgArrowdownWhiteA70016x16 =
       '$imagePath/img_arrowdown_white_a700_16x16.svg';

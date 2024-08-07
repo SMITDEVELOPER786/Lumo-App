@@ -28,9 +28,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   ProfileController controller = Get.put(ProfileController(ProfileModel().obs));
-  
 
   @override
   Widget build(BuildContext context) {
@@ -490,27 +488,30 @@ class _ProfilePageState extends State<ProfilePage> {
 
   /// Section Widget
   Widget _buildProfile() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 7.h),
-      child: Obx(
-        () => GridView.builder(
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisExtent: 95.v,
-            crossAxisCount: 3,
-            mainAxisSpacing: 11.h,
-            crossAxisSpacing: 11.h,
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.h),
+        child: Obx(
+          () => GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisExtent: 95.v,
+              crossAxisCount: 4,
+              mainAxisSpacing: 20.h,
+              crossAxisSpacing: 55.h,
+            ),
+            physics: NeverScrollableScrollPhysics(),
+            itemCount:
+                controller.profileModelObj.value.profileItemList.value.length,
+            itemBuilder: (context, index) {
+              ProfileItemModel model =
+                  controller.profileModelObj.value.profileItemList.value[index];
+              return ProfileItemWidget(
+                model,
+              );
+            },
           ),
-          physics: NeverScrollableScrollPhysics(),
-          itemCount:
-              controller.profileModelObj.value.profileItemList.value.length,
-          itemBuilder: (context, index) {
-            ProfileItemModel model =
-                controller.profileModelObj.value.profileItemList.value[index];
-            return ProfileItemWidget(
-              model,
-            );
-          },
         ),
       ),
     );
@@ -519,9 +520,7 @@ class _ProfilePageState extends State<ProfilePage> {
   /// Section Widget
   Widget _buildLogout() {
     return Container(
-      
       child: CustomElevatedButton(
-        
         onPressed: () {
           googleLogout();
           Get.to(SignUpOneScreen());
@@ -529,7 +528,6 @@ class _ProfilePageState extends State<ProfilePage> {
         text: "lbl_logout".tr,
         margin: EdgeInsets.symmetric(horizontal: 31.h),
         rightIcon: Container(
-          
           margin: EdgeInsets.only(left: 30.h),
           child: CustomImageView(
             imagePath: ImageConstant.imgArrowdownWhiteA70016x16,
@@ -590,6 +588,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
 googleLogout() async {
   print("googleLogin method Called");
   final _googleSignIn = GoogleSignIn(

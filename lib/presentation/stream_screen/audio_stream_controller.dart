@@ -10,12 +10,19 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 
 import 'package:http/http.dart' as http;
+
 import 'package:muhammad_zubair_s_application4/presentation/audio_live_screen/audio_live_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/stream_screen/audio_stream.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/layouts.dart';
 
 class AudioStreamController extends GetxController {
+   final layoutValueNotifier =
+      ValueNotifier<LayoutMode>(LayoutMode.defaultLayout);
   TextEditingController titlecontroller = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   final ImagePicker _picker = ImagePicker();
+
   Rx<File?> imageFile = Rx<File?>(null); // Rx variable to hold the image file
 
   Future<void> pickImageFromGallery() async {
@@ -66,9 +73,10 @@ class AudioStreamController extends GetxController {
       selectedTagNames.remove(tags[index]);
     }
   }
+
   var hostId;
   var hostName;
-    LiveStreamingAPI(context, streamingdata) async {
+  LiveAudioStreamingAPI(context, Audiodata) async {
     Get.dialog(
       Center(
         child:
@@ -80,32 +88,30 @@ class AudioStreamController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${authToken}'
     };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            '${BaseUrl}live-stream/create'));
-   if (streamType.value.toLowerCase() == "private") {
+    var request =
+        http.Request('POST', Uri.parse('${BaseUrl}live-stream/create'));
+    if (streamType.value.toLowerCase() == "private") {
       Map<String, dynamic> requestBody = {
-        "streamType": "live",
-        "title": streamingdata["title"],
-        "streamLevel": streamingdata["streamLevel"],
-        "tags": streamingdata["tags"],
-        "country": streamingdata["country"],
-        "streamPass": streamingdata["streamPass"]
+        "streamType": "audio-live",
+        "title": Audiodata["title"],
+        "streamLevel": Audiodata["streamLevel"],
+        // "tags": streamingdata["tags"],
+        "country": Audiodata["country"],
+        "streamPass": Audiodata["streamPass"]
       };
     } else {
       Map<String, dynamic> requestBody = {
-        "streamType": "live",
-        "title": streamingdata["title"],
-        "streamLevel": streamingdata["streamLevel"],
-        "tags": streamingdata["tags"],
-        "country": streamingdata["country"],
+        "streamType": "audio-live",
+        "title": Audiodata["title"],
+        "streamLevel": Audiodata["streamLevel"],
+        "tags": Audiodata["tags"],
+        "country": Audiodata["country"],
       };
-       request.headers.addAll(headers);
-    
-    request.body = json.encode(requestBody);
+      request.headers.addAll(headers);
+
+      request.body = json.encode(requestBody);
     }
-   
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -120,6 +126,8 @@ class AudioStreamController extends GetxController {
         Get.to(AudioStream(
           liveID: hostId.toString(),
           isHost: true,
+           layoutMode: layoutValueNotifier.value,
+          
         ));
       }
     } else {
@@ -132,6 +140,4 @@ class AudioStreamController extends GetxController {
       print(response.reasonPhrase);
     }
   }
-
-
 }

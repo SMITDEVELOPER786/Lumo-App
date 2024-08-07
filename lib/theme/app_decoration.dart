@@ -200,12 +200,14 @@ class AppDecoration {
   static BoxDecoration get gradientGreenToPrimary => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color.fromARGB(255, 171, 239, 10).withOpacity(0.2),  // Start with yellow at the top
-      Color.fromARGB(255, 20, 55, 21),   // Transition to green at the bottom
-    ],
-     stops: [0.2, 1.0],
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromARGB(255, 171, 239, 10)
+                .withOpacity(0.2), // Start with yellow at the top
+            Color.fromARGB(
+                255, 20, 55, 21), // Transition to green at the bottom
+          ],
+          stops: [0.2, 1.0],
         ),
       );
   static BoxDecoration get gradientLightGreenAToAmber => BoxDecoration(
@@ -218,12 +220,12 @@ class AppDecoration {
           ],
         ),
       );
-      static BoxDecoration get gradientLightGreenAToAmbe2r => BoxDecoration(
+  static BoxDecoration get gradientLightGreenAToAmbe2r => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0.25, -0.54),
           end: Alignment(1.07, 1.24),
           colors: [
-           Color.fromARGB(255, 208, 245, 186),
+            Color.fromARGB(255, 208, 245, 186),
             const Color.fromARGB(255, 164, 243, 166),
           ],
         ),
@@ -278,7 +280,7 @@ class AppDecoration {
           ],
         ),
       );
-       static BoxDecoration get gradientOrangeToOrange1 => BoxDecoration(
+  static BoxDecoration get gradientOrangeToOrange1 => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0.5, 1),
           end: Alignment(0.5, 0),
@@ -517,9 +519,9 @@ class BorderRadiusStyle {
 }
 
 // Comment/Uncomment the below code based on your Flutter SDK version.
-    
+
 // For Flutter SDK Version 3.7.2 or greater.
-    
+
 double get strokeAlignInside => BorderSide.strokeAlignInside;
 
 double get strokeAlignCenter => BorderSide.strokeAlignCenter;

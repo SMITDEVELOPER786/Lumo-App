@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:muhammad_zubair_s_application4/presentation/multi_live_screen/multi_live_screen.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/audio_stream_controller.dart';
 
 import '../audio_live_screen/audio_live_screen.dart';
 import '../schedule_time_dialog/schedule_time_dialog.dart';
@@ -26,6 +27,8 @@ class StreamScreen extends StatefulWidget {
 }
 
 class _StreamScreenState extends State<StreamScreen> {
+  final AudioStreamController AudioStreamcontroller =
+      Get.put(AudioStreamController());
   final StreamController Streamcontroller =
       Get.put(StreamController()); // Adjust the controller creation
   Position? _currentPosition;
@@ -125,7 +128,6 @@ class _StreamScreenState extends State<StreamScreen> {
                           _buildTab("Multi Live", 2, currentIndex),
                         ],
                       ),
-              
                       Expanded(
                         child: TabBarView(
                           controller: Streamcontroller.tabviewController,
@@ -139,16 +141,15 @@ class _StreamScreenState extends State<StreamScreen> {
                                     child: _buildStreamLevel()),
                               ],
                             ),
-              
+
                             Container(child: AudioLiveScreen()),
                             // Contents of the second tab
-              
+
                             // Contents of the third tab
                             MultiLiveScreen()
                           ],
                         ),
                       ),
-                     
                       SizedBox(height: 21.v),
                       CustomElevatedButton(
                         onPressed: (() {
@@ -160,11 +161,31 @@ class _StreamScreenState extends State<StreamScreen> {
                             "tags": Streamcontroller.selectedTagNames,
                             "scheduleTime": DateTime.now().toString(),
                             "country": currentAddress.toString().toLowerCase(),
-                            "streamPass": Streamcontroller.passwordController.value.text.toString(),
+                            "streamPass": Streamcontroller
+                                .passwordController.value.text
+                                .toString(),
                           };
+                          var Audiodata = {
+                            "title": AudioStreamcontroller
+                                .titlecontroller.value.text
+                                .toLowerCase(),
+                            "streamLevel": AudioStreamcontroller
+                                .streamType.value
+                                .toLowerCase(),
+                            // "tags": Streamcontroller.selectedTagNames,
+                            "scheduleTime": DateTime.now().toString(),
+                            "country": currentAddress.toString().toLowerCase(),
+                            "streamPass": AudioStreamcontroller
+                                .passwordController.value.text
+                                .toString(),
+                          };
+
                           print(streamingdata);
-                          Streamcontroller.LiveStreamingAPI(
-                              context, streamingdata);
+                          currentIndex == 0
+                              ? Streamcontroller.LiveStreamingAPI(
+                                  context, streamingdata)
+                              : AudioStreamcontroller.LiveAudioStreamingAPI(
+                                  context, Audiodata);
                           // Get.to(LiveStreamingPage(liveID: "123"));
                         }),
                         text: "lbl_start_streaming".tr,
@@ -540,6 +561,7 @@ class _StreamScreenState extends State<StreamScreen> {
               ],
             ),
           ),
+
           SizedBox(height: 8.v),
           Divider(
             color: appTheme.gray70004,
@@ -747,6 +769,7 @@ class _StreamScreenState extends State<StreamScreen> {
               return SizedBox(); // or Container(), or any other widget you prefer
             }
           })
+
           // CustomDropDown(
           //   width: 120.h,
           //   icon: Container(

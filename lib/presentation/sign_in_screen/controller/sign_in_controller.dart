@@ -94,7 +94,7 @@ class SignInController extends GetxController {
 
   Future<void> signIn(String email, String password, context) async {
     final usercontroller = Get.put(UserController());
-    final UserCoinController coinController = Get.put(UserCoinController());
+    // final UserCoinController coinController = Get.put(UserCoinController());
     Get.dialog(
       Center(
         child:

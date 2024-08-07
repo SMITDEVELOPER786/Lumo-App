@@ -353,9 +353,16 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "lbl_add_title".tr,
-                      style: CustomTextStyles.labelLargeGray50011,
+                   Container(
+                      width: 200,
+                      child: TextFormField(
+                        controller: AudioStreamcontroller.titlecontroller,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            focusedBorder: InputBorder.none,
+                            hintText: "Add Title",
+                            hintStyle: TextStyle(color: Colors.white)),
+                      ),
                     ),
                     SizedBox(height: 16.v),
                     CustomIconButton(
@@ -408,19 +415,19 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
 
                         // Hint text
                         Text(
-                          "lbl_schedule_time".tr,
+                          "Now".tr,
                           style: CustomTextStyles.labelLargeGray30003,
                         ),
-                        Container(
-                          width: 24.h,
-                          height: 24.h,
-                          margin: EdgeInsets.only(left: 8.h),
-                          child: CustomImageView(
-                            imagePath: ImageConstant.imgArrowdownGray30003,
-                            height: 16.adaptSize,
-                            width: 16.adaptSize,
-                          ),
-                        ),
+                        // Container(
+                        //   width: 24.h,
+                        //   height: 24.h,
+                        //   margin: EdgeInsets.only(left: 8.h),
+                        //   child: CustomImageView(
+                        //     imagePath: ImageConstant.imgArrowdownGray30003,
+                        //     height: 16.adaptSize,
+                        //     width: 16.adaptSize,
+                        //   ),
+                        // ),
                         // You can add additional widgets here if needed
                       ],
                     ),
@@ -464,6 +471,63 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
                                           style: CustomTextStyles
                                               .labelLargeGray50005),
                                       SizedBox(height: 26.v),
+                                              DropdownButtonFormField<String>(
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select an option';
+                                          }
+                                          return null; // Return null if the value is valid
+                                        },
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.only(
+                                                left: 20.h,
+                                                top: 17.v,
+                                                bottom: 17.v),
+                                            filled: true,
+                                            fillColor: appTheme.lightGreen5004,
+                                            focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(35),
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                )),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(35),
+                                                borderSide: BorderSide(
+                                                  color: Colors.white,
+                                                )),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              borderSide: BorderSide(
+                                                  color: Colors.white),
+                                            )),
+                                        isExpanded: true,
+                                        borderRadius: BorderRadius.circular(25),
+                                        value: AudioStreamcontroller.streamType
+                                            .toString(),
+                                        hint: Text(
+                                          "lbl_select_gender".tr,
+                                          style: CustomTextStyles
+                                              .titleSmallGray50006,
+                                        ),
+                                        items: AudioStreamcontroller.streamlist
+                                            .map((item) {
+                                          return DropdownMenuItem(
+                                            value: item,
+                                            child: Text(item),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          AudioStreamcontroller.SelectStreamType(
+                                              value);
+                                          // ignore: invalid_use_of_protected_member
+                                          // _formController.floorList.value;
+                                        },
+                                      ),
+                                 
+                                 
                     //                   DropdownButtonFormField<String>(
                     //   validator: (value) {
                     //     if (value == null || value.isEmpty) {
@@ -572,52 +636,110 @@ class _AudioLiveScreenState extends State<AudioLiveScreen> {
             color: appTheme.gray70004,
           ),
           SizedBox(height: 12.v),
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Dialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: SelectTagDialog());
-                },
-              );
-            },
-            child: Container(
-              width: 120.h,
-              margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
-              decoration: BoxDecoration(
-                color: appTheme.gray70004,
-                borderRadius: BorderRadius.circular(
-                    8.h), // You can adjust the border radius as needed
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Obx(() {
+            if (AudioStreamcontroller.streamType.value == 'Private') {
+              // Render password field
+              return Column(
                 children: [
-                  // Icon
-
-                  // Hint text
-                  Text(
-                    "lbl_tag".tr,
-                    style: CustomTextStyles.labelLargeGray30003,
-                  ),
+                  Text("Set Password"),
                   Container(
-                    width: 24.h,
-                    height: 24.h,
-                    margin: EdgeInsets.only(left: 8.h),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.imgArrowdownGray30003,
-                      height: 16.adaptSize,
-                      width: 16.adaptSize,
+                    width: 115,
+                    height: 25,
+                    child: TextFormField(
+                      controller: AudioStreamcontroller.passwordController,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 12),
+                        hintText: "Password",
+
+                        // if you want to change the focusColor
+                        // see https://github.com/flutter/flutter/issues/117852#issuecomment-1368611791
+                        // you can have a background colour for your text fields
+                        filled: true,
+                        // you may use conditions to set different colours for different states
+                        fillColor: Colors.white,
+
+                        // you may use the OutlineInputBorder,
+                        // or extend the InputBorder class to create your own
+                        // the default is UnderlineInputBorder
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // you can also define different border styles for different states
+                        // e.g. when the field is enabled / focused / has error
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
+                      ),
                     ),
                   ),
-                  // You can add additional widgets here if needed
                 ],
-              ),
-            ),
-          ),
+              );
+            } else {
+              // Render nothing if stream type is Public
+              return SizedBox(); // or Container(), or any other widget you prefer
+            }
+          })
+        
+        
+        
+          // GestureDetector(
+          //   onTap: () {
+          //     showDialog(
+          //       context: context,
+          //       builder: (BuildContext context) {
+          //         return Dialog(
+          //             shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(10.0),
+          //             ),
+          //             child: SelectTagDialog());
+          //       },
+          //     );
+          //   },
+          //   child: Container(
+          //     width: 120.h,
+          //     margin: EdgeInsets.fromLTRB(2.h, 4.v, 10.h, 4.v),
+          //     decoration: BoxDecoration(
+          //       color: appTheme.gray70004,
+          //       borderRadius: BorderRadius.circular(
+          //           8.h), // You can adjust the border radius as needed
+          //     ),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         // Icon
+
+          //         // Hint text
+          //         Text(
+          //           "lbl_tag".tr,
+          //           style: CustomTextStyles.labelLargeGray30003,
+          //         ),
+          //         Container(
+          //           width: 24.h,
+          //           height: 24.h,
+          //           margin: EdgeInsets.only(left: 8.h),
+          //           child: CustomImageView(
+          //             imagePath: ImageConstant.imgArrowdownGray30003,
+          //             height: 16.adaptSize,
+          //             width: 16.adaptSize,
+          //           ),
+          //         ),
+          //         // You can add additional widgets here if needed
+          //       ],
+          //     ),
+          //   ),
+          // ),
+        
+        
           // CustomDropDown(
           //   width: 120.h,
           //   icon: Container(

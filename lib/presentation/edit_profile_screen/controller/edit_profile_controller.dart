@@ -10,7 +10,6 @@ import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/contr
 
 import 'package:http/http.dart' as http;
 
-
 /// A controller class for the EditProfileScreen.
 ///
 /// This class manages the state of the EditProfileScreen, including the
@@ -18,6 +17,8 @@ import 'package:http/http.dart' as http;
 class EditProfileController extends GetxController {
   var editStates = <String, bool>{}.obs;
   var textControllers = <String, TextEditingController>{};
+  var genderOptions = ["male", "female", "other"].obs;
+  var selectedGender = Rx<String?>(null);
 
   TextEditingController getTextController(String fieldName) {
     if (!textControllers.containsKey(fieldName)) {
@@ -30,8 +31,10 @@ class EditProfileController extends GetxController {
               UserController.user.data!.profileId!.username ?? '';
           break;
         case 'gender':
-          textControllers[fieldName]!.text =
+          selectedGender.value =
               UserController.user.data!.profileId!.gender ?? '';
+          selectedGender.value =
+              UserController.user.data!.profileId!.gender ?? genderOptions[0];
           break;
         case 'dateOfBirth':
           textControllers[fieldName]!.text = UserController
@@ -48,21 +51,18 @@ class EditProfileController extends GetxController {
           break;
         case 'bio':
           textControllers[fieldName]!.text =
-              UserController.user.data!.profileId!.bio ??
-                  ''; 
-                  // Initial value for password, typically empty
+              UserController.user.data!.profileId!.bio ?? '';
+          // Initial value for password, typically empty
           break;
-           case 'language':
+        case 'language':
           textControllers[fieldName]!.text =
-              UserController.user.data!.country ??
-                  ''; 
-                  // Initial value for password, typically empty
+              UserController.user.data!.country ?? '';
+          // Initial value for password, typically empty
           break;
-           case 'emoji':
+        case 'emoji':
           textControllers[fieldName]!.text =
-              UserController.user.data!.country ??
-                  ''; 
-                  // Initial value for password, typically empty
+              UserController.user.data!.country ?? '';
+          // Initial value for password, typically empty
           break;
 
         // Add more cases for other fields as needed
@@ -79,6 +79,10 @@ class EditProfileController extends GetxController {
       if (fieldName == "Name") {
         textControllers[fieldName]!.text =
             UserController.user.data!.profileId!.username ?? '';
+      } else if (fieldName == "gender") {
+        UserController.user.data!.profileId!.gender = selectedGender.value;
+        UserController.user.data!.profileId!.gender =
+            selectedGender.value ?? genderOptions[0];
       }
       // else if (fieldName == "Email") {
       //   textControllers[fieldName]!.text = UserController.user.data!.profileId!.email ?? '';
@@ -158,10 +162,8 @@ class EditProfileController extends GetxController {
       barrierDismissible: false,
     );
     var headers = {'Authorization': 'Bearer ${authToken}'};
-    var request = http.MultipartRequest(
-        'PUT',
-        Uri.parse(
-            '${BaseUrl}edit-profile'));
+    var request =
+        http.MultipartRequest('PUT', Uri.parse('${BaseUrl}edit-profile'));
     request.fields.addAll({
       'username': textControllers["username"]!.text,
       'dateOfBirth': textControllers["dateOfBirth"]!.text,
@@ -184,17 +186,13 @@ class EditProfileController extends GetxController {
 
       // Get.back();
       if (response.statusCode == 200) {
-          Get.back();
+        Get.back();
         Get.snackbar("Message", "Profile Updated successfully");
-      
+
         // profileData["data"]["username"] = UserController.user.data!.profileId!.username;
         //   profileData["data"]["dateOfBirth"] = UserController.user.data!.profileId!.dateOfBirth;
         //    profileData["data"]["gender"] =  UserController.user.data!.profileId!.gender;
         //    profileData["data"]["bio"] = textControllers["bio"]!.text;
-
-
-
-
 
         // NameorImageController.userNameController.clear();
         // // NameorImageController.imageFile = null;
