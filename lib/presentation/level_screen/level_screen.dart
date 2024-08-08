@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
+import 'package:muhammad_zubair_s_application4/presentation/level_screen/models/level_model.dart';
+import 'package:muhammad_zubair_s_application4/presentation/level_screen/models/levelclass.dart';
 
 import '../../widgets/custom_elevated_button.dart';
 import '../sign_in_screen/controller/usercontroller.dart';
@@ -16,6 +18,99 @@ class LevelScreen extends GetWidget<LevelController> {
 
   @override
   Widget build(BuildContext context) {
+    final List levels = [
+      Level(
+          minLevel: 0,
+          maxLevel: 12,
+          perLevelXP: 500000,
+          totalLevelXP: 6000000,
+          reward: '1d.'),
+      Level(
+          minLevel: 12,
+          maxLevel: 23,
+          perLevelXP: 1500000,
+          totalLevelXP: 16500000,
+          reward: '2d.'),
+      Level(
+          minLevel: 23,
+          maxLevel: 34,
+          perLevelXP: 5000000,
+          totalLevelXP: 55000000,
+          reward: '3d.'),
+      Level(
+          minLevel: 34,
+          maxLevel: 45,
+          perLevelXP: 10000000,
+          totalLevelXP: 110000000,
+          reward: '4d.'),
+      Level(
+          minLevel: 45,
+          maxLevel: 56,
+          perLevelXP: 20000000,
+          totalLevelXP: 220000000,
+          reward: '5d.'),
+      Level(
+          minLevel: 56,
+          maxLevel: 67,
+          perLevelXP: 5000000,
+          totalLevelXP: 55000000,
+          reward: '10d.'),
+      Level(
+          minLevel: 67,
+          maxLevel: 78,
+          perLevelXP: 10000000,
+          totalLevelXP: 110000000,
+          reward: '20d.'),
+      Level(
+          minLevel: 78,
+          maxLevel: 89,
+          perLevelXP: 15000000,
+          totalLevelXP: 165000000,
+          reward: '30d.'),
+      Level(
+          minLevel: 89,
+          maxLevel: 101,
+          perLevelXP: 20000000,
+          totalLevelXP: 240000000,
+          reward: '40d.'),
+      Level(
+          minLevel: 101,
+          maxLevel: 112,
+          perLevelXP: 30000000,
+          totalLevelXP: 630000000,
+          reward: '50d.'),
+      Level(
+          minLevel: 112,
+          maxLevel: 143,
+          perLevelXP: 50000000,
+          totalLevelXP: 1050000000,
+          reward: '70d.'),
+      Level(
+          minLevel: 143,
+          maxLevel: 164,
+          perLevelXP: 100000000,
+          totalLevelXP: 2100000000,
+          reward: '100d.'),
+      Level(
+          minLevel: 164,
+          maxLevel: 185,
+          perLevelXP: 150000000,
+          totalLevelXP: 3150000000,
+          reward: '1000d.'),
+      Level(
+          minLevel: 185,
+          maxLevel: 200,
+          perLevelXP: 200000000,
+          totalLevelXP: 3750000000,
+          reward: '10000d.'),
+      Level(
+          minLevel: 200,
+          maxLevel: 222,
+          perLevelXP: 300000000,
+          totalLevelXP: 6600000000,
+          reward: '20000d.'),
+    ];
+
     return SafeArea(
         child: Scaffold(
             appBar: _buildAppBar(),
@@ -46,7 +141,12 @@ class LevelScreen extends GetWidget<LevelController> {
                                             alignment: Alignment.center),
                                         Align(
                                             alignment: Alignment.center,
-                                            child: Text((UserController.user.data!.isLevel!/100).toString()+"%",
+                                            child: Text(
+                                                (UserController.user.data!
+                                                                .isLevel! /
+                                                            100)
+                                                        .toString() +
+                                                    "%",
                                                 style: CustomTextStyles
                                                     .labelLargeGray80003Bold))
                                       ]))),
@@ -60,12 +160,41 @@ class LevelScreen extends GetWidget<LevelController> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(5.h),
                                   child: LinearProgressIndicator(
-                                      value: UserController.user.data!.isLevel!/100 ,
+                                      value:
+                                          UserController.user.data!.isLevel! /
+                                              100,
                                       backgroundColor: appTheme.lime10014))),
                           SizedBox(height: 3.v),
                           _buildFrame1(),
                           SizedBox(height: 26.v),
                           _buildView(),
+                          SizedBox(height: 23.v),
+                          Container(
+                            width: 350,
+                            height: 250,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: levels.length,
+                                itemBuilder: (context, index) {
+                                  final level = levels[index];
+                                  return Card(
+                                      child: ListTile(
+                                    title: Text(
+                                        'Level ${level.minLevel}-${level.maxLevel}'),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            'Per Level XP: ${level.perLevelXP}'),
+                                        Text(
+                                            'Total Level XP: ${level.totalLevelXP}'),
+                                        Text('Reward: ${level.reward}'),
+                                      ],
+                                    ),
+                                  ));
+                                }),
+                          ),
                           SizedBox(height: 23.v),
                           Text("lbl_gift_reward".tr,
                               style:
@@ -105,85 +234,12 @@ class LevelScreen extends GetWidget<LevelController> {
                             height: 80,
                             width: 80,
                             child: Image.asset(ImageConstant.imgKlipartz16)),
-                       Container(
-                            width: 100,
-                            child: CustomElevatedButton(
-
-
-                                height: 50,
-                                onPressed: () {},
-                                
-                                text: "365 Days".tr,
-                                
-                                buttonStyle: CustomButtonStyles.fillGray,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.h),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: appTheme.amber20033,
-                                      spreadRadius: 2.h,
-                                      blurRadius: 2.h,
-                                      offset: Offset(
-                                        0,
-                                        20,
-                                      ),
-                                    ),
-                                  ],
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color.fromARGB(255, 240, 200, 168)
-                                          .withOpacity(
-                                              0.8), // Start with yellow at the top
-                                      Color.fromARGB(255, 251, 225, 204), // Transition to green at the bottom
-                                    ],
-                                    stops: [0.2, 1.0],
-                                  ),
-                                )))                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 100,
-                    child: CustomElevatedButton(
-                        // width: 20,
-                        onPressed: () {},
-                        text: "lbl_get".tr,
-                        buttonStyle: CustomButtonStyles.none,
-                        decoration: CustomButtonStyles
-                            .gradientGreenToPrimaryTL25Decoration),
-                  ),
-                ],
-              )),
-          Container(
-              height: 330,
-              child: Column(
-                children: [
-                  Container(
-                 padding: EdgeInsets.only(top:10),
-
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 244, 224, 218)),
-                    child: Column(
-                      children: [
                         Container(
-                            height: 80,
-                            width: 80,
-                            child: Image.asset(ImageConstant.imgKlipartz16)),
-                               Container(
                             width: 100,
                             child: CustomElevatedButton(
-
-
                                 height: 50,
                                 onPressed: () {},
-                                
-                                text: "180 Days".tr,
-                                
+                                text: "365 Days".tr,
                                 buttonStyle: CustomButtonStyles.fillGray,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.h),
@@ -205,12 +261,12 @@ class LevelScreen extends GetWidget<LevelController> {
                                       Color.fromARGB(255, 240, 200, 168)
                                           .withOpacity(
                                               0.8), // Start with yellow at the top
-                                      Color.fromARGB(255, 251, 225, 204), // Transition to green at the bottom
+                                      Color.fromARGB(255, 251, 225,
+                                          204), // Transition to green at the bottom
                                     ],
                                     stops: [0.2, 1.0],
                                   ),
                                 )))
-
                       ],
                     ),
                   ),
@@ -234,7 +290,7 @@ class LevelScreen extends GetWidget<LevelController> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top:10),
+                    padding: EdgeInsets.only(top: 10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color.fromARGB(255, 244, 224, 218)),
@@ -244,16 +300,12 @@ class LevelScreen extends GetWidget<LevelController> {
                             height: 80,
                             width: 80,
                             child: Image.asset(ImageConstant.imgKlipartz16)),
-                              Container(
+                        Container(
                             width: 100,
                             child: CustomElevatedButton(
-
-
                                 height: 50,
                                 onPressed: () {},
-                                
                                 text: "180 Days".tr,
-                                
                                 buttonStyle: CustomButtonStyles.fillGray,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.h),
@@ -275,12 +327,78 @@ class LevelScreen extends GetWidget<LevelController> {
                                       Color.fromARGB(255, 240, 200, 168)
                                           .withOpacity(
                                               0.8), // Start with yellow at the top
-                                      Color.fromARGB(255, 251, 225, 204), // Transition to green at the bottom
+                                      Color.fromARGB(255, 251, 225,
+                                          204), // Transition to green at the bottom
                                     ],
                                     stops: [0.2, 1.0],
                                   ),
                                 )))
-
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 100,
+                    child: CustomElevatedButton(
+                        // width: 20,
+                        onPressed: () {},
+                        text: "lbl_get".tr,
+                        buttonStyle: CustomButtonStyles.none,
+                        decoration: CustomButtonStyles
+                            .gradientGreenToPrimaryTL25Decoration),
+                  ),
+                ],
+              )),
+          Container(
+              height: 330,
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color.fromARGB(255, 244, 224, 218)),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 80,
+                            width: 80,
+                            child: Image.asset(ImageConstant.imgKlipartz16)),
+                        Container(
+                            width: 100,
+                            child: CustomElevatedButton(
+                                height: 50,
+                                onPressed: () {},
+                                text: "180 Days".tr,
+                                buttonStyle: CustomButtonStyles.fillGray,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.h),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: appTheme.amber20033,
+                                      spreadRadius: 2.h,
+                                      blurRadius: 2.h,
+                                      offset: Offset(
+                                        0,
+                                        20,
+                                      ),
+                                    ),
+                                  ],
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color.fromARGB(255, 240, 200, 168)
+                                          .withOpacity(
+                                              0.8), // Start with yellow at the top
+                                      Color.fromARGB(255, 251, 225,
+                                          204), // Transition to green at the bottom
+                                    ],
+                                    stops: [0.2, 1.0],
+                                  ),
+                                )))
                       ],
                     ),
                   ),
@@ -306,13 +424,12 @@ class LevelScreen extends GetWidget<LevelController> {
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
         leadingWidth: 44.h,
-        leading: 
-        GestureDetector(
-          onTap: (){
+        leading: GestureDetector(
+          onTap: () {
             onTapArrowLeft();
           },
-          child: Icon(Icons.arrow_back_ios,
-          
+          child: Icon(
+            Icons.arrow_back_ios,
           ),
         ),
         // AppbarLeadingImage(
@@ -338,17 +455,22 @@ class LevelScreen extends GetWidget<LevelController> {
               width: 190.h,
               child: Stack(alignment: Alignment.bottomCenter, children: [
                 CircleAvatar(
-                              radius:32.h,
-                              backgroundImage:
-                               UserController.user.data!.profileId!.profileImage!.toString().contains("googleusercontent") ?NetworkImage("${UserController.user.data!.profileId!.profileImage}"):
-                               NetworkImage('https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}',
-                              //  height: 64.adaptSize,
-                              //   width: 64.adaptSize,
-                                // radius: BorderRadius.circular(
-                                //   32.h,
-                                // ),
-                              ),
-                            ),
+                  radius: 32.h,
+                  backgroundImage: UserController
+                          .user.data!.profileId!.profileImage!
+                          .toString()
+                          .contains("googleusercontent")
+                      ? NetworkImage(
+                          "${UserController.user.data!.profileId!.profileImage}")
+                      : NetworkImage(
+                          'https://res.cloudinary.com/dk3hy0n39/image/upload/${UserController.user.data!.profileId!.profileImage}',
+                          //  height: 64.adaptSize,
+                          //   width: 64.adaptSize,
+                          // radius: BorderRadius.circular(
+                          //   32.h,
+                          // ),
+                        ),
+                ),
                 // CustomImageView(
                 //     imagePath: ImageConstant.imgEllipse38,
                 //     height: 91.adaptSize,
@@ -356,18 +478,20 @@ class LevelScreen extends GetWidget<LevelController> {
                 //     radius: BorderRadius.circular(45.h),
                 //     alignment: Alignment.topCenter),
                 Padding(
-                  padding: const EdgeInsets.only(top:70.0),
+                  padding: const EdgeInsets.only(top: 70.0),
                   child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                         height: 50.v,
-                    width: 119.h,
-                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),)),
+                        height: 50.v,
+                        width: 119.h,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://res.cloudinary.com/dk3hy0n39/image/upload/${userlevelImage.toString()}"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )),
                 )
               ])),
           SizedBox(height: 10.v),
@@ -379,7 +503,8 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildFrame1() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text("Level "+UserController.user.data!.isLevel.toString(), style: CustomTextStyles.labelLargeGray80003),
+      Text("Level " + UserController.user.data!.isLevel.toString(),
+          style: CustomTextStyles.labelLargeGray80003),
       Text("lbl_1200_1800".tr, style: CustomTextStyles.labelLargeGray80003)
     ]);
   }
@@ -421,7 +546,6 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildClose() {
     return Container(
-
         padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 24.v),
         decoration: AppDecoration.fillLightgreen5002
             .copyWith(borderRadius: BorderRadiusStyle.roundedBorder10),

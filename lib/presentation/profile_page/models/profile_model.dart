@@ -40,12 +40,12 @@ class ProfileModel {
       ProfileItemModel(
         Page: MallScreen(),
         vIPCenter: ImageConstant.applyagencynew.obs,
-        vIPCenter1: "Apply agency".obs,
+        vIPCenter1: "Agency".obs,
       ),
       ProfileItemModel(
         Page: MallScreen(),
         vIPCenter: ImageConstant.applyhostingnew.obs,
-        vIPCenter1: "Apply hosting".obs,
+        vIPCenter1: "Hosting".obs,
       ),
       ProfileItemModel(
         Page: MallScreen(),
@@ -67,15 +67,15 @@ class ProfileModel {
         vIPCenter: ImageConstant.guardiannew.obs,
         vIPCenter1: "Guardian".obs,
       ),
-      // ProfileItemModel(
-      //   Page: MallScreen(),
-      //   vIPCenter: ImageConstant.mall.obs,
-      //   vIPCenter1: "Mall".obs,
-      // ),
+      ProfileItemModel(
+        Page: MallScreen(),
+        vIPCenter: ImageConstant.cointradingnew.obs,
+        vIPCenter1: "Coins Trading".obs,
+      ),
       ProfileItemModel(
         Page: MallScreen(),
         vIPCenter: ImageConstant.MyAgencyNew.obs,
-        vIPCenter1: "My agency".obs,
+        vIPCenter1: "Admin".obs,
       ),
       ProfileItemModel(
         Page: MallScreen(),
@@ -85,7 +85,7 @@ class ProfileModel {
       ProfileItemModel(
         Page: MallScreen(),
         vIPCenter: ImageConstant.giftcollection.obs,
-        vIPCenter1: "Gift collection".obs,
+        vIPCenter1: "My Gift".obs,
       ),
       ProfileItemModel(
         Page: MallScreen(),
@@ -132,11 +132,11 @@ class ProfileModel {
         vIPCenter: ImageConstant.youtube.obs,
         vIPCenter1: "YouTube".obs,
       ),
-      ProfileItemModel(
-        Page: MallScreen(),
-        vIPCenter: ImageConstant.withdrw.obs,
-        vIPCenter1: "Withdraw".obs,
-      ),
+      // ProfileItemModel(
+      //   Page: MallScreen(),
+      //   vIPCenter: ImageConstant.withdrw.obs,
+      //   vIPCenter1: "Withdraw".obs,
+      // ),
       // ProfileItemModel(
       //   Page: MallScreen(),
       //   vIPCenter: ImageConstant.fierly.obs,
@@ -144,14 +144,14 @@ class ProfileModel {
       // ),
     ];
 
-    if (UserController.user.data?.isReseller == true) {
-      profileItemList.value.add(
-        ProfileItemModel(
-          Page: MallScreen(),
-          vIPCenter: ImageConstant.cointradingnew.obs,
-          vIPCenter1: "Coins Trading".obs,
-        ),
-      );
+    if (UserController.user.data?.isReseller == false) {
+      // profileItemList.value.add(
+      //   // ProfileItemModel(
+      //   //   Page: MallScreen(),
+      //   //   vIPCenter: ImageConstant.cointradingnew.obs,
+      //   //   vIPCenter1: "Coins Trading".obs,
+      //   // ),
+      // );
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';
 import 'package:muhammad_zubair_s_application4/core/utils/global.dart';
 
 import 'package:flutter/material.dart';
+import 'package:muhammad_zubair_s_application4/presentation/profile_page/profile_page.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 
 import 'package:http/http.dart' as http;
@@ -56,12 +57,12 @@ class EditProfileController extends GetxController {
           break;
         case 'language':
           textControllers[fieldName]!.text =
-              UserController.user.data!.country ?? '';
+              UserController.user.data!.profileId!.language ?? '';
           // Initial value for password, typically empty
           break;
-        case 'emoji':
+        case 'descSelf':
           textControllers[fieldName]!.text =
-              UserController.user.data!.country ?? '';
+              UserController.user.data!.profileId!.descSelf ?? '';
           // Initial value for password, typically empty
           break;
 
@@ -114,10 +115,12 @@ class EditProfileController extends GetxController {
     // nameController.dispose();
   }
 
-  setinTemp() {
+  void setinTemp() {
     tempProfileImage.value =
         UserController.user.data!.profileId!.profileImage ?? '';
-    update();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      update();
+    });
   }
 
   removeProfileImage() {
@@ -169,6 +172,8 @@ class EditProfileController extends GetxController {
       'dateOfBirth': textControllers["dateOfBirth"]!.text,
       'gender': textControllers["gender"]!.text,
       'bio': textControllers["bio"]!.text,
+      "language": textControllers["language"]!.text,
+      "descSelf": textControllers["descSelf"]!.text,
     });
     if (imageFile.value != null) {
       request.files.add(
@@ -186,18 +191,28 @@ class EditProfileController extends GetxController {
 
       // Get.back();
       if (response.statusCode == 200) {
-        Get.back();
-        Get.snackbar("Message", "Profile Updated successfully");
+        profileData["data"]["username"] =
+            UserController.user.data!.profileId!.username;
+        profileData["data"]["dateOfBirth"] =
+            UserController.user.data!.profileId!.dateOfBirth;
+        profileData["data"]["gender"] =
+            UserController.user.data!.profileId!.gender;
+        profileData["data"]["bio"] = UserController.user.data!.profileId!.bio;
+        profileData["data"]["descSelf"] =
+            UserController.user.data!.profileId!.descSelf;
+        profileData["data"]["descSelf"] =
+            UserController.user.data!.profileId!.descSelf;
+        profileData["data"]["language"] =
+            UserController.user.data!.profileId!.language;
+        profileData["data"]["profileImage"] =
+            UserController.user.data!.profileId!.profileImage;
 
-        // profileData["data"]["username"] = UserController.user.data!.profileId!.username;
-        //   profileData["data"]["dateOfBirth"] = UserController.user.data!.profileId!.dateOfBirth;
-        //    profileData["data"]["gender"] =  UserController.user.data!.profileId!.gender;
-        //    profileData["data"]["bio"] = textControllers["bio"]!.text;
+        Get.snackbar("Message", "Profile Updated successfully");
 
         // NameorImageController.userNameController.clear();
         // // NameorImageController.imageFile = null;
-        // Get.lazyPut(() => VerificationFiveScreen());
-        // Get.toNamed(AppRoutes.verificationFiveScreen);
+        Get.lazyPut(() => ProfilePage());
+        Get.toNamed(AppRoutes.profilePage);
       } else {
         Get.snackbar("Error", profileData["message"]);
       }

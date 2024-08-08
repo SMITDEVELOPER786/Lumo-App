@@ -499,7 +499,7 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisExtent: 95.v,
               crossAxisCount: 4,
               mainAxisSpacing: 20.h,
-              crossAxisSpacing: 55.h,
+              crossAxisSpacing: 40.h,
             ),
             physics: NeverScrollableScrollPhysics(),
             itemCount:

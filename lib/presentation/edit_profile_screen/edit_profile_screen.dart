@@ -180,26 +180,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
 
                             SizedBox(height: 11.v),
-                            Obx(() {
-                              return DropdownButtonFormField<String>(
-                                value: controller.selectedGender.value,
-                                items: controller.genderOptions
-                                    .map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  controller.selectedGender.value = newValue!;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Gender',
-                                  labelStyle:
-                                      CustomTextStyles.labelLargeGray8000113,
-                                ),
-                              );
-                            }),
+
                             Obx(() {
                               return DropdownButtonFormField<String>(
                                 value: controller.selectedGender.value ??
@@ -252,7 +233,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             TextFormField(
                               controller:
-                                  controller.getTextController("describe"),
+                                  controller.getTextController("descSelf"),
                               decoration: InputDecoration(
                                 labelText: 'Emojis to describe yourself',
                                 labelStyle:

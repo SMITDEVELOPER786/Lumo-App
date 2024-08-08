@@ -449,10 +449,7 @@ class CustomTextStyles {
       );
   static get labelMediumGray80001SemiBold_1 =>
       theme.textTheme.labelMedium!.copyWith(
-        color: appTheme.gray80001,
-        fontWeight: FontWeight.w600,
-        fontSize: 15
-      );
+          color: appTheme.gray80001, fontWeight: FontWeight.w600, fontSize: 15);
   static get labelMediumGray80001SemiBold_2 =>
       theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80001,
@@ -461,7 +458,7 @@ class CustomTextStyles {
   static get labelMediumGray80001_1 => theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80001,
       );
-      
+
   static get labelMediumGray80003 => theme.textTheme.labelMedium!.copyWith(
         color: appTheme.gray80003,
         fontSize: 11.fSize,
@@ -526,7 +523,7 @@ class CustomTextStyles {
   static get labelMediumRobotoBlack900 =>
       theme.textTheme.labelMedium!.roboto.copyWith(
         color: appTheme.black900,
-        fontSize: 11.fSize,
+        fontSize: 10.fSize,
       );
   static get labelMediumSemiBold => theme.textTheme.labelMedium!.copyWith(
         fontWeight: FontWeight.w600,

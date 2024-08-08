@@ -6,6 +6,7 @@ import 'package:muhammad_zubair_s_application4/presentation/mall_one_screen/mall
 import 'package:muhammad_zubair_s_application4/presentation/profile_page/apply_agency.dart';
 import 'package:muhammad_zubair_s_application4/presentation/profile_page/coins_trading.dart';
 import 'package:muhammad_zubair_s_application4/presentation/settings_screen/settings_screen.dart';
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_one_screen/vip_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_tabbar_view.dart';
 import 'package:muhammad_zubair_s_application4/presentation/withdrawal_screen/withdrawal_screen.dart';
@@ -41,8 +42,12 @@ class ProfileItemWidget extends StatelessWidget {
             }
           : profileItemModelObj.vIPCenter1!.value == "Coins Trading"
               ? () {
-                  Get.lazyPut(() => CoinsTrading());
-                  Get.to(() => CoinsTrading());
+                  UserController.user.data?.isReseller == true
+                      ? Get.lazyPut(() => CoinsTrading())
+                      : Get.snackbar("Error", "Not authorize to send coins");
+                  UserController.user.data?.isReseller == true
+                      ? Get.to(() => CoinsTrading())
+                      : null;
                 }
               : profileItemModelObj.vIPCenter1!.value == "Mall"
                   ? () {
