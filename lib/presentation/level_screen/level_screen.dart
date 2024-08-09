@@ -24,91 +24,91 @@ class LevelScreen extends GetWidget<LevelController> {
           maxLevel: 12,
           perLevelXP: 500000,
           totalLevelXP: 6000000,
-          reward: '1d.'),
+          reward: '1\$'),
       Level(
           minLevel: 12,
           maxLevel: 23,
           perLevelXP: 1500000,
           totalLevelXP: 16500000,
-          reward: '2d.'),
+          reward: '2\$'),
       Level(
           minLevel: 23,
           maxLevel: 34,
           perLevelXP: 5000000,
           totalLevelXP: 55000000,
-          reward: '3d.'),
+          reward: '3\$'),
       Level(
           minLevel: 34,
           maxLevel: 45,
           perLevelXP: 10000000,
           totalLevelXP: 110000000,
-          reward: '4d.'),
+          reward: '4\$'),
       Level(
           minLevel: 45,
           maxLevel: 56,
           perLevelXP: 20000000,
           totalLevelXP: 220000000,
-          reward: '5d.'),
+          reward: '5\$'),
       Level(
           minLevel: 56,
           maxLevel: 67,
           perLevelXP: 5000000,
           totalLevelXP: 55000000,
-          reward: '10d.'),
+          reward: '10\$'),
       Level(
           minLevel: 67,
           maxLevel: 78,
           perLevelXP: 10000000,
           totalLevelXP: 110000000,
-          reward: '20d.'),
+          reward: '20\$'),
       Level(
           minLevel: 78,
           maxLevel: 89,
           perLevelXP: 15000000,
           totalLevelXP: 165000000,
-          reward: '30d.'),
+          reward: '30\$'),
       Level(
           minLevel: 89,
           maxLevel: 101,
           perLevelXP: 20000000,
           totalLevelXP: 240000000,
-          reward: '40d.'),
+          reward: '40\$'),
       Level(
           minLevel: 101,
           maxLevel: 112,
           perLevelXP: 30000000,
           totalLevelXP: 630000000,
-          reward: '50d.'),
+          reward: '50\$'),
       Level(
           minLevel: 112,
           maxLevel: 143,
           perLevelXP: 50000000,
           totalLevelXP: 1050000000,
-          reward: '70d.'),
+          reward: '70\$'),
       Level(
           minLevel: 143,
           maxLevel: 164,
           perLevelXP: 100000000,
           totalLevelXP: 2100000000,
-          reward: '100d.'),
+          reward: '100\$'),
       Level(
           minLevel: 164,
           maxLevel: 185,
           perLevelXP: 150000000,
           totalLevelXP: 3150000000,
-          reward: '1000d.'),
+          reward: '1000\$'),
       Level(
           minLevel: 185,
           maxLevel: 200,
           perLevelXP: 200000000,
           totalLevelXP: 3750000000,
-          reward: '10000d.'),
+          reward: '10000\$'),
       Level(
           minLevel: 200,
           maxLevel: 222,
           perLevelXP: 300000000,
           totalLevelXP: 6600000000,
-          reward: '20000d.'),
+          reward: '20000\$'),
     ];
 
     return SafeArea(
@@ -171,28 +171,95 @@ class LevelScreen extends GetWidget<LevelController> {
                           SizedBox(height: 23.v),
                           Container(
                             width: 350,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 1, color: Colors.black)),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text("Level"),
+                                  Container(
+                                    width: 1,
+                                    height: 30,
+                                    color: Colors.black,
+                                  ),
+                                  Text("Level Exp"),
+                                  Container(
+                                    width: 1,
+                                    height: 30,
+                                    color: Colors.black,
+                                  ),
+                                  Text("Reward"),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 350,
                             height: 250,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: levels.length,
                                 itemBuilder: (context, index) {
                                   final level = levels[index];
-                                  return Card(
-                                      child: ListTile(
-                                    title: Text(
-                                        'Level ${level.minLevel}-${level.maxLevel}'),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                  return Container(
+                                    width: 350,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1, color: Colors.black)),
+                                    child: Row(
                                       children: [
-                                        Text(
-                                            'Per Level XP: ${level.perLevelXP}'),
-                                        Text(
-                                            'Total Level XP: ${level.totalLevelXP}'),
-                                        Text('Reward: ${level.reward}'),
+                                        Container(
+                                          width: 93,
+                                          child: Center(
+                                            child: Text(
+                                                '${level.minLevel}-${level.maxLevel}'),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 1,
+                                          height: 30,
+                                          color: Colors.black,
+                                        ),
+                                        Container(
+                                            width: 116,
+                                            child: Center(
+                                                child: Text(
+                                                    '${level.perLevelXP}'))),
+                                        Container(
+                                          width: 1,
+                                          height: 30,
+                                          color: Colors.black,
+                                        ),
+                                        Container(
+                                            width: 100,
+                                            child: Center(
+                                                child: Text(
+                                                    '    ${level.reward}'))),
                                       ],
                                     ),
-                                  ));
+                                  );
+                                  // Card(
+                                  //     child: ListTile(
+                                  //   title: Text(
+                                  //       '${level.minLevel}-${level.maxLevel}'),
+                                  //   subtitle: Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Text(
+                                  //           'Per Level XP: ${level.perLevelXP}'),
+                                  //       Text(
+                                  //           'Total Level XP: ${level.totalLevelXP}'),
+                                  //       Text('Reward: ${level.reward}'),
+                                  //     ],
+                                  //   ),
+                                  // ));
                                 }),
                           ),
                           SizedBox(height: 23.v),

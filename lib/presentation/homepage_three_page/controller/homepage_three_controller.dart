@@ -117,8 +117,8 @@ class HomepageThreeController extends GetxController {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://hurt-alexandra-saim123-c534163d.koyeb.app/monzo/live-stream/join'));
-    request.body = json.encode({"streamId": connectstreamData["HostID"]});
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/live-stream/join'));
+    request.body = json.encode({"streamId": connectstreamData["_id"]});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -166,16 +166,16 @@ class HomepageThreeController extends GetxController {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-           final responseBody = await response.stream.bytesToString();
+        final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
 
-        ZegoUIKit().sendInRoomMessage("Sends you a gift ${sendgift["giftname"]}",
+        ZegoUIKit().sendInRoomMessage(
+          "Sends you a gift ${sendgift["giftname"]}",
         );
         print(await response.stream.bytesToString());
       } else {
         print(response.reasonPhrase);
       }
-      
     } catch (e) {
       print('Error sending gift: $e');
     }

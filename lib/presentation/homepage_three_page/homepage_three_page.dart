@@ -195,12 +195,14 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () async {
-                                          if (controller.streamData[index]["streamLevel"] =="public") {
+                                          if (controller.streamData[index]
+                                                  ["streamLevel"] ==
+                                              "public") {
                                             var connectstreamData = {
                                               "_id": controller
                                                   .streamData[index]["_id"],
                                               "HostID": controller
-                                                  .streamData[index]["_id"],
+                                                  .streamData[index]["hostId"],
                                               "isHost": false,
                                             };
                                             await controller.ConnectStream(
@@ -209,47 +211,43 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                                       .streamData[index]
                                                   ["streamLevel"] ==
                                               "private") {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title:
-                                                        Text('Enter Password'),
-                                                    content: TextField(
-                                                      // controller: _passwordController,
-                                                      obscureText: true,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Password',
-                                                      ),
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('Enter Password'),
+                                                  content: TextField(
+                                                    // controller: _passwordController,
+                                                    obscureText: true,
+                                                    decoration: InputDecoration(
+                                                      hintText: 'Password',
                                                     ),
-                                                    actions: <Widget>[
-                                                      MaterialButton(
-                                                        // Use MaterialButton instead of FlatButton
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(); // Close the dialog
-                                                        },
-                                                        child: Text('Cancel'),
-                                                      ),
-                                                      MaterialButton(
-                                                        // Use MaterialButton instead of FlatButton
-                                                        onPressed: () {
-                                                          // String password = _passwordController.text;
-                                                          // You can use the password entered by the user here
-                                                          print(
-                                                              'Password entered: ');
-                                                          Navigator.of(context)
-                                                              .pop(); // Close the dialog
-                                                        },
-                                                        child: Text('Submit'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                         
+                                                  ),
+                                                  actions: <Widget>[
+                                                    MaterialButton(
+                                                      // Use MaterialButton instead of FlatButton
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(); // Close the dialog
+                                                      },
+                                                      child: Text('Cancel'),
+                                                    ),
+                                                    MaterialButton(
+                                                      // Use MaterialButton instead of FlatButton
+                                                      onPressed: () {
+                                                        // String password = _passwordController.text;
+                                                        // You can use the password entered by the user here
+                                                        print(
+                                                            'Password entered: ');
+                                                        Navigator.of(context)
+                                                            .pop(); // Close the dialog
+                                                      },
+                                                      child: Text('Submit'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
                                           // Get.lazyPut(() => LiveStreamingPage(
                                           //       liveID: controller.streamData[index]["hostId"],
@@ -261,24 +259,26 @@ class _HomepageThreePageState extends State<HomepageThreePage> {
                                           //       isHost: false,
                                           //     ));
                                         },
-                                        child:SizedBox(
+                                        child: SizedBox(
                                           height: 300.v,
                                           width: 130.h,
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
-
-                                             controller.streamData[index]["hostImage"].contains("googleusercontent") ? 
-                                             Image.network(controller.streamData[index]["hostImage"]
-                                             ,
-                                               fit: BoxFit.cover,
-                                              ):
-                                             Image.network("https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.streamData[index]["hostImage"]}" ,
-                                                 fit: BoxFit.cover,
-                                              ),
-                                            
-
-                                             
+                                              controller.streamData[index]
+                                                          ["hostImage"]
+                                                      .contains(
+                                                          "googleusercontent")
+                                                  ? Image.network(
+                                                      controller
+                                                              .streamData[index]
+                                                          ["hostImage"],
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : Image.network(
+                                                      "https://res.cloudinary.com/dk3hy0n39/image/upload/${controller.streamData[index]["hostImage"]}",
+                                                      fit: BoxFit.cover,
+                                                    ),
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Column(
