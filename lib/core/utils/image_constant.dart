@@ -326,6 +326,7 @@ class ImageConstant {
       '$imagePath/img_checkmark_gray_800_03.svg';
 
   static String imgNewProject22 = '$imagePath/img_new_project_22.png';
+  static String imgNewProject = '$imagePath/levelicons.jpg';
 
   static String imgGroup40x40 = '$imagePath/img_group_40x40.png';
 

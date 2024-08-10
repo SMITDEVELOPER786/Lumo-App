@@ -168,7 +168,12 @@ class LevelScreen extends GetWidget<LevelController> {
                           _buildFrame1(),
                           SizedBox(height: 26.v),
                           _buildView(),
-                          SizedBox(height: 23.v),
+                          // SizedBox(height: 23.v),
+                          CustomImageView(
+                              imagePath: ImageConstant.imgNewProject,
+                              // height: 171.v,
+                              width: 335.h,
+                              radius: BorderRadius.circular(10.h)),
                           Container(
                             width: 350,
                             height: 30,
@@ -579,35 +584,42 @@ class LevelScreen extends GetWidget<LevelController> {
   /// Section Widget
   Widget _buildView() {
     return SizedBox(
-        height: 233.v,
-        width: 353.h,
-        child: Stack(alignment: Alignment.topCenter, children: [
+      // height: 233.v,
+      width: 353.h,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          // Align(
+          //     alignment: Alignment.bottomCenter,
+          //     child: Container(
+          //         height: 171.v,
+          //         width: 353.h,
+          //         decoration: BoxDecoration(
+          //             color: appTheme.lightGreen5002,
+          //             borderRadius: BorderRadius.circular(10.h)))),
           Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                  height: 171.v,
-                  width: 353.h,
-                  decoration: BoxDecoration(
-                      color: appTheme.lightGreen5002,
-                      borderRadius: BorderRadius.circular(10.h)))),
-          Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 9.h),
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    Text("lbl_badge_reward".tr,
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 9.h),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text("lbl_badge_reward".tr,
+                    style: CustomTextStyles.titleSmallGray80001Medium),
+                SizedBox(height: 9.v),
+                Row(
+                  children: [
+                    Text(
+                        "  How to increase level \n ★Sending 1 coin you gain 1 exp. Point \n ★Recving 1 coin you gain 0.5 exp. Point"
+                            .tr,
                         style: CustomTextStyles.titleSmallGray80001Medium),
-                    SizedBox(height: 9.v),
-                    Text("msg_higher_level_get".tr,
-                        style: CustomTextStyles.bodySmallInterGray50003),
-                    SizedBox(height: 10.v),
-                    CustomImageView(
-                        imagePath: ImageConstant.imgNewProject22,
-                        height: 171.v,
-                        width: 335.h,
-                        radius: BorderRadius.circular(10.h))
-                  ])))
-        ]));
+                  ],
+                ),
+                SizedBox(height: 10.v),
+              ]),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   /// Section Widget

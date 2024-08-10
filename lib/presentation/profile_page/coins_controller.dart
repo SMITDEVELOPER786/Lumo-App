@@ -83,12 +83,11 @@ class CoinsController extends GetxController {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-          Get.back();
+        Get.back();
         final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
         coins = data["data"]["remainingCoins"].toString();
         Get.snackbar("Success", data["message"]);
-      
       } else {
         final responseBody = await response.stream.bytesToString();
         final data = json.decode(responseBody);
@@ -98,6 +97,46 @@ class CoinsController extends GetxController {
       Get.snackbar("Error", e.toString());
     } finally {
       loading.value = false;
+    }
+  }
+
+  var allTransactions = [].obs;
+  var gains = [].obs;
+  var expenses = [].obs;
+  String loggedInUserId = UserController.user.data!.sId.toString();
+
+  Future<void> fetchCoinHistory() async {
+    var headers = {
+      'Authorization': 'Bearer ${authToken}', // Add your token here
+    };
+    var request = http.Request('GET', Uri.parse('${BaseUrl}coin/get'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String responseString = await response.stream.bytesToString();
+      var responseData = jsonDecode(responseString);
+
+      var all = [];
+      var gainList = [];
+      var expenseList = [];
+
+      for (var transaction in responseData['data']) {
+        if (transaction['senderId'] == loggedInUserId) {
+          expenseList.add(transaction);
+        } else if (transaction['recieverId'] == loggedInUserId) {
+          gainList.add(transaction);
+        }
+        all.add(transaction);
+      }
+
+      allTransactions.assignAll(all);
+      gains.assignAll(gainList);
+      expenses.assignAll(expenseList);
+    } else {
+      print(response.reasonPhrase);
     }
   }
 
