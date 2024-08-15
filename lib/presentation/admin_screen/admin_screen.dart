@@ -1,3 +1,7 @@
+import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/controller/fetchgifts_controller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/giftanimation.dart';
+
 import '../admin_screen/widgets/allhosttextsection_item_widget.dart';
 import 'controller/admin_controller.dart';
 import 'models/allhosttextsection_item_model.dart';
@@ -8,7 +12,6 @@ import 'package:muhammad_zubair_s_application4/widgets/app_bar/appbar_title.dart
 import 'package:muhammad_zubair_s_application4/widgets/app_bar/custom_app_bar.dart';
 import 'package:muhammad_zubair_s_application4/widgets/custom_elevated_button.dart';
 
-
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
 
@@ -18,6 +21,16 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   var controller = Get.put(AdminController());
+  final GiftsController giftsController = Get.put(GiftsController());
+  final ImageController imageController = Get.put(ImageController());
+  @override
+  void initState() {
+    super.initState();
+    // controller.initializeColors(giftsController.gifts.length);
+
+    giftsController.refreshGifts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,22 +43,24 @@ class _AdminScreenState extends State<AdminScreen> {
                   child: Column(children: [
                     _buildPlaySection(),
                     SizedBox(height: 26.v),
-                    Column(
-                      children: [
+                    Column(children: [
                       _buildAllHostTextSection(),
-                               CustomElevatedButton(
-                            width: 297.h,
-                            text: "lbl_start_streaming".tr,
-                            margin: EdgeInsets.only(top: 184.v),
-                            rightIcon: Container(
-                                margin: EdgeInsets.only(left: 3.h),
-                                child: CustomImageView(
-                                    imagePath: ImageConstant
-                                        .imgArrowdownWhiteA70016x16,
-                                    height: 16.adaptSize,
-                                    width: 16.adaptSize)),
-                            buttonStyle: CustomButtonStyles.fillRed,
-                           ),
+                      CustomElevatedButton(
+                        onPressed: () {
+                          // _showGiftModalSheet(context);
+                        },
+                        width: 297.h,
+                        text: "lbl_start_streaming".tr,
+                        margin: EdgeInsets.only(top: 184.v),
+                        rightIcon: Container(
+                            margin: EdgeInsets.only(left: 3.h),
+                            child: CustomImageView(
+                                imagePath:
+                                    ImageConstant.imgArrowdownWhiteA70016x16,
+                                height: 16.adaptSize,
+                                width: 16.adaptSize)),
+                        buttonStyle: CustomButtonStyles.fillRed,
+                      ),
                     ]),
                     SizedBox(height: 5.v)
                   ])),
@@ -57,10 +72,9 @@ class _AdminScreenState extends State<AdminScreen> {
     return CustomAppBar(
         height: 45.v,
         leadingWidth: 44.h,
-        leading: 
-        Icon(Icons.arrow_back_ios),     
+        leading: Icon(Icons.arrow_back_ios),
         centerTitle: true,
-        title: Text( "lbl_admin".tr));
+        title: Text("lbl_admin".tr));
   }
 
   /// Section Widget
@@ -90,7 +104,7 @@ class _AdminScreenState extends State<AdminScreen> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("lbl_sarah_wegan".tr,
+                              Text("lbl_sarah_wegan]]".tr,
                                   style: CustomTextStyles.titleMediumWhiteA700),
                               SizedBox(height: 1.v),
                               Text("lbl_admin".tr,
@@ -105,11 +119,14 @@ class _AdminScreenState extends State<AdminScreen> {
     return Align(
         alignment: Alignment.topCenter,
         child: Padding(
-            padding: EdgeInsets.only(left: 23.h, right: 23.h, ),
+            padding: EdgeInsets.only(
+              left: 23.h,
+              right: 23.h,
+            ),
             child: Obx(() => GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisExtent:80.v,
+                    mainAxisExtent: 80.v,
                     crossAxisCount: 3,
                     mainAxisSpacing: 11.h,
                     crossAxisSpacing: 11.h),

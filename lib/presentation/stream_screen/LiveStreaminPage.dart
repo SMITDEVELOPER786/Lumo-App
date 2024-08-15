@@ -10,6 +10,7 @@ import 'package:muhammad_zubair_s_application4/presentation/homepage_three_page/
 
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
 import 'package:muhammad_zubair_s_application4/presentation/stream_screen/controller/fetchgifts_controller.dart';
+import 'package:muhammad_zubair_s_application4/presentation/stream_screen/giftanimation.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
@@ -27,6 +28,7 @@ class LiveStreamingPage extends StatefulWidget {
 }
 
 class _LiveStreamingPageState extends State<LiveStreamingPage> {
+  final ImageController imageController = Get.put(ImageController());
   List<ZegoLiveStreamingMenuBarButtonName> customIcons = [
     ZegoLiveStreamingMenuBarButtonName.switchCameraButton,
     ZegoLiveStreamingMenuBarButtonName.beautyEffectButton,
@@ -77,17 +79,15 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
         child: Stack(children: [
       ZegoUIKitPrebuiltLiveStreaming(
           appID:
-              61496105, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+              1138591849, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
           appSign:
-              "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+              "eb2f06d1eef878bca006fcc4ebbffda187e20929a16aecefacf6c4c42c2b1e65", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
           userID: UserID,
           userName: UserController.user.data!.profileId!.username!.toString(),
           liveID: widget.liveID,
           config: widget.isHost == true
-              ? ZegoUIKitPrebuiltLiveStreamingConfig.host(
-                  plugins: [ZegoUIKitSignalingPlugin()])
-              : ZegoUIKitPrebuiltLiveStreamingConfig.audience(
-                  plugins: [ZegoUIKitSignalingPlugin()])
+              ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
+              : ZegoUIKitPrebuiltLiveStreamingConfig.audience()
             ..video = ZegoUIKitVideoConfig.preset1080P()
             ..bottomMenuBar = ZegoLiveStreamingBottomMenuBarConfig(
               maxCount: 1,
@@ -204,6 +204,22 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
               );
               // Text(host.name);
             }),
+      Obx(() {
+        return imageController.isVisible.value
+            ? FadeTransition(
+                opacity: imageController.animation,
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.black54,
+                  child: Image.network(
+                    imageController.selectedGift.value,
+                    width: 200, // Adjust size as needed
+                    height: 200,
+                  ),
+                ),
+              )
+            : SizedBox.shrink(); // Hide when not visible
+      }),
       widget.isHost == false
           ? Positioned(
               bottom: 20,
@@ -220,10 +236,11 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
   void _showGiftModalSheet(BuildContext context) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        topRight: Radius.circular(25),
-        topLeft: Radius.circular(25),
-      )),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(25),
+          topLeft: Radius.circular(25),
+        ),
+      ),
       context: context,
       builder: (BuildContext context) {
         return Obx(() {
@@ -235,88 +252,140 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
             return Center(child: Text('No gifts available.'));
           }
 
-          return Container(
-            padding: EdgeInsets.all(16.0),
-            height: 250,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(25),
-                topLeft: Radius.circular(25),
+          return Column(
+            children: [
+              SizedBox(
+                height: 10,
               ),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xffF8FFEE), // Start with yellow at the top
-                  Color(0xffF8FFEE), // Transition to green at the bottom
-                ],
-              ),
-            ),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: giftsController.gifts.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 5.0,
-              ),
-              itemBuilder: (context, index) {
-                var gift = giftsController.gifts[index];
-                return GestureDetector(
-                  onTap: () async {
-                    // controller.changeColor(index);
+              Container(
+                height: 25,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: giftsController.categorizedGifts.length,
+                  itemBuilder: (context, index) {
+                    String category =
+                        giftsController.categorizedGifts.keys.elementAt(index);
 
-                    var sendgift = {
-                      "senderId": UserController.user.data!.sId.toString(),
-                      "recieverId": widget.creatorid,
-                      "giftId": giftsController.gifts[index]["_id"],
-                      "giftname": giftsController.gifts[index]["giftName"],
-                    };
-                    await controller.sendGift(sendgift);
-                    Navigator.pop(context);
-
-                    // Handle gift sending logic
-                    print('Send gift: ${sendgift}');
+                    return GestureDetector(
+                      onTap: () {
+                        giftsController.selectCategory(category);
+                      },
+                      child: Obx(() {
+                        return Container(
+                          height: 15,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          decoration: BoxDecoration(
+                            color: giftsController.selectedCategory.value ==
+                                    category
+                                ? Colors.blue
+                                : Colors.grey,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text(
+                              category,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                          ),
+                        );
+                      }),
+                    );
                   },
-                  child: Container(
-                    height: 117,
-                    width: 97,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: controller.colors[index],
-                      // image: DecorationImage(
-                      //     image: NetworkImage(
-                      //         "https://res.cloudinary.com/dk3hy0n39/image/upload/${giftsController.gifts[index]["giftImg"]}"),
-                      //     fit: BoxFit.fill),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 45,
-                          height: 50,
-                          child: Image.network(
-                            "https://res.cloudinary.com/dk3hy0n39/image/upload/${giftsController.gifts[index]["giftImg"]}",
-                            height: 60,
-                          ),
-                        ),
-                        Text(
-                          giftsController.gifts[index]["giftName"],
-                          style: TextStyle(
-                            fontSize: 8,
-                          ),
-                        ),
-                        Text(
-                          giftsController.gifts[index]["giftValue"],
-                          style: TextStyle(
-                            fontSize: 8,
-                          ),
-                        )
-                      ],
-                    ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                height: 250,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                    topLeft: Radius.circular(25),
                   ),
-                );
-              },
-            ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xffF8FFEE), // Start with yellow at the top
+                      Color(0xffF8FFEE), // Transition to green at the bottom
+                    ],
+                  ),
+                ),
+                child: Obx(() {
+                  // Get the selected category's gifts
+                  var selectedGifts = giftsController.categorizedGifts[
+                          giftsController.selectedCategory.value] ??
+                      [];
+
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: selectedGifts.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10.0,
+                      mainAxisSpacing: 5.0,
+                    ),
+                    itemBuilder: (context, index) {
+                      var gift = selectedGifts[index];
+                      return GestureDetector(
+                        onTap: () async {
+                          // var sendgift = {
+                          //   "senderId":
+                          //       UserController.user.data!.sId.toString(),
+                          //   "recieverId": widget.creatorid,
+                          //   "giftId": giftsController.gifts[index]["id"],
+                          //   "giftname": giftsController.gifts[index]
+                          //       ["giftName"],
+                          // };
+                          // await controller.sendGift(sendgift);
+
+                          imageController.showImage(
+                              "https://res.cloudinary.com/dk3hy0n39/image/upload/${gift.giftImg}");
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          height: 117,
+                          width: 97,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://res.cloudinary.com/dk3hy0n39/image/upload/${gift.giftImg}"),
+                                fit: BoxFit.fill),
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 45,
+                                height: 50,
+                                child: Image.network(
+                                  "https://res.cloudinary.com/dk3hy0n39/image/upload/${gift.giftImg}",
+                                  height: 60,
+                                ),
+                              ),
+                              Text(
+                                gift.giftName,
+                                style: TextStyle(
+                                  fontSize: 8,
+                                ),
+                              ),
+                              Text(
+                                gift.giftValue,
+                                style: TextStyle(
+                                  fontSize: 8,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
+            ],
           );
         });
       },

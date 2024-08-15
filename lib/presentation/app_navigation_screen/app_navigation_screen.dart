@@ -32,11 +32,11 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
                           onTapScreenTitle: () => onTapScreenTitle(
                               AppRoutes.iphone1415ProOneScreen),
                         ),
-                        _buildScreenTitle(
-                          screenTitle: "Onboarding".tr,
-                          onTapScreenTitle: () =>
-                              onTapScreenTitle(AppRoutes.onboardingScreen),
-                        ),
+                        // _buildScreenTitle(
+                        //   screenTitle: "Onboarding".tr,
+                        //   onTapScreenTitle: () =>
+                        //       onTapScreenTitle(AppRoutes.onboardingScreen),
+                        // ),
                         _buildScreenTitle(
                           screenTitle: "Sign up One".tr,
                           onTapScreenTitle: () =>

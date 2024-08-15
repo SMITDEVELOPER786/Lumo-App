@@ -130,7 +130,7 @@ import 'package:get/get.dart';
 class AppRoutes {
   static const String iphone1415ProOneScreen = '/iphone_14_15_pro_one_screen';
 
-  static const String onboardingScreen = '/onboarding_screen';
+  // static const String onboardingScreen = '/onboarding_screen';
 
   static const String signUpOneScreen = '/sign_up_one_screen';
 
@@ -289,13 +289,13 @@ class AppRoutes {
         Iphone1415ProOneBinding(),
       ],
     ),
-    GetPage(
-      name: onboardingScreen,
-      page: () => OnboardingScreen(),
-      bindings: [
-        OnboardingBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: onboardingScreen,
+    //   page: () => OnboardingScreen(),
+    //   bindings: [
+    //     OnboardingBinding(),
+    //   ],
+    // ),
     GetPage(
       name: signUpOneScreen,
       page: () => SignUpOneScreen(),
@@ -415,7 +415,7 @@ class AppRoutes {
         HomepageContainerBinding(),
       ],
     ),
-      GetPage(
+    GetPage(
       name: homepageThreePage,
       page: () => HomepageThreePage(),
       bindings: [
@@ -534,7 +534,7 @@ class AppRoutes {
         FilterBinding(),
       ],
     ),
-      GetPage(
+    GetPage(
       name: profilePage,
       page: () => ProfilePage(),
       bindings: [
@@ -625,14 +625,14 @@ class AppRoutes {
         ChooseGuardianBinding(),
       ],
     ),
-     GetPage(
+    GetPage(
       name: exploreOnePage,
       page: () => ExploreOnePage(),
       bindings: [
         ChooseGuardianBinding(),
       ],
     ),
-    
+
     GetPage(
       name: guardianScreen,
       page: () => GuardianScreen(),

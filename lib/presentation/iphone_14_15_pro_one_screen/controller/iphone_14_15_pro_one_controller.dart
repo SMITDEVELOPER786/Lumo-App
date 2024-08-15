@@ -13,7 +13,7 @@ class Iphone1415ProOneController extends GetxController {
   void onReady() {
     Future.delayed(const Duration(seconds: 2), () {
       Get.offNamed(
-        AppRoutes.onboardingScreen,
+        AppRoutes.signUpOneScreen,
       );
     });
   }

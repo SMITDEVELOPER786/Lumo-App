@@ -45,7 +45,7 @@ class _AudioStreamState extends State<AudioStream> {
     return SafeArea(
       child: ZegoUIKitPrebuiltLiveAudioRoom(
         appID:
-            594701513, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+            1138591849, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign:
             "8a3c028bffbd4b21c397a79ab65bbf151f470a3c5a3e9b820de488efc5afb2ba", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
         userID: UserID,

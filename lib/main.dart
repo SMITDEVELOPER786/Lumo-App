@@ -35,9 +35,9 @@ Future<void> main() async {
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     ZegoUIKit().init(
-        appID: 61496105,
+        appID: 1138591849,
         appSign:
-            "55ae0928b85eec9e32931cda5e5202643d5eca4c3ef60732f373e8cba5d4bde5");
+            "eb2f06d1eef878bca006fcc4ebbffda187e20929a16aecefacf6c4c42c2b1e65");
     runApp(MyApp());
     _determinePosition();
   });
@@ -120,9 +120,7 @@ Future _signInWithGooglel() async {
     log(credential.idToken.toString());
     // Once signed in, return the UserCredential
 
- 
-        await FirebaseAuth.instance.signInWithCredential(credential);
-   
+    await FirebaseAuth.instance.signInWithCredential(credential);
   } catch (e) {
     print(e);
   }
@@ -131,17 +129,16 @@ Future _signInWithGooglel() async {
 Future signInWithGooglel() async {
   // Trigger the authentication flow
   try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    // Obtain the auth details from the request.
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser!.authentication;
 
-     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  // Obtain the auth details from the request.
-  final GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
-
-
-  final  credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
-  );
-  // Sign in to Firebase with the Google [UserCredential].
+    );
+    // Sign in to Firebase with the Google [UserCredential].
     // Create a new credential
 
     credential;

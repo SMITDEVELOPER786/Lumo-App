@@ -637,7 +637,7 @@ final Map<String, String> enUs = {
   "lbl_withdrawal": "Withdrawal",
   "lbl_xxx": "XXX ",
   "lbl_yes_please": "Yes, please",
-  "msg_accept_hi_live_terms": "Accept Monzo Terms and conditions",
+  "msg_accept_hi_live_terms": "Accept Lumo Terms and conditions",
   "msg_already_have_an": "Already have an account? Sign in",
   "msg_already_have_an2": "Already have an account? ",
   "msg_california_united": "California, United States",
@@ -673,7 +673,7 @@ final Map<String, String> enUs = {
   "msg_network_err": "Network Error",
   "msg_something_went_wrong": "Something Went Wrong!",
 
-	// Validation Error String
+  // Validation Error String
   "err_msg_please_enter_valid_phone_number": "Please enter valid phone number",
   "err_msg_please_enter_valid_email": "Please enter valid email",
   "err_msg_please_enter_valid_password": "Please enter valid password",

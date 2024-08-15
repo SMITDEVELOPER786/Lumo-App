@@ -129,8 +129,8 @@ class HomepageThreeController extends GetxController {
 
       Get.snackbar("Message", "Join Stream Successfully");
       Get.lazyPut(() => LiveStreamingPage(
-            liveID: connectstreamData["HostID"],
-            creatorid: data["hostId"],
+            liveID: connectstreamData["hostId"],
+            creatorid: data["data"]["HostID"],
             isHost: false,
           ));
       Get.to(() => LiveStreamingPage(

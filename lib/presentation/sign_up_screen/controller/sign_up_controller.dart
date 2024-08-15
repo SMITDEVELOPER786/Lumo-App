@@ -148,43 +148,47 @@ class SignUpController extends GetxController {
     }
   }
 
-signup(signupdata, context) async {
-  Get.dialog(
-    Center(
-      child: CircularProgressIndicator(), // Replace this with your custom loader widget
-    ),
-    barrierDismissible: false,
-  );
-  var headers = {'Content-Type': 'application/json'};
-  var request = http.Request(
-      'POST',
-      Uri.parse(
-          'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/signup'));
-  request.body = json.encode({
-    "email": signupdata["email"],
-    "password": signupdata["password"] == "unknown" ? "bangladesh" : signupdata["password"],
-    "country": "pakistan",
-  });
-  request.headers.addAll(headers);
+  signup(signupdata, context) async {
+    Get.dialog(
+      Center(
+        child:
+            CircularProgressIndicator(), // Replace this with your custom loader widget
+      ),
+      barrierDismissible: false,
+    );
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://monzo-app-api-8822a403e3e8.herokuapp.com/monzo/signup'));
+    request.body = json.encode({
+      "email": signupdata["email"],
+      "password": signupdata["password"] == "unknown"
+          ? "bangladesh"
+          : signupdata["password"],
+      "country": "pakistan",
+    });
+    request.headers.addAll(headers);
 
-  http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
-  if (response.statusCode == 201) { // Adjusted to check for 200 status code
-    var res_data = json.decode(await response.stream.bytesToString());
-    signupToken = res_data["token"];
+    if (response.statusCode == 201) {
+      // Adjusted to check for 200 status code
+      var res_data = json.decode(await response.stream.bytesToString());
+      signupToken = res_data["token"];
 
-    Get.back();
-    Get.snackbar("Success", "Otp sent to your registered email");
-    Get.lazyPut(() => AccountCreationOneScreen());
-    Get.toNamed(AppRoutes.accountCreationOneScreen);
-    print(await response.stream.bytesToString());
-  } else {
-    Get.back();
-    var errorMessage = await response.stream.bytesToString();
-    Get.snackbar("Error", "Failed to sign up: $errorMessage");
-    print('Error: ${response.reasonPhrase}');
+      Get.back();
+      Get.snackbar("Success", "Otp sent to your registered email");
+      Get.lazyPut(() => AccountCreationOneScreen());
+      Get.toNamed(AppRoutes.accountCreationOneScreen);
+      print(await response.stream.bytesToString());
+    } else {
+      Get.back();
+      var errorMessage = await response.stream.bytesToString();
+      Get.snackbar("Error", "Failed to sign up: $errorMessage");
+      print('Error: ${response.reasonPhrase}');
+    }
   }
-}
   // Future<void> signUp(
   //     String email, String password, String country, context) async {
   //   Get.dialog(

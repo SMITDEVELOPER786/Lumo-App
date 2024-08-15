@@ -112,11 +112,9 @@ class StreamController extends GetxController
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${authToken}'
     };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            '${BaseUrl}live-stream/create'));
-   if (streamType.value.toLowerCase() == "private") {
+    var request =
+        http.Request('POST', Uri.parse('${BaseUrl}live-stream/create'));
+    if (streamType.value.toLowerCase() == "private") {
       Map<String, dynamic> requestBody = {
         "streamType": "live",
         "title": streamingdata["title"],
@@ -133,11 +131,11 @@ class StreamController extends GetxController
         "tags": streamingdata["tags"],
         "country": streamingdata["country"],
       };
-       request.headers.addAll(headers);
-    
-    request.body = json.encode(requestBody);
+      request.headers.addAll(headers);
+
+      request.body = json.encode(requestBody);
     }
-   
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -147,7 +145,7 @@ class StreamController extends GetxController
       var resData = jsonDecode(responseBody);
       if (resData["status"] == true) {
         Get.back();
-        hostId = resData["data"]["_id"].toString();
+        hostId = resData["data"]["hostId"].toString();
         hostName = resData["data"]["hostName"].toString();
         Get.to(LiveStreamingPage(
           liveID: hostId.toString(),
@@ -164,6 +162,4 @@ class StreamController extends GetxController
       print(response.reasonPhrase);
     }
   }
-
-
 }
