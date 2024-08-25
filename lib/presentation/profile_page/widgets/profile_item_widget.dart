@@ -1,3 +1,4 @@
+import 'package:muhammad_zubair_s_application4/presentation/about_luma_screen/about_luma_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/admin_screen/admin_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/apply_for_hosting_screen/apply_for_hosting_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/blocked_list_screen/blocked_list_screen.dart';
@@ -7,13 +8,10 @@ import 'package:muhammad_zubair_s_application4/presentation/profile_page/apply_a
 import 'package:muhammad_zubair_s_application4/presentation/profile_page/coins_trading.dart';
 import 'package:muhammad_zubair_s_application4/presentation/settings_screen/settings_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/sign_in_screen/controller/usercontroller.dart';
-import 'package:muhammad_zubair_s_application4/presentation/vip_one_screen/vip_one_screen.dart';
 import 'package:muhammad_zubair_s_application4/presentation/vip_tabbar_view.dart';
 import 'package:muhammad_zubair_s_application4/presentation/withdrawal_screen/withdrawal_screen.dart';
 
 import '../../guardian_one_tab_container_screen/guardian_one_tab_container_screen.dart';
-import '../../level_screen/level_screen.dart';
-import '../../mall_screen/mall_screen.dart';
 import '../controller/profile_controller.dart';
 import '../models/profile_item_model.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +104,17 @@ class ProfileItemWidget extends StatelessWidget {
                                                       Get.to(
                                                           () => AdminScreen());
                                                     }
-                                                  : () {},
+                                                  : profileItemModelObj
+                                                              .vIPCenter1!
+                                                              .value ==
+                                                          "About Lumo"
+                                                      ? () {
+                                                          Get.lazyPut(() =>
+                                                              AboutLumaScreen());
+                                                          Get.to(() =>
+                                                              AboutLumaScreen());
+                                                        }
+                                                      : () {},
       child: Container(
         padding: EdgeInsets.symmetric(
             // horizontal: 25.h,

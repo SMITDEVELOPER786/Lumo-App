@@ -6,3 +6,6 @@
 !/.packages
 !/.flutter-plugins-dependencies
 !/.flutter-plugins
+
+# FVM Version Cache
+.fvm/

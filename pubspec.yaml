@@ -35,7 +35,7 @@ dependencies:
   flutter_local_notifications: ^16.3.2
   google_sign_in: ^6.1.4
   firebase_auth: ^4.6.3
-  carousel_slider: ^4.2.1
+  carousel_slider: 
   zego_uikit_signaling_plugin: ^2.8.1
   pigeon: ^21.1.0
   permission_handler: ^11.3.1

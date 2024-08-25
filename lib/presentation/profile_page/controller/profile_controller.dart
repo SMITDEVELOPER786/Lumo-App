@@ -2,7 +2,8 @@ import 'package:muhammad_zubair_s_application4/core/app_export.dart';import 'pac
 ///
 /// This class manages the state of the ProfilePage, including the
 /// current profileModelObj
-class ProfileController extends GetxController {ProfileController(this.profileModelObj);
+class ProfileController extends GetxController {
+  ProfileController(this.profileModelObj);
 
 Rx<ProfileModel> profileModelObj;
 
