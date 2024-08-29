@@ -40,6 +40,7 @@ dependencies:
   pigeon: ^21.1.0
   permission_handler: ^11.3.1
   zego_uikit_prebuilt_live_audio_room: ^3.7.5
+  url_launcher: ^6.3.0
  
 dev_dependencies: 
   flutter_test: 

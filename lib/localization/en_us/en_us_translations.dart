@@ -682,8 +682,8 @@ final Map<String, String> enUs = {
   "err_msg_please_enter_valid_text": "Please enter valid text",
 
   //about screen
-  'about_screen_title': 'About Poppo',
-  'about_banner_title': 'Poppo Live 5.3451.0718',
+  'about_screen_title': 'About Lumo Live',
+  'about_banner_title': 'Lumo Live',
   'about_screen_privacy_policy_title': 'Privacy Policy',
   'about_screen_term_of_services_title': 'Terms Of Service',
   'about_screen_live_agreement_title': 'Live Agreement',

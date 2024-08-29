@@ -27,7 +27,7 @@ class AboutLumaScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-          Image(image: AssetImage('assets/images/po..PNG',),width: 150,),
+          Image(image: AssetImage(ImageConstant.imgGroup116x173,),width: 150,),
           Text('about_banner_title'.tr,style:theme.textTheme.titleMedium!.copyWith(color: appTheme.gray300),),
         SizedBox(height: 12,),
           _textIconTileWidget(title: 'about_screen_privacy_policy_title'.tr,onTap: (){

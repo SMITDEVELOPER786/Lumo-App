@@ -16,6 +16,8 @@ import '../controller/profile_controller.dart';
 import '../models/profile_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:muhammad_zubair_s_application4/core/app_export.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 // ignore: must_be_immutable
 class ProfileItemWidget extends StatelessWidget {
@@ -114,6 +116,37 @@ class ProfileItemWidget extends StatelessWidget {
                                                           Get.to(() =>
                                                               AboutLumaScreen());
                                                         }
+                                                        : profileItemModelObj
+                                                              .vIPCenter1!
+                                                              .value ==
+                                                          "Facebook"
+                                                      ? () {
+                                                         _launchURL('https://www.facebook.com/profile.php?id=100069325062678&mibextid=ZbWKwL');
+                                                        }
+                                                         : profileItemModelObj
+                                                              .vIPCenter1!
+                                                              .value ==
+                                                          "Instagram"
+                                                      ? () {
+                                                         _launchURL('');
+                                                         
+                                                        }
+                                                         : profileItemModelObj
+                                                              .vIPCenter1!
+                                                              .value ==
+                                                          "Tik Tok"
+                                                      ? () {
+                                                         _launchURL('https://www.tiktok.com/@lumo.live?_t=8pGfGcA6n4c&_r=1');
+                                                         
+                                                        }
+                                                         : profileItemModelObj
+                                                              .vIPCenter1!
+                                                              .value ==
+                                                          "YouTube"
+                                                      ? () {
+                                                         _launchURL('https://www.youtube.com/@LumoLive-app');
+                                                         
+                                                        }
                                                       : () {},
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -146,4 +179,13 @@ class ProfileItemWidget extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    Get.snackbar('Url Error', 'Could not launch $url');
+    throw 'Could not launch $url';
+  }
+}
 }
