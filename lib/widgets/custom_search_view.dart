@@ -25,6 +25,7 @@ class CustomSearchView extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
+    this.onFieldSubmitted
   }) : super(
           key: key,
         );
@@ -36,6 +37,8 @@ class CustomSearchView extends StatelessWidget {
   final TextEditingController? scrollPadding;
 
   final TextEditingController? controller;
+
+  final void Function(String)? onFieldSubmitted;
 
   final FocusNode? focusNode;
 
@@ -95,6 +98,7 @@ class CustomSearchView extends StatelessWidget {
           maxLines: maxLines ?? 1,
           decoration: decoration,
           validator: validator,
+          onFieldSubmitted:onFieldSubmitted ,
           onChanged: (String value) {
             onChanged!.call(value);
           },

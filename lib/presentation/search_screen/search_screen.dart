@@ -18,9 +18,17 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  
   var controller = Get.put(SearchController());
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.searchUser('');
+  }
   @override
   Widget build(BuildContext context) {
+    print('ui daaaaa  :  ${controller.searchUsers}');
     return SafeArea(
         child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -59,13 +67,13 @@ class _SearchScreenState extends State<SearchScreen> {
           onTap: (){
   onTapArrowLeft();
           },
-          child: Icon(Icons.arrow_back_ios,
+          child: Icon(Icons.arrow_back_ios,color: appTheme.black900,
           
           ),
         ),
        
         centerTitle: true,
-        title: Text("lbl_search_friends2".tr));
+        title: Text("lbl_search_friends2".tr,style: TextStyle(color: appTheme.black900,),));
   }
 
   /// Section Widget
@@ -75,6 +83,8 @@ class _SearchScreenState extends State<SearchScreen> {
           child: CustomSearchView(
               controller: controller.searchController,
               hintText: "msg_search_events_users".tr,
+              onFieldSubmitted: (p0) => controller.searchUser(p0),
+              onChanged: ((p0) => print(p0)),
               hintStyle: CustomTextStyles.bodyMediumGray40004)),
       Padding(
           padding: EdgeInsets.only(left: 12.h),
@@ -89,21 +99,29 @@ class _SearchScreenState extends State<SearchScreen> {
 
   /// Section Widget
   Widget _buildUserProfile() {
-    return Obx(() => GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisExtent: 206.v,
-            crossAxisCount: 2,
-            mainAxisSpacing: 13.h,
-            crossAxisSpacing: 13.h),
-        physics: NeverScrollableScrollPhysics(),
-        itemCount:
-            controller.searchModelObj.value.userprofile2ItemList.value.length,
-        itemBuilder: (context, index) {
-          Userprofile2ItemModel model =
-              controller.searchModelObj.value.userprofile2ItemList.value[index];
-          return Userprofile2ItemWidget(model);
-        }));
+    return Obx(() =>
+    controller.isLoading.value?
+Center(child: CircularProgressIndicator(),)
+    :
+    
+     Expanded(
+       child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisExtent: 206.v,
+              crossAxisCount: 2,
+              mainAxisSpacing: 13.h,
+              crossAxisSpacing: 13.h),
+          physics: ScrollPhysics(),
+          itemCount:
+              controller.searchModelObj.value.userprofile2ItemList.value.length,
+              
+          itemBuilder: (context, index) {
+            Userprofile2ItemModel model =
+                controller.searchModelObj.value.userprofile2ItemList.value[index];
+            return Userprofile2ItemWidget(model);
+          }),
+     ));
   }
 
   /// Navigates to the previous screen.

@@ -128,7 +128,7 @@ class ProfileItemWidget extends StatelessWidget {
                                                               .value ==
                                                           "Instagram"
                                                       ? () {
-                                                         _launchURL('');
+                                                         _launchURL('https://www.instagram.com/lumo.live?igsh=MXN4MWhhaWFjaWoxYg==');
                                                          
                                                         }
                                                          : profileItemModelObj
