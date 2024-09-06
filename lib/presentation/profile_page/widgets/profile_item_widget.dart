@@ -181,11 +181,17 @@ class ProfileItemWidget extends StatelessWidget {
   }
 
   Future<void> _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
+  try{
+    if (await launchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url),mode: LaunchMode.platformDefault);
+    
   } else {
-    Get.snackbar('Url Error', 'Could not launch $url');
-    throw 'Could not launch $url';
+    await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication);
+
+   
+  }
+  }catch(e){
+    Get.snackbar('error', '${e.toString()}');
   }
 }
 }
